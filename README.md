@@ -20,4 +20,4 @@ Original mod idea by @goose_jpg from Twitter.
 
 This Geode mod is licensed under LGPLv2.
 
-![demo](https://github.com/RayDeeUx/DisturbingNewBests/blob/main/demo.png)
+![demo](https://github.com/RayDeeUx/DisturbingNewBests/blob/main/demoOne.png)
