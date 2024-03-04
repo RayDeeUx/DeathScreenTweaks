@@ -18,4 +18,4 @@ Built-in quotes moderated by CatXus and alk.
 
 Original mod idea by @goose_jpg (Twitter).
 
-This Geode mod is licensed under LGPLv2.
+This Geode mod is licensed under LGPLv2, and is unavailable for macOS.

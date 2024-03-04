@@ -18,6 +18,6 @@ Built-in quotes moderated by CatXus and alk.
 
 Original mod idea by @goose_jpg from Twitter.
 
-This Geode mod is licensed under LGPLv2.
+This Geode mod is licensed under LGPLv2, and is unavailable for macOS.
 
 ![demo](https://github.com/RayDeeUx/DisturbingNewBests/blob/main/demoOne.png)
