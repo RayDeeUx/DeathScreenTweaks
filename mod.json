@@ -1,0 +1,39 @@
+{
+	"geode": "2.0.0-beta.21",
+	"gd": {
+        "mac": "2.200",
+        "android": "2.205",
+        "win": "2.204"
+    },
+	"version": "v1.0.0",
+	"id": "raydeeux.disturbingnewbests",
+	"name": "DisturbingNewBests",
+	"developer": "RayDeeUx",
+	"description": "Replaces \"New Best\" messages with slightly \"better\" ones.",
+	"repository": "https://github.com/RayDeeUx/DisturbingNewBests",
+	"settings": {
+		"enabled": {
+			"name": "Enabled",
+			"description": "Toggles the mod.",
+			"type": "bool",
+			"default": true
+		},
+		"custom": {
+			"name": "Include Custom Messages",
+			"description": "<cp>[REQUIRES RESTART TO APPLY]</c>\n\nIncludes your own custom \"New Best\" text.\nPlease edit the \"custom.txt\" file by opening this mod's config directory (look for the golden pencil button at the bottom left of the mod's introductory screen).",
+			"type": "bool",
+			"default": false
+		},
+		"brandonRogers": {
+			"name": "Include Brandon Rogers (READ!)",
+			"description": "<cp>[REQUIRES RESTART TO APPLY]</c>\n\nIncludes quotes from YouTube comedian Brandon Rogers.\n<cr>WARNING: Brandon Rogers' humor may not be for everyone.</c>\n<cy>By enabling this option, you agree to hold harmless the mod developer (RayDeeUx) or any lead developer of Geode and assume all responsibility for any resulting damages, including damages to your emotions, ego, or self-esteem.</c>\n\n<cr>This is your only warning.</c>",
+			"type": "bool",
+			"default": false
+		}
+	},
+	"resources": {
+        "files": [
+            "resources/*.txt"
+        ]
+    }
+}
