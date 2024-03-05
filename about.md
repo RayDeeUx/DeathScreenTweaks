@@ -16,6 +16,6 @@ Level featured in `logo.png` and `demoOne.png`: Unnamed 84 by 4y4.
 
 Built-in quotes moderated by CatXus and alk.
 
-Original mod idea by @goose_jpg (Twitter).
+Original mod idea by [actualkanyewest](user:28091796).
 
 This Geode mod is licensed under LGPLv2, and is unavailable for macOS.
