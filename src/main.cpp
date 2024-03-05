@@ -67,7 +67,9 @@ class $modify(MyPlayLayer, PlayLayer) {
 			if (theLastCCNode->getChildrenCount() < 2) { continue; }
 			auto deathNode = typeinfo_cast<CCLabelBMFont*>(theLastCCNode->getChildren()->objectAtIndex(0));
 			if (deathNode == nullptr) { continue; }
-			if (strcmp(deathNode->getFntFile(), "goldFont.fnt") != 0) { continue; } // avoid non-gold font HUDs
+			#ifdef GEODE_IS_MACOS
+				if (strcmp(deathNode->getFntFile(), "goldFont.fnt") != 0) { continue; } // avoid non-gold font HUDs
+			#endif
 			auto maybeOnDeathString = deathNode->getString();
 			if ((strcmp(formerCustomDeathString.c_str(), maybeOnDeathString) == 0)) { continue; } // avoid regenerating new quotes
 			auto randomString = grabRandomQuote();
