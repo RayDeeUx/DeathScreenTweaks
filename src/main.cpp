@@ -64,9 +64,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 		for (int i = this->getChildrenCount(); i-- > 0; ) {
 			auto theLastCCNode = typeinfo_cast<CCNode*>(this->getChildren()->objectAtIndex(i));
 			if (theLastCCNode == nullptr || typeinfo_cast<UILayer*>(theLastCCNode) != nullptr) { continue; } // skip UILayer
-			#ifdef GEODE_IS_MACOS
-				if (theLastCCNode->getZOrder() != 100) { continue; } // macos-specific narrowing down nodes
-			#endif
+			if (theLastCCNode->getZOrder() != 100) { continue; } // macos-specific narrowing down nodes
 			if (theLastCCNode->getChildrenCount() < 2) { continue; }
 			auto deathNode = typeinfo_cast<CCLabelBMFont*>(theLastCCNode->getChildren()->objectAtIndex(0));
 			if (deathNode == nullptr) { continue; }
