@@ -10,7 +10,7 @@ As tempting as it would be to have a regex filter to moderate messages found in 
 
 Quotes originated from a variety of sources, including various members of the Geode SDK Discord server, Brandon Rogers, and Adam Neylan.
 
-Logo contributions by sofabedd.
+Logo contributions by [sofabeddd](user:7976112).
 
 Level featured in `logo.png` and `demoOne.png`: Unnamed 84 by 4y4.
 
