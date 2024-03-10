@@ -63,6 +63,10 @@ class $modify(MyPlayLayer, PlayLayer) {
 		if (!Mod::get()->getSettingValue<bool>("enabled")){ return; }
 		for (int i = this->getChildrenCount(); i-- > 0; ) {
 			auto theLastCCNode = typeinfo_cast<CCNode*>(this->getChildren()->objectAtIndex(i));
+			if (typeinfo_cast<CurrencyRewardLayer*>(theLastCCNode) != nullptr) {
+				theLastCCNode->setVisible(!Mod::get()->getSettingValue<bool>("currencyLayer"));
+				continue;
+			} // skip UILayer
 			if (theLastCCNode == nullptr || typeinfo_cast<UILayer*>(theLastCCNode) != nullptr) { continue; } // skip UILayer
 			if (theLastCCNode->getZOrder() != 100) { continue; } // macos-specific narrowing down nodes
 			if (theLastCCNode->getChildrenCount() < 2) { continue; }

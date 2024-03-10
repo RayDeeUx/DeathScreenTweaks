@@ -29,6 +29,12 @@
 			"description": "<cp>[REQUIRES RESTART TO APPLY]</c>\n\nIncludes quotes from YouTube comedian Brandon Rogers.\n<cr>WARNING: Brandon Rogers' humor may not be for everyone.</c>\n<cy>By enabling this option, you agree to hold harmless the mod developer (RayDeeUx) or any lead developer of Geode and assume all responsibility for any resulting damages, including damages to your emotions, ego, or self-esteem.</c>\n\n<cr>This is your only warning.</c>",
 			"type": "bool",
 			"default": false
+		},
+		"currencyLayer": {
+			"name": "Hide Reward Animations",
+			"description": "Hides the animation you get when getting a new best on a rated level.",
+			"type": "bool",
+			"default": false
 		}
 	},
 	"resources": {
