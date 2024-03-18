@@ -60,7 +60,7 @@ std::string grabRandomQuote() {
 class $modify(MyPlayLayer, PlayLayer) {
 	void updateProgressbar() {
 		PlayLayer::updateProgressbar();
-		if (!Mod::get()->getSettingValue<bool>("enabled")){ return; }
+		if (!Mod::get()->getSettingValue<bool>("enabled")) { return; }
 		for (int i = this->getChildrenCount(); i-- > 0; ) {
 			auto theLastCCNode = typeinfo_cast<CCNode*>(this->getChildren()->objectAtIndex(i));
 			if (typeinfo_cast<CurrencyRewardLayer*>(theLastCCNode) != nullptr) {
@@ -80,8 +80,16 @@ class $modify(MyPlayLayer, PlayLayer) {
 			auto randomString = grabRandomQuote();
 			formerCustomDeathString = randomString; // cache previous string for the next time it gets checked ( i had a really weird race condition where the new best message kept changing and i only want it to change once )
 			if (strcmp("", randomString.c_str()) != 0) {
-				deathNode->setString(randomString.c_str());
-				deathNode->limitLabelWidth(420.f, 10.f, .25f); // you never know how long these custom strings might get
+				deathNode->setString(randomString.c_str(), true);
+				if (Mod::get()->getSettingValue<bool>("lineWrapping")) {
+					deathNode->setAlignment(CCTextAlignment::kCCTextAlignmentCenter); // center text
+					float scale = .25f * (155.f / strlen(randomString.c_str()));
+					if (scale > Mod::get()->getSettingValue<double>("maxScale")) scale = Mod::get()->getSettingValue<double>("maxScale");
+					deathNode->setWidth(420.f); // width of end screen minus 20px
+					deathNode->setScale(scale);
+				} else {
+					deathNode->limitLabelWidth(420.f, 10.f, .25f); // you never know how long these custom strings might get
+				}
 			} // fallback to default newbest message in case randomstring is empty
 			break;
 		}
