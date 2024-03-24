@@ -23,7 +23,7 @@ $on_mod(Loaded) {
 		std::ifstream file(pathRogers);
 		std::string bRogers;
 		while (std::getline(file, bRogers)) {
-			std::string hBananaStud = "\"" + bRogers + "\"";
+			std::string hBananaStud = std::format("\"{}\"", bRogers);
 			quotes.push_back(hBananaStud);
 		} // technically i can write two one-time use boolean variables to allow people to toggle these things on and off as they please without the quotes adding themselves multiple times into the vector, but i'd rather add the "restart required" barrier just to be extra safe
 	}
