@@ -12,7 +12,7 @@ std::string formerCustomDeathString = "";
 
 std::vector<std::string> quotes;
 
-$execute {
+$on_mod(Loaded) {
 	auto path = (Mod::get()->getResourcesDir() / "default.txt").string();
 	std::ifstream file(path);
 	std::string str;
