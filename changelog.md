@@ -1,4 +1,6 @@
 # DisturbingNewBests Changelog
+## v1.1.1
+- A single line swap to properly enforce text alignment.
 ## v1.1.0
 - Added linewrapping support. Thanks sofabeddd!
 - Added option to hide rewards animation on death.

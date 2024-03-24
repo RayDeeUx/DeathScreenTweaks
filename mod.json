@@ -1,10 +1,10 @@
 {
 	"geode": "2.0.0-beta.21",
 	"gd": {
-        "mac": "2.200",
-        "android": "2.205",
-        "win": "2.204"
-    },
+		"mac": "2.200",
+		"android": "2.205",
+		"win": "2.204"
+	},
 	"version": "v1.1.0",
 	"id": "raydeeux.disturbingnewbests",
 	"name": "DisturbingNewBests",
@@ -44,8 +44,8 @@
 			"min": 0.10,
 			"max": 1.20,
 			"control": {
-                "slider-step": 0.01
-            }
+				"slider-step": 0.01
+			}
 		},
 		"currencyLayer": {
 			"name": "Hide Reward Animations",
@@ -55,8 +55,8 @@
 		}
 	},
 	"resources": {
-        "files": [
-            "resources/*.txt"
-        ]
-    }
+		"files": [
+			"resources/*.txt"
+		]
+	}
 }

@@ -15,8 +15,8 @@ std::vector<std::string> quotes;
 $execute {
 	auto path = (Mod::get()->getResourcesDir() / "default.txt").string();
 	std::ifstream file(path);
-    std::string str;
-    while (std::getline(file, str)) { quotes.push_back(str); }
+	std::string str;
+	while (std::getline(file, str)) { quotes.push_back(str); }
 
 	if (Mod::get()->getSettingValue<bool>("brandonRogers")) {
 		auto pathRogers = (Mod::get()->getResourcesDir() / "brandonrogers.txt").string();
@@ -40,7 +40,7 @@ each line is a new "new best" message)";
 		utils::file::writeString(path3, content);
 	}
 	
-    if (Mod::get()->getSettingValue<bool>("custom")) {
+	if (Mod::get()->getSettingValue<bool>("custom")) {
 		auto pathCustom = (Mod::get()->getConfigDir() / "custom.txt").string();
 		std::ifstream file(pathCustom);
 		std::string str;
@@ -80,7 +80,6 @@ class $modify(MyPlayLayer, PlayLayer) {
 			auto randomString = grabRandomQuote();
 			formerCustomDeathString = randomString; // cache previous string for the next time it gets checked ( i had a really weird race condition where the new best message kept changing and i only want it to change once )
 			if (strcmp("", randomString.c_str()) != 0) {
-				deathNode->setString(randomString.c_str(), true);
 				if (Mod::get()->getSettingValue<bool>("lineWrapping")) {
 					deathNode->setAlignment(CCTextAlignment::kCCTextAlignmentCenter); // center text
 					float scale = .25f * (155.f / strlen(randomString.c_str()));
@@ -90,6 +89,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 				} else {
 					deathNode->limitLabelWidth(420.f, 10.f, .25f); // you never know how long these custom strings might get
 				}
+				deathNode->setString(randomString.c_str(), true);
 			} // fallback to default newbest message in case randomstring is empty
 			break;
 		}
