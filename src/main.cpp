@@ -61,6 +61,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 	void updateProgressbar() {
 		PlayLayer::updateProgressbar();
 		if (!Mod::get()->getSettingValue<bool>("enabled")) { return; }
+		if (!m_player1->m_isDead) { return; }
 		for (int i = this->getChildrenCount(); i-- > 0; ) {
 			auto theLastCCNode = typeinfo_cast<CCNode*>(this->getChildren()->objectAtIndex(i));
 			if (typeinfo_cast<CurrencyRewardLayer*>(theLastCCNode) != nullptr) {
