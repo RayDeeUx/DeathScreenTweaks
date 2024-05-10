@@ -1,7 +1,7 @@
 # Disclaimer
-This is a living document; changes will be published at any time.
+This is a living document; changes may be published at any time.
 ## Submitting changes to the code
-I have tried to keep the code as performant as possible without causing false positives. With that said, there's always a way to optimize code, especially when said code is a backwards iterating forloop hooked to a `PlayLayer` function that runs during nearly every frame while a level is active. If you feel like there's a performance improvement to be made somewhere, feel free to fork the source code and mess around until you find something that works.
+I have tried to keep the code as performant as possible without causing false positives. With that said, there's always a way to optimize code, especially when said code is a backwards iterating for loop hooked to a `PlayLayer` function that runs during nearly every frame while a level is active. If you feel like there's a performance improvement to be made somewhere, feel free to fork the source code and mess around until you find something that works.
 ## Submitting death messages
 There's a certain level of quality/humor that needs to be maintained with the messages featured in DisturbingNewBests. (Whether or not that specific level of quality/humor meets your personal preferences is not my concern.)
 Here are the most obvious guidelines:
