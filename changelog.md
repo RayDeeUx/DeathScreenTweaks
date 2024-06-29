@@ -1,4 +1,6 @@
 # DisturbingNewBests Changelog
+## v1.2.0
+- Port to 2.206.
 ## v1.1.2
 - Replaced a few quotes in the default set in light of recent events.
 - Replaced a few quotes in the Brandon Rogers set, because some of them were incredibly unfunny.
