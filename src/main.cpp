@@ -48,7 +48,7 @@ each line is a new "new best" message)";
 		std::ifstream file(pathCustom);
 		std::string str;
 		while (std::getline(file, str)) {
-			std::string customStr = "- " + str + " -";
+			std::string customStr = fmt::format("- {} -", str);
 			quotes.push_back(customStr);
 		} // technically i can write two one-time use boolean variables to allow people to toggle these things on and off as they please without the quotes adding themselves multiple times into the vector, but i'd rather add the "restart required" barrier just to be extra safe
 	}
