@@ -1,4 +1,5 @@
 #include <Geode/Geode.hpp>
+#include <Geode/modify/MenuLayer.hpp>
 #include <Geode/modify/PlayLayer.hpp>
 #include <iostream>
 #include <vector>
@@ -11,6 +12,8 @@ using namespace geode::prelude;
 std::string formerCustomDeathString = "";
 
 std::vector<std::string> quotes;
+
+bool completedJDDNCheck = false;
 
 $on_mod(Loaded) {
 	auto path = (Mod::get()->getResourcesDir() / "default.txt").string();
@@ -57,10 +60,31 @@ std::string grabRandomQuote() {
 	return quotes.front();
 }
 
+void forceEnableJustDont() {
+	auto gm = GameManager::sharedState();
+	if (!gm->getGameVariable("0095")) {
+		gm->setGameVariable("0095", true);
+		Mod::get()->setSettingValue("checkJustDont", false);
+		log::info("\"Just Dont\"/\"Do Not\" check complete.");
+	}
+}
+
+class $modify(MyMenuLayer, MenuLayer) {
+	virtual bool init() {
+		bool result = MenuLayer::init();
+		if (!completedJDDNCheck && Mod::get()->getSettingValue<bool>("enabled") && Mod::get()->getSettingValue<bool>("checkJustDont")) {
+			forceEnableJustDont();
+		}
+		completedJDDNCheck = true;
+		return result;
+	}
+};
+
 class $modify(MyPlayLayer, PlayLayer) {
 	void updateProgressbar() {
 		PlayLayer::updateProgressbar();
 		if (!Mod::get()->getSettingValue<bool>("enabled")) { return; }
+		if (m_level->isPlatformer()) { return; }
 		if (!m_player1->m_isDead) { return; }
 		for (int i = this->getChildrenCount(); i-- > 0; ) {
 			auto theLastCCNode = typeinfo_cast<CCNode*>(this->getChildren()->objectAtIndex(i));
@@ -71,6 +95,10 @@ class $modify(MyPlayLayer, PlayLayer) {
 			if (theLastCCNode == nullptr || typeinfo_cast<UILayer*>(theLastCCNode) != nullptr) { continue; } // skip UILayer
 			if (theLastCCNode->getZOrder() != 100) { continue; } // macos-specific narrowing down nodes
 			if (theLastCCNode->getChildrenCount() < 2) { continue; }
+			if (Mod::get()->getSettingValue<bool>("noVisibleNewBest")) {
+				theLastCCNode->setVisible(false);
+				return;
+			}
 			auto deathNode = typeinfo_cast<CCLabelBMFont*>(theLastCCNode->getChildren()->objectAtIndex(0));
 			if (deathNode == nullptr) { continue; }
 			#ifndef __APPLE__

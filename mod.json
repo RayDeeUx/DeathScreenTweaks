@@ -5,12 +5,12 @@
 		"android": "2.206",
 		"win": "2.206"
 	},
-	"version": "v1.2.0",
-	"id": "raydeeux.disturbingnewbests",
-	"name": "DisturbingNewBests",
+	"version": "v1.3.0",
+	"id": "raydeeux.deathscreentweaks",
+	"name": "DeathScreenTweaks",
 	"developers": ["RayDeeUx", "sofabeddd"],
-	"description": "Replaces \"New Best\" messages with slightly \"better\" ones.",
-	"repository": "https://github.com/RayDeeUx/DisturbingNewBests",
+	"description": "Various tweaks to the \"New Best\" screen. (Formerly DisturbingNewBests.)",
+	"repository": "https://github.com/RayDeeUx/DeathScreenTweaks",
 	"settings": {
 		"enabled": {
 			"name": "Enabled",
@@ -18,15 +18,21 @@
 			"type": "bool",
 			"default": true
 		},
+		"checkJustDont": {
+			"name": "Run \"Just Dont\"/\"Do Not...\" Check",
+			"description": "<cp>REQUIRES GAME RESTART TO APPLY.</c>\n\nWhen Geometry Dash opens, automatically check if the \"Just Dont\"/\"Do Not...\" setting is enabled.\n\n<cy>This setting is for the slim minority of users who don't have the \"Just Dont\"/\"Do Not...\" option enabled in GD's settings. This setting is disabled by default and the check only runs once per game session on the main menu.</c>",
+			"type": "bool",
+			"default": false
+		},
 		"custom": {
 			"name": "Include Custom Messages",
-			"description": "<cp>[REQUIRES RESTART TO APPLY]</c>\n\nIncludes your own custom \"New Best\" text.\nPlease edit the \"custom.txt\" file by opening this mod's config directory (look for the golden pencil button at the bottom left of the mod's introductory screen).",
+			"description": "<cp>REQUIRES GAME RESTART TO APPLY.</c>\n\nIncludes your own custom \"New Best\" text.\nPlease edit the \"custom.txt\" file by opening this mod's config directory (look for the golden pencil button at the bottom left of the mod's introductory screen).",
 			"type": "bool",
 			"default": false
 		},
 		"brandonRogers": {
 			"name": "Include Brandon Rogers (READ!)",
-			"description": "<cp>[REQUIRES RESTART TO APPLY]</c>\n\nIncludes quotes from YouTube comedian Brandon Rogers.\n<cr>WARNING: Brandon Rogers' humor may not be for everyone.</c>\n<cy>By enabling this option, you agree to hold harmless the mod developer (RayDeeUx) or any lead developer of Geode and assume all responsibility for any resulting damages, including damages to your emotions, ego, self-esteem, or moral compass.</c>\n\n<cr>This is your only warning.</c>",
+			"description": "<cp>REQUIRES GAME RESTART TO APPLY.</c>\n\nIncludes quotes from YouTube comedian Brandon Rogers.\n<cr>WARNING: Brandon Rogers' humor may not be for everyone.</c>\n<cy>By enabling this option, you agree to hold harmless the mod developer (RayDeeUx) or any lead developer of Geode and assume all responsibility for any resulting damages, including damages to your emotions, ego, self-esteem, or moral compass.</c>\n\n<cr>This is your only warning.</c>",
 			"type": "bool",
 			"default": false
 		},
@@ -52,6 +58,12 @@
 			"description": "Hides the reward animation you get when getting a new best on a rated level.",
 			"type": "bool",
 			"default": false
+		},
+		"noVisibleNewBest": {
+			"name": "Hide \"New Best\" Screen",
+			"description": "<cl>Original idea by VolcaroCham.</c>\n\nHides the \"New Best\" screen when getting a new best.\n\nNot sure why anyone would willingly enable this, but now the option exists in this mod. Have fun.",
+			"type": "bool",
+			"default": false
 		}
 	},
 	"resources": {
@@ -59,6 +71,18 @@
 			"resources/*.txt"
 		]
 	},
+	"incompatibilities": [
+		{
+			"id": "raydeeux.disturbingnewbests",
+			"version": "*",
+			"importance": "superseded"
+		},
+		{
+			"id": "cham.nonewbest",
+			"version": "*",
+			"importance": "superseded"
+		}
+	],
 	"issues": {
 		"url": "https://discord.com/channels/911701438269386882/1205523212444639292",
 		"info": "Ping me <cl>(@erymanthus)</c> in the Geode SDK Discord server's <cl>#help</c> channel if you need help. <cr>DMs are NOT accepted.</c>"

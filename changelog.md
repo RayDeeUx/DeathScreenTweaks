@@ -1,4 +1,9 @@
-# DisturbingNewBests Changelog
+# DeathScreenTweaks Changelog
+## v1.3.0
+- Rebrand to DeathScreenTweaks for consistency with LoadingScreenTweaks and EndscreenTweaks.
+- Automatic migration of custom death messages from DisturbingNewBests.
+- Rewrote a few config descriptions.
+- Added option to hide the New Best screen itself, because that was apparently an attempted mod submission on the old Geode mod index.
 ## v1.2.0
 - Port to 2.206.
 ## v1.1.2

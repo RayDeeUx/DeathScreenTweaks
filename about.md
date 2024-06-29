@@ -1,4 +1,8 @@
-# DisturbingNewBests
+# DeathScreenTweaks
+
+<cy>Note: This mod *will* auto-enable the `"Just, Don't..."`/`"Do Not..."` in-game setting; it is necessary for this mod's most important feature (read below) to have a visible effect.</c>
+
+Various tweaks to the "New Best" screen. (Formerly DisturbingNewBests.)
 
 Replaces "New Best" messages with slightly "better" ones, including those of your own choice.
 
@@ -18,4 +22,4 @@ Built-in quotes moderated by [CatXus](user:14467409) and alk.
 
 Original mod idea by [actualkanyewest](user:28091796).
 
-This [Geode mod](https://geode-sdk.org) is licensed under LGPLv2, and may be prone to bugs on macOS.
+This [Geode mod](https://geode-sdk.org) is licensed under LGPLv2.

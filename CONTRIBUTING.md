@@ -3,7 +3,7 @@ This is a living document; changes may be published at any time.
 ## Submitting changes to the code
 I have tried to keep the code as performant as possible without causing false positives. With that said, there's always a way to optimize code, especially when said code is a backwards iterating for loop hooked to a `PlayLayer` function that runs during nearly every frame while a level is active. If you feel like there's a performance improvement to be made somewhere, feel free to fork the source code and mess around until you find something that works.
 ## Submitting death messages
-There's a certain level of quality/humor that needs to be maintained with the messages featured in DisturbingNewBests. (Whether or not that specific level of quality/humor meets your personal preferences is not my concern.)
+There's a certain level of quality/humor that needs to be maintained with the messages featured in DeathScreenTweaks. (Whether or not that specific level of quality/humor meets your personal preferences is not my concern.)
 Here are the most obvious guidelines:
 - No profanity, slurs, or sexually suggestive themes. (This is not a rule by personal choice; please see the last item of https://docs.geode-sdk.org/mods/guidelines#hardrejection-rules. I'm not trying to get myself banned from the Geode index again.)
 - The more relevant it is to failing a level in Geometry Dash, the better. (How strongly a message is relevant to failing a level may vary per person; quotes doesn't have to perfectly encapsulate every possible scenario.)
