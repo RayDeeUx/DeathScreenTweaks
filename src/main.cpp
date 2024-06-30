@@ -12,17 +12,18 @@ using namespace geode::prelude;
 std::string formerCustomDeathString = "";
 
 std::vector<std::string> quotes;
+std::vector<std::string> dNBMigration;
 
 bool completedJDDNCheck = false;
 
 $on_mod(Loaded) {
-	auto path = (Mod::get()->getResourcesDir() / "default.txt").string();
-	std::ifstream file(path);
+	auto pathDefault = (Mod::get()->getResourcesDir() / "default.txt");
+	std::ifstream file(pathDefault);
 	std::string str;
 	while (std::getline(file, str)) { quotes.push_back(str); }
 
 	if (Mod::get()->getSettingValue<bool>("brandonRogers")) {
-		auto pathRogers = (Mod::get()->getResourcesDir() / "brandonrogers.txt").string();
+		auto pathRogers = (Mod::get()->getResourcesDir() / "brandonrogers.txt");
 		std::ifstream file(pathRogers);
 		std::string bRogers;
 		while (std::getline(file, bRogers)) {
@@ -31,20 +32,54 @@ $on_mod(Loaded) {
 		} // technically i can write two one-time use boolean variables to allow people to toggle these things on and off as they please without the quotes adding themselves multiple times into the vector, but i'd rather add the "restart required" barrier just to be extra safe
 	}
 
+	auto oldDNBMessages = (dirs::getModConfigDir() / "raydeeux.disturbingnewbests" / "custom.txt");
+	if (std::filesystem::exists(oldDNBMessages) && !Mod::get()->getSavedValue<bool>("migrationFromDNBSuccess")) {
+		log::info("std::filesystem::exists(oldDNBMessages): {}", std::filesystem::exists(oldDNBMessages));
+		log::info("Storing oldDNBMessages now.");
+		std::ifstream dNBFile(oldDNBMessages);
+		std::string dNBStr;
+		while (std::getline(dNBFile, dNBStr)) {
+			dNBMigration.push_back(dNBStr);
+		}
+		log::info("Finished storing oldDNBMessages.");
+	}
 
 	// code adapted with permission from dialouge handler original author thesillydoggo: https://discord.com/channels/911701438269386882/911702535373475870/1212633554345918514 --erymanthus | raydeeux
 
-	auto path3 = (Mod::get()->getConfigDir() / "custom.txt").string();
-	if (!std::filesystem::exists(path3)) {
-		std::string content = R"(lorem ipsum
+	auto pathCustom = (Mod::get()->getConfigDir() / "custom.txt");
+	if (!std::filesystem::exists(pathCustom)) {
+		if (dNBMigration.empty()) {
+			log::info("dNBMigration was empty. Confirm \"std::filesystem::exists(oldDNBMessages)\" didn't appear earlier in the logs.");
+			std::string content = R"(lorem ipsum
 abc def
 sample text
 each line is a new "new best" message)";
-		utils::file::writeString(path3, content);
+			utils::file::writeString(pathCustom, content);
+		} else if (std::filesystem::exists(oldDNBMessages)) {
+			if (!dNBMigration.empty()) {
+				log::info("Migrating custom messages from DisturbingNewBests. Buckle up!");
+				/*
+				for (std::string dNBCustomMessage : dNBMigration) {
+					// std::string stringToMigrate = dNBCustomMessage;
+					utils::file::writeString(pathCustom,  fmt::format("{}\n", dNBCustomMessage));
+				}
+				*/
+				std::filesystem::copy(oldDNBMessages, pathCustom);
+				log::info("Finished migrating messages from DisturbingNewBests. Confirm nothing went terribly wrong.");
+				Mod::get()->setSavedValue("migrationFromDNBSuccess", true);
+			} else {
+				log::error("Migration failed! What happened?");
+				std::string content = R"(migration failed, womp womp
+migration failed, womp womp
+migration failed, womp womp
+migration failed, womp womp)";
+				utils::file::writeString(pathCustom, content);
+			}
+		}
 	}
 	
 	if (Mod::get()->getSettingValue<bool>("custom")) {
-		auto pathCustom = (Mod::get()->getConfigDir() / "custom.txt").string();
+		auto pathCustom = (Mod::get()->getConfigDir() / "custom.txt");
 		std::ifstream file(pathCustom);
 		std::string str;
 		while (std::getline(file, str)) {
