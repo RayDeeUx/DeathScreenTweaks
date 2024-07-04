@@ -40,6 +40,7 @@ $on_mod(Loaded) {
 		std::string dNBStr;
 		while (std::getline(dNBFile, dNBStr)) {
 			dNBMigration.push_back(dNBStr);
+			log::info("{}", dNBStr);
 		}
 		log::info("Finished storing oldDNBMessages.");
 	}
@@ -53,7 +54,8 @@ $on_mod(Loaded) {
 			std::string content = R"(lorem ipsum
 abc def
 sample text
-each line is a new "new best" message)";
+each line is a new "new best" message
+[this text file was brought to you by deathscreentweaks. if you're seeing this in the config directory for wholesomeendtexts, something has gone terribly TERRIBLY wrong-simply ping @erymanthus in the geode sdk discord server and do not panic!])";
 			utils::file::writeString(pathCustom, content);
 		} else if (std::filesystem::exists(oldDNBMessages)) {
 			if (!dNBMigration.empty()) {
