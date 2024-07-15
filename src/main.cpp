@@ -19,8 +19,8 @@ bool completedJDDNCheck = false;
 $on_mod(Loaded) {
 	auto pathDefault = (Mod::get()->getResourcesDir() / "default.txt");
 	std::ifstream file(pathDefault);
-	std::string str;
-	while (std::getline(file, str)) { quotes.push_back(str); }
+	std::string placeHolder;
+	while (std::getline(file, placeHolder)) { quotes.push_back(placeHolder); }
 
 	if (Mod::get()->getSettingValue<bool>("brandonRogers")) {
 		auto pathRogers = (Mod::get()->getResourcesDir() / "brandonrogers.txt");
