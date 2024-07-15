@@ -93,6 +93,7 @@ migration failed, womp womp)";
 			if (!Mod::get()->getSavedValue<bool>("noHyphens")) {
 				str = fmt::format("- {} -", str);
 			}
+			quotes.push_back(str);
 		} // technically i can write two one-time use boolean variables to allow people to toggle these things on and off as they please without the quotes adding themselves multiple times into the vector, but i'd rather add the "restart required" barrier just to be extra safe
 	}
 }
