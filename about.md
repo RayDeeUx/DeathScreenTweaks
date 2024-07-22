@@ -22,4 +22,4 @@ Built-in quotes moderated by [CatXus](user:14467409) and alk.
 
 Original mod idea by [actualkanyewest](user:28091796).
 
-This [Geode mod](https://geode-sdk.org) is licensed under LGPLv2.
+This [Geode mod](https://geode-sdk.org) is licensed under LGPLv2. To report bugs or get help with using my mods, press the Discord button in the lower left corner.
