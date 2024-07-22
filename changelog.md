@@ -5,7 +5,7 @@
 - Rewrote a few config descriptions.
 - Added option to hide the New Best screen itself, because that was apparently an attempted mod submission on the old Geode mod index.
 ## v1.2.0
-- Port to 2.206.
+- Port to 2.206. Big thanks to CatXus, Aktimoose, ninXout, and hiimjustin000 for helping out with testing!
 ## v1.1.2
 - Replaced a few quotes in the default set in light of recent events.
 - Replaced a few quotes in the Brandon Rogers set, because some of them were incredibly unfunny.
