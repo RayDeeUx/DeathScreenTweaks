@@ -145,7 +145,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 			}
 			auto deathNode = typeinfo_cast<CCLabelBMFont*>(theLastCCNode->getChildren()->objectAtIndex(0));
 			if (deathNode == nullptr) { continue; }
-			#ifndef __APPLE__
+			#ifndef GEODE_IS_MACOS
 				if (strcmp(deathNode->getFntFile(), "goldFont.fnt") != 0) { continue; } // avoid non-gold font HUDs
 			#endif
 			auto maybeOnDeathString = deathNode->getString();
@@ -162,6 +162,18 @@ class $modify(MyPlayLayer, PlayLayer) {
 					deathNode->setScale(scale);
 				} else {
 					deathNode->limitLabelWidth(420.f, 10.f, .25f); // you never know how long these custom strings might get
+				}
+				int64_t fontID = Mod::get()->getSettingValue<int64_t>("customFont");
+				if (fontID == -2) {
+					deathNode->setFntFile("chatFont.fnt");
+				} else if (fontID == -1) {
+					deathNode->setFntFile("bigFont.fnt");
+				} else if (fontID != 0) {
+					deathNode->setFntFile(fmt::format("gjFont{}.fnt", fontID).c_str());
+				}
+				deathNode->setAlignment(kCCTextAlignmentCenter);
+				if (fontID != 0 && Mod::get()->getSettingValue<bool>("customFontGoldColor")) {
+					deathNode->setColor({254, 207, 6});
 				}
 			} // fallback to default newbest message in case randomstring is empty
 			break;
