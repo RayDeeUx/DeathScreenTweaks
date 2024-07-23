@@ -4,6 +4,13 @@
 
 Various tweaks to the "New Best" screen. (Formerly DisturbingNewBests.)
 
+Features:
+* Hide the rewards animation.
+* Hiding the entire "New Best" screen. (For the three people who want to do that.)
+* Changing the font of the "Level Complete" text message.
+
+And now, for the big one...
+
 Replaces "New Best" messages with slightly "better" ones, including those of your own choice.
 
 Allows three sets of messages: a default set, custom text from the config folder, and (ad-friendly) Brandon Rogers quotes.
