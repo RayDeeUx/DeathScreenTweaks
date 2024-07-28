@@ -1,4 +1,3 @@
-#include <Geode/Geode.hpp>
 #include <Geode/modify/MenuLayer.hpp>
 #include <Geode/modify/PlayLayer.hpp>
 #include <iostream>
@@ -145,9 +144,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 			}
 			auto deathNode = typeinfo_cast<CCLabelBMFont*>(theLastCCNode->getChildren()->objectAtIndex(0));
 			if (deathNode == nullptr) { continue; }
-			#ifndef GEODE_IS_MACOS
-				if (strcmp(deathNode->getFntFile(), "goldFont.fnt") != 0) { continue; } // avoid non-gold font HUDs
-			#endif
+			if (strcmp(deathNode->getFntFile(), "goldFont.fnt") != 0) { continue; } // avoid non-gold font HUDs
 			auto maybeOnDeathString = deathNode->getString();
 			if ((strcmp(formerCustomDeathString.c_str(), maybeOnDeathString) == 0)) { continue; } // avoid regenerating new quotes
 			auto randomString = grabRandomQuote();
