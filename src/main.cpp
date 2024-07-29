@@ -131,7 +131,9 @@ class $modify(MyPlayLayer, PlayLayer) {
 		if (!Mod::get()->getSettingValue<bool>("enabled")) { return; }
 		if (m_level->isPlatformer()) { return; }
 		if (!m_player1->m_isDead) { return; }
-		for (int i = this->getChildrenCount(); i-- > 0; ) {
+		for (int i = getChildrenCount() - 1; i >= 0; i--) {
+			// NEW [good]: int i = getChildrenCount() - 1; i >= 0; i--
+			// ORIG [bad]: int i = getChildrenCount(); i-- > 0;
 			auto theLastCCNode = typeinfo_cast<CCNode*>(this->getChildren()->objectAtIndex(i));
 			if (typeinfo_cast<CurrencyRewardLayer*>(theLastCCNode) != nullptr) {
 				theLastCCNode->setVisible(!Mod::get()->getSettingValue<bool>("currencyLayer"));
