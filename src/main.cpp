@@ -125,9 +125,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 
 class $modify(MyPlayLayer, PlayLayer) {
 	void updateProgressbar() {
-		log::info("before calling orig");
 		PlayLayer::updateProgressbar();
-		log::info("after calling orig");
 		if (!Mod::get()->getSettingValue<bool>("enabled")) { return; }
 		if (m_level->isPlatformer()) { return; }
 		if (!m_player1->m_isDead) { return; }
