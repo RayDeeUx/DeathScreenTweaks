@@ -1,6 +1,6 @@
 # DeathScreenTweaks Changelog
 ## v1.3.1
-Fix a crash from selecting Fonts 1 through 9 (even though they're all objectively ugly). Thanks again, hiimjustin000!
+- Fix a crash from selecting Fonts 1 through 9 (even though they're all objectively ugly). Thanks again, hiimjustin000!
 ## v1.3.0
 - Rebrand to DeathScreenTweaks for consistency with LoadingScreenTweaks and EndscreenTweaks.
 - Automatic migration of custom death messages from DisturbingNewBests.
