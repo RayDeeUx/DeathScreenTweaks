@@ -168,7 +168,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 				} else if (fontID == -1) {
 					deathNode->setFntFile("bigFont.fnt");
 				} else if (fontID != 0) {
-					deathNode->setFntFile(fmt::format("gjFont{}.fnt", fontID).c_str());
+					deathNode->setFntFile(fmt::format("gjFont{:02d}.fnt", fontID).c_str());
 				}
 				deathNode->setAlignment(kCCTextAlignmentCenter);
 				if (fontID != 0 && Mod::get()->getSettingValue<bool>("customFontGoldColor")) {
