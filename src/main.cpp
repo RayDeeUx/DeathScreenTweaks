@@ -192,6 +192,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 					node->setVisible(false);
 					continue;
 				}
+				if (!getBool("changeDeathText")) { continue; }
 				node->setString(randomString.c_str(), true);
 				if (getBool("lineWrapping")) {
 					node->setAlignment(CCTextAlignment::kCCTextAlignmentCenter); // center text
