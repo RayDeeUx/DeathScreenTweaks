@@ -113,7 +113,7 @@
 		},
 		"newBestSFX": {
 			"name": "\"New Best\" SFX",
-			"description": "Play a unique SFX whenever you get a \"New Best\" screen. Only applies to Normal Mode.\n\n<cy>You will hear vanilla SFX if you enable this setting.</c>\n<cy>To use your own SFX for \"New Best\" screens, go to this mod's config directory and make sure there is an audio file named \"</c><cl>newBest</c><cy>\".</c>\n\n<cl>.mp3</c><cy>,</c><cl>.mp3</c><cy>, </c><cl>.wav</c><cy>, </c><cl>.ogg</c><cy>, </c><cl>.oga</c><cy>, and</c><cl>.flac</c> <cy>are supported.</c>",
+			"description": "Play a unique SFX whenever you get a \"New Best\" screen. Only applies to Normal Mode.\n\n<cy>You will hear vanilla SFX if you enable this setting.</c>\n<cy>To use your own SFX for \"New Best\" screens, go to this mod's config directory and make sure there is an audio file named \"</c><cl>newBest</c><cy>\".</c>\n\n<cl>.mp3</c><cy>,</c><cl>.mp3</c><cy>, </c><cl>.wav</c><cy>, </c><cl>.ogg</c><cy>, </c><cl>.oga</c><cy>, and</c> <cl>.flac</c> <cy>are supported.</c>",
 			"type": "bool",
 			"default": false
 		},
