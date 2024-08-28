@@ -5,7 +5,7 @@
 		"android": "2.206",
 		"win": "2.206"
 	},
-	"version": "v1.3.1",
+	"version": "v1.4.0",
 	"id": "raydeeux.deathscreentweaks",
 	"name": "DeathScreenTweaks",
 	"developers": ["RayDeeUx", "sofabeddd"],
@@ -33,6 +33,12 @@
 		"brandonRogers": {
 			"name": "Include Brandon Rogers (READ!)",
 			"description": "<cp>REQUIRES GAME RESTART TO APPLY.</c>\n\nIncludes quotes from YouTube comedian Brandon Rogers.\n<cr>WARNING: Brandon Rogers' humor may not be for everyone.</c>\n<cy>By enabling this option, you agree to hold harmless the mod developer (RayDeeUx) or any lead developer of Geode and assume all responsibility for any resulting damages, including damages to your emotions, ego, self-esteem, or moral compass.</c>\n\n<cr>This is your only warning.</c>",
+			"type": "bool",
+			"default": false
+		},
+		"hideNewBestMessages": {
+			"name": "Hide \"New Best\" Messages",
+			"description": "Hide death messages on \"New Best\" screens.",
 			"type": "bool",
 			"default": false
 		},
@@ -76,15 +82,81 @@
 			"type": "bool",
 			"default": true
 		},
+		"accuratePercent": {
+			"name": "Accurate Death Percentage",
+			"description": "Adds decimal points to the score on your \"New Best\" screen.",
+			"type": "bool",
+			"default": false
+		},
+		"accuracy": {
+			"name": "Accu. Death % Accuracy",
+			"description": "Choose how many decimal points to add for your percentage on your \"New Best\" screen.",
+			"type": "int",
+			"default": 2,
+			"min": 1,
+			"max": 15,
+			"control": {
+				"input": true,
+				"slider": true,
+				"arrows": true,
+				"big-arrows": true,
+				"arrow-step": 1,
+				"big-arrow-step": 5,
+				"slider-step": 1
+			}
+		},
+		"newBestSFX": {
+			"name": "\"New Best\" SFX",
+			"description": "Play a unique SFX whenever you get a \"New Best\" screen. Only applies to Normal Mode.\n\n<cy>You will hear vanilla SFX if you enable this setting.</c>\n<cy>To use your own SFX for \"New Best\" screens, go to this mod's config directory and make sure there is an audio file named \"</c><cl>newBest</c><cy>\".</c>\n\n<cl>.mp3</c><cy>,</c><cl>.mp3</c><cy>, </c><cl>.wav</c><cy>, </c><cl>.ogg</c><cy>, </c><cl>.oga</c><cy>, and</c><cl>.flac</c> <cy>are supported.</c>",
+			"type": "bool",
+			"default": false
+		},
+		"extension": {
+			"name": "\"New Best\" SFX File Extension",
+			"description": "Choose the SFX file extension for your \"New Best\" SFX. Only applies to Normal Mode.\n<cy>Only file extensions supported by the FMOD audio engine</c> <cy>(</c><cl>https://fmod.com</c><cy>, which Geometry Dash uses) are available for this setting.</c>",
+			"type": "string",
+			"default": "mp3",
+			"one-of": [
+				"mp3",
+				"wav",
+				"flac",
+				"oga",
+				"ogg",
+				"[None, play vanilla SFX]"
+			]
+		},
+		"alwaysNewBest": {
+			"name": "Always New Best [Normal Mode]",
+			"description": "Shows a \"New Best\" screen even when you did not die at a new best.\n\n<cy>Shown percentages from enabling this setting will be based on in-game/vanilla calculations</c> <cr>ONLY.</c>",
+			"type": "bool",
+			"default": false
+		},
+		"alwaysNewBestPractice": {
+			"name": "Always New Best [Practice Mode]",
+			"description": "Always show a \"New Best\" when you die in <cg>practice mode</c>.",
+			"type": "bool",
+			"default": false
+		},
+		"alwaysNewBestPlaytest": {
+			"name": "Always New Best [Testmode]",
+			"description": "Always show a \"New Best\" when you die in <cl>testmode</c> (playtesting levels).\n<cl>You really shouldn't enable this. It just looks silly. But the option's here anyway because why not.</c>",
+			"type": "bool",
+			"default": false
+		},
 		"currencyLayer": {
 			"name": "Hide Reward Animations",
-			"description": "Hides the reward animation you get when getting a new best on a rated level.",
+			"description": "Hides the reward animation from \"New Best\" screens in rated levels.",
 			"type": "bool",
 			"default": false
 		},
 		"noVisibleNewBest": {
 			"name": "Hide \"New Best\" Screen",
 			"description": "<cl>Original idea by VolcaroCham.</c>\n\nHides the \"New Best\" screen when getting a new best.\n\nNot sure why anyone would willingly enable this, but now the option exists in this mod. Have fun.",
+			"type": "bool",
+			"default": false
+		},
+		"logging": {
+			"name": "Enable Logging",
 			"type": "bool",
 			"default": false
 		}
