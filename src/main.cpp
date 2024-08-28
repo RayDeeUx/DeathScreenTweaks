@@ -1,14 +1,17 @@
 #include <Geode/modify/MenuLayer.hpp>
 #include <Geode/modify/PlayLayer.hpp>
+#include <Geode/modify/PlayerObject.hpp>
+#include <filesystem>
 #include <iostream>
 #include <vector>
 #include <fstream>
 #include <algorithm>
 #include <random>
+#include <regex>
 
 using namespace geode::prelude;
 
-std::string formerCustomDeathString = "";
+const static std::regex percentRegex = std::regex(R"(^(\d+)%$)");
 
 std::vector<std::string> quotes;
 std::vector<std::string> dNBMigration;
@@ -112,10 +115,20 @@ void forceEnableJustDont() {
 	}
 }
 
+bool isNewBest(PlayLayer* pl) {
+	return pl->getCurrentPercentInt() > pl->m_level->m_normalPercent.value();
+}
+
 class $modify(MyMenuLayer, MenuLayer) {
+	struct Fields {
+		Mod* mod = Mod::get();
+	};
+	bool getBool(const std::string& key) {
+		return m_fields->mod->getSettingValue<bool>(key);
+	}
 	bool init() {
 		bool result = MenuLayer::init();
-		if (!completedJDDNCheck && Mod::get()->getSettingValue<bool>("enabled") && Mod::get()->getSettingValue<bool>("checkJustDont")) {
+		if (!completedJDDNCheck && getBool("enabled") && getBool("checkJustDont")) {
 			forceEnableJustDont();
 		}
 		completedJDDNCheck = true;
@@ -124,58 +137,118 @@ class $modify(MyMenuLayer, MenuLayer) {
 };
 
 class $modify(MyPlayLayer, PlayLayer) {
+	struct Fields {
+		Mod* mod = Mod::get();
+	};
+	bool getBool(const std::string& key) {
+		return m_fields->mod->getSettingValue<bool>(key);
+	}
+	int64_t getInt(const std::string& key) {
+		return m_fields->mod->getSettingValue<int64_t>(key);
+	}
 	void updateProgressbar() {
 		PlayLayer::updateProgressbar();
-		if (!Mod::get()->getSettingValue<bool>("enabled")) { return; }
-		if (m_level->isPlatformer()) { return; }
-		if (!m_player1->m_isDead) { return; }
+		if (!getBool("enabled")) { return; }
+		if (m_level->isPlatformer() || !m_player1->m_isDead || m_isPlatformer) { return; }
 		for (int i = getChildrenCount() - 1; i >= 0; i--) {
 			// NEW [good]: int i = getChildrenCount() - 1; i >= 0; i--
 			// ORIG [bad]: int i = getChildrenCount(); i-- > 0;
 			auto theLastCCNode = typeinfo_cast<CCNode*>(this->getChildren()->objectAtIndex(i));
 			if (typeinfo_cast<CurrencyRewardLayer*>(theLastCCNode) != nullptr) {
-				theLastCCNode->setVisible(!Mod::get()->getSettingValue<bool>("currencyLayer"));
+				// hide CurrencyRewardLayer
+				theLastCCNode->setVisible(!getBool("currencyLayer"));
 				continue;
-			} // skip UILayer
-			if (theLastCCNode == nullptr || typeinfo_cast<UILayer*>(theLastCCNode) != nullptr) { continue; } // skip UILayer
-			if (theLastCCNode->getZOrder() != 100) { continue; } // macos-specific narrowing down nodes
-			if (theLastCCNode->getChildrenCount() < 2) { continue; }
-			if (Mod::get()->getSettingValue<bool>("noVisibleNewBest")) {
-				theLastCCNode->setVisible(false);
-				return;
 			}
-			auto deathNode = typeinfo_cast<CCLabelBMFont*>(theLastCCNode->getChildren()->objectAtIndex(0));
-			if (deathNode == nullptr) { continue; }
-			if (strcmp(deathNode->getFntFile(), "goldFont.fnt") != 0) { continue; } // avoid non-gold font HUDs
-			auto maybeOnDeathString = deathNode->getString();
-			if ((strcmp(formerCustomDeathString.c_str(), maybeOnDeathString) == 0)) { continue; } // avoid regenerating new quotes
-			auto randomString = grabRandomQuote();
-			formerCustomDeathString = randomString; // cache previous string for the next time it gets checked ( i had a really weird race condition where the new best message kept changing and i only want it to change once )
-			if (strcmp("", randomString.c_str()) != 0) {
-				deathNode->setString(randomString.c_str(), true);
-				if (Mod::get()->getSettingValue<bool>("lineWrapping")) {
-					deathNode->setAlignment(CCTextAlignment::kCCTextAlignmentCenter); // center text
-					float scale = .25f * (155.f / strlen(randomString.c_str()));
-					if (scale > Mod::get()->getSettingValue<double>("maxScale")) scale = Mod::get()->getSettingValue<double>("maxScale");
-					deathNode->setWidth(420.f); // width of end screen minus 20px
-					deathNode->setScale(scale);
-				} else {
-					deathNode->limitLabelWidth(420.f, 10.f, .25f); // you never know how long these custom strings might get
+			if (theLastCCNode == nullptr || typeinfo_cast<UILayer*>(theLastCCNode) != nullptr) { continue; } // skip UILayer
+			if (theLastCCNode->getZOrder() != 100) { continue; }
+			if (theLastCCNode->getChildrenCount() < 2) { continue; }
+			if (getBool("noVisibleNewBest")) { return theLastCCNode->setVisible(false); }
+			for (const auto child : CCArrayExt<CCNode*>(theLastCCNode->getChildren())) {
+				const auto node = typeinfo_cast<CCLabelBMFont*>(child);
+				if (!node) { continue; }
+				std::string nodeString = node->getString();
+				std::string fontFile = node->getFntFile();
+				if (nodeString.ends_with("%") && fontFile == "bigFont.fnt") {
+					if (isNewBest(this) && getBool("accuratePercent")) { return node->setString(fmt::format("{:.{}f}%", getCurrentPercent(), getInt("accuracy")).c_str()); }
+					// i have to do all of this because robtop's wonderful technology shows percent from previous death if i dont include all of this
+					std::smatch match;
+					if (!std::regex_match(nodeString, match, percentRegex)) { continue; }
+					auto percent = std::regex_replace(nodeString, std::regex("%"), "");
+					auto percentAsInt = utils::numFromString<int>(percent);
+					if (percentAsInt.isErr()) { continue; }
+					auto currPercent = this->getCurrentPercentInt();
+					if (getBool("logging")) {
+						log::info("percentAsInt == currentPercentInt: {}", percentAsInt.unwrap() == currPercent);
+						log::info("percentAsInt: {}", percentAsInt.unwrap());
+						log::info("getCurrentPercentInt: {}", currPercent);
+					}
+					if (!getBool("accuratePercent")) { node->setString(fmt::format("{}%", currPercent).c_str()); }
+					else { node->setString(fmt::format("{:.{}f}%", getCurrentPercent(), getInt("accuracy")).c_str()); }
+					continue;
 				}
-				int64_t fontID = Mod::get()->getSettingValue<int64_t>("customFont");
-				if (fontID == -2) {
-					deathNode->setFntFile("chatFont.fnt");
-				} else if (fontID == -1) {
-					deathNode->setFntFile("bigFont.fnt");
-				} else if (fontID != 0) {
-					deathNode->setFntFile(fmt::format("gjFont{:02d}.fnt", fontID).c_str());
+				const std::string randomString = grabRandomQuote();
+				if (fontFile != "goldFont.fnt" || std::ranges::find(quotes, nodeString) != quotes.end() || randomString.empty()) { continue; } // avoid regenerating new quotes
+				if (getBool("hideNewBestMessages")) {
+					node->setVisible(false);
+					continue;
 				}
-				deathNode->setAlignment(kCCTextAlignmentCenter);
-				if (fontID != 0 && Mod::get()->getSettingValue<bool>("customFontGoldColor")) {
-					deathNode->setColor({254, 207, 6});
-				}
-			} // fallback to default newbest message in case randomstring is empty
-			break;
+				node->setString(randomString.c_str(), true);
+				if (getBool("lineWrapping")) {
+					node->setAlignment(CCTextAlignment::kCCTextAlignmentCenter); // center text
+					float scale = .25f * (155.f / randomString.length());
+					if (scale > Mod::get()->getSettingValue<double>("maxScale")) { scale = Mod::get()->getSettingValue<double>("maxScale"); }
+					node->setWidth(420.f); // width of end screen minus 20px, not marajuana referenec
+					node->setScale(scale);
+				} else { node->limitLabelWidth(420.f, 10.f, .25f); } // you never know how long these custom strings might get
+				auto fontID = getInt("customFont");
+				if (fontID == -2) { node->setFntFile("chatFont.fnt"); }
+				else if (fontID == -1) { node->setFntFile("bigFont.fnt"); }
+				else if (fontID != 0) { node->setFntFile(fmt::format("gjFont{:02d}.fnt", fontID).c_str()); }
+				node->setAlignment(kCCTextAlignmentCenter);
+				if (fontID != 0 && getBool("customFontGoldColor")) { node->setColor({254, 207, 6}); }
+			}
+		}
+	}
+};
+
+class $modify(MyPlayerObject, PlayerObject) {
+	struct Fields {
+		Mod* mod = Mod::get();
+	};
+	bool getBool(const std::string& key) {
+		return m_fields->mod->getSettingValue<bool>(key);
+	}
+	void playerDestroyed(bool p0) {
+		PlayerObject::playerDestroyed(p0);
+		// idea by datacocat: https://discord.com/users/1216556628049133579
+		if (!getBool("enabled")) return;
+		const auto pl = PlayLayer::get();
+		if (!pl) { return; }
+		const auto theLevel = pl->m_level;
+		if (!theLevel) return;
+		if (theLevel->isPlatformer()) return;
+		bool qualifiedForAlwaysNewBest = false;
+		// splitting it into three if statements for readability
+		if (!pl->m_isTestMode && !pl->m_isPracticeMode && getBool("alwaysNewBest") && pl->getCurrentPercentInt() <= pl->m_level->m_normalPercent.value()) { qualifiedForAlwaysNewBest = true; }
+		if (getBool("alwaysNewBestPlaytest") && pl->m_isTestMode) { qualifiedForAlwaysNewBest = true; }
+		if (getBool("alwaysNewBestPractice") && pl->m_isPracticeMode) { qualifiedForAlwaysNewBest = true; }
+		if (getBool("logging")) {
+			log::info("pl->getCurrentPercentInt() <= pl->m_level->m_normalPercent.value(): {}", pl->getCurrentPercentInt() <= pl->m_level->m_normalPercent.value());
+			log::info("pl->getCurrentPercentInt(): {}", pl->getCurrentPercentInt());
+			log::info("pl->m_level->m_normalPercent.value(): {}", pl->m_level->m_normalPercent.value());
+		}
+		if (qualifiedForAlwaysNewBest) {
+			pl->showNewBest(true, 0, 0, false, false, false);
+		}
+		if (!getBool("newBestSFX") || !isNewBest(pl)) { return; }
+		const auto fmod = FMODAudioEngine::get();
+		if (!fmod) { return; }
+		const auto newBestSFXFile = Mod::get()->getConfigDir() / fmt::format("newBest.{}", Mod::get()->getSettingValue<std::string>("extension"));
+		if (std::filesystem::exists(newBestSFXFile)) {
+			return fmod->playEffect(newBestSFXFile.string());
+		}
+		if (!pl->m_isTestMode && !pl->m_isPracticeMode && theLevel->m_stars.value() == 0) {
+			fmod->playEffect("magicExplosion.ogg");
 		}
 	}
 };
