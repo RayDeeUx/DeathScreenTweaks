@@ -5,7 +5,7 @@
 		"android": "2.206",
 		"win": "2.206"
 	},
-	"version": "v1.4.0",
+	"version": "v1.3.1",
 	"id": "raydeeux.deathscreentweaks",
 	"name": "DeathScreenTweaks",
 	"developers": ["RayDeeUx", "sofabeddd"],
@@ -125,9 +125,17 @@
 				"[None, play vanilla SFX]"
 			]
 		},
+		"newBestVolume": {
+			"name": "\"New Best\" SFX Volume",
+			"description": "Set the volume of your \"New Best\" SFX (as a percentage).",
+			"type": "int",
+			"default": 50,
+			"min": 0,
+			"max": 100
+		},
 		"alwaysNewBest": {
 			"name": "Always New Best [Normal Mode]",
-			"description": "Shows a \"New Best\" screen even when you did not die at a new best.\n\n<cy>Shown percentages from enabling this setting will be based on in-game/vanilla calculations</c> <cr>ONLY.</c>",
+			"description": "Shows a \"New Best\" screen even when you did not die at a new best.\n\n<cy>Shown percentages from enabling this setting will be based on in-game/vanilla calculations</c> <cr>ONLY.</c>\n\n<cr>If you see two \"New Best\" screens when dying in a level, the game is giving you orbs on that level (which you probably hacked). I can't help you with that.</c>",
 			"type": "bool",
 			"default": false
 		},
