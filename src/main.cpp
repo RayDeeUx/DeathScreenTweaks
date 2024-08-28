@@ -218,18 +218,26 @@ class $modify(MyPlayerObject, PlayerObject) {
 	bool getBool(const std::string& key) {
 		return m_fields->mod->getSettingValue<bool>(key);
 	}
+	std::string getString(const std::string& key) {
+		return m_fields->mod->getSettingValue<std::string>(key);
+	}
+	int64_t getInt(const std::string& key) {
+		return m_fields->mod->getSettingValue<int64_t>(key);
+	}
 	void playerDestroyed(bool p0) {
 		PlayerObject::playerDestroyed(p0);
 		// idea by datacocat: https://discord.com/users/1216556628049133579
-		if (!getBool("enabled")) return;
+		if (!getBool("enabled")) { return; }
 		const auto pl = PlayLayer::get();
 		if (!pl) { return; }
+		if (this != pl->m_player1) { return; }
 		const auto theLevel = pl->m_level;
-		if (!theLevel) return;
-		if (theLevel->isPlatformer()) return;
+		if (!theLevel) { return; }
+		if (theLevel->isPlatformer()) { return; }
+		if (this == pl->m_player2 && theLevel->m_twoPlayerMode) { return; }
 		bool qualifiedForAlwaysNewBest = false;
 		// splitting it into three if statements for readability
-		if (!pl->m_isTestMode && !pl->m_isPracticeMode && getBool("alwaysNewBest") && pl->getCurrentPercentInt() <= pl->m_level->m_normalPercent.value()) { qualifiedForAlwaysNewBest = true; }
+		if (!pl->m_isTestMode && !pl->m_isPracticeMode && getBool("alwaysNewBest") && !isNewBest(pl)) { qualifiedForAlwaysNewBest = true; }
 		if (getBool("alwaysNewBestPlaytest") && pl->m_isTestMode) { qualifiedForAlwaysNewBest = true; }
 		if (getBool("alwaysNewBestPractice") && pl->m_isPracticeMode) { qualifiedForAlwaysNewBest = true; }
 		if (getBool("logging")) {
@@ -243,11 +251,18 @@ class $modify(MyPlayerObject, PlayerObject) {
 		if (!getBool("newBestSFX") || !isNewBest(pl)) { return; }
 		const auto fmod = FMODAudioEngine::get();
 		if (!fmod) { return; }
-		const auto newBestSFXFile = Mod::get()->getConfigDir() / fmt::format("newBest.{}", Mod::get()->getSettingValue<std::string>("extension"));
-		if (std::filesystem::exists(newBestSFXFile)) {
-			return fmod->playEffect(newBestSFXFile.string());
-		}
-		if (!pl->m_isTestMode && !pl->m_isPracticeMode && theLevel->m_stars.value() == 0) {
+		if (const auto newBestSFXFile = Mod::get()->getConfigDir() / fmt::format("newBest.{}", getString("extension")); std::filesystem::exists(newBestSFXFile)) {
+			if (getBool("logging")) {
+				log::info("newBestSFXFile: {}", newBestSFXFile.string());
+				log::info("getString(\"extension\"): {}", getString("extension"));
+			}
+			auto system = fmod->m_system;
+			FMOD::Channel* channel;
+			FMOD::Sound* sound;
+			system->createSound(newBestSFXFile.string().c_str(), FMOD_DEFAULT, nullptr, &sound);
+			system->playSound(sound, nullptr, false, &channel);
+			channel->setVolume(getInt("newBestVolume") / 100.0f);
+		} else if (!pl->m_isTestMode && !pl->m_isPracticeMode && theLevel->m_stars.value() == 0) {
 			fmod->playEffect("magicExplosion.ogg");
 		}
 	}
