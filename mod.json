@@ -24,6 +24,12 @@
 			"type": "bool",
 			"default": false
 		},
+		"changeDeathText": {
+			"name": "Custom \"New Best\" Texts",
+			"description": "Leaving this enabled is semi-important, since it's kind of the original purpose of this mod. You can disable it though if you want, I guess.",
+			"type": "bool",
+			"default": true
+		},
 		"custom": {
 			"name": "Include Custom Messages",
 			"description": "<cp>REQUIRES GAME RESTART TO APPLY.</c>\n\nIncludes your own custom \"New Best\" text.\nPlease edit the \"custom.txt\" file by opening this mod's config directory (look for the golden pencil button at the bottom left of the mod's introductory screen).",
