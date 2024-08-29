@@ -81,7 +81,7 @@ migration failed, womp womp)";
 			}
 		}
 	}
-	
+
 	if (Mod::get()->getSettingValue<bool>("custom")) {
 		auto pathCustom = (Mod::get()->getConfigDir() / "custom.txt");
 		std::ifstream file(pathCustom);
@@ -227,7 +227,6 @@ class $modify(MyPlayerObject, PlayerObject) {
 	}
 	void playerDestroyed(bool p0) {
 		PlayerObject::playerDestroyed(p0);
-		// idea by datacocat: https://discord.com/users/1216556628049133579
 		if (!getBool("enabled")) { return; }
 		const auto pl = PlayLayer::get();
 		if (!pl) { return; }
