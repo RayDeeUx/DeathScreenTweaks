@@ -1,4 +1,9 @@
 # DeathScreenTweaks Changelog
+## v1.4.0
+- Added "Custom 'New Best' SFX" options. (suggested by [datacocat](https://discord.com/users/1216556628049133579))
+- Added "Always New Best" options. (suggested by [datacocat](https://discord.com/users/1216556628049133579))
+- Added "Accurate Death Percent" options.
+- Rewrote a few things in the source code.
 ## v1.3.1
 - Fix a crash from selecting Fonts 1 through 9 (even though they're all objectively ugly). Thanks again, hiimjustin000!
 ## v1.3.0
