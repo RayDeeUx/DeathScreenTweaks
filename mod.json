@@ -113,7 +113,7 @@
 		},
 		"newBestSFX": {
 			"name": "\"New Best\" SFX",
-			"description": "Play a unique SFX whenever you get a \"New Best\" screen. Only applies to Normal Mode, and ignores your setting for <cl>\"Always New Best\"</c>.\n\n<cy>You will hear vanilla SFX if you enable this setting.</c>\n<cy>To use your own SFX during \"New Best\" screens, go to this mod's config directory and make sure there is an audio file named \"</c><cl>newBest</c><cy>\".</c>\n\n<cl>.mp3</c><cy>, </c><cl>.wav</c><cy>, </c><cl>.ogg</c><cy>, </c><cl>.oga</c><cy>, and</c> <cl>.flac</c> <cy>are supported.</c>",
+			"description": "<cl>Original idea by Tacocat.</c>\n\nPlay a unique SFX whenever you get a \"New Best\" screen. Only applies to legitimate \"New Best\" screens from Normal Mode (such screens from enabling <cl>\"Always New Best\"</c> are ignored).\n\n<cy>You will hear vanilla SFX if you enable this setting.</c>\n<cy>To use your own SFX during \"New Best\" screens, go to this mod's config directory and make sure there is an audio file named \"</c><cl>newBest</c><cy>\".</c>\n\n<cl>.mp3</c><cy>, </c><cl>.wav</c><cy>, </c><cl>.ogg</c><cy>, </c><cl>.oga</c><cy>, and</c> <cl>.flac</c> <cy>are supported.</c>",
 			"type": "bool",
 			"default": false
 		},
@@ -141,7 +141,7 @@
 		},
 		"alwaysNewBest": {
 			"name": "Always New Best [Normal Mode]",
-			"description": "Shows a \"New Best\" screen even when you did not die at a new best.\n\n<cy>Shown percentages from enabling this setting will be based on in-game/vanilla calculations</c> <cr>ONLY.</c>\n\n<cr>If you see two \"New Best\" screens when dying in a level, the game is giving you orbs on that level (which you probably hacked). I can't help you with that.</c>",
+			"description": "<cl>Original idea by Tacocat.</c>\n\nShows a \"New Best\" screen, even when you did not die at a new best.\n\n<cy>Shown percentages from enabling this setting will be based on in-game/vanilla calculations</c> <cr>ONLY.</c>\n\n<cr>If you see two \"New Best\" screens when dying in a level, the game is giving you orbs on that level (which you probably hacked). I can't help you with that.</c>",
 			"type": "bool",
 			"default": false
 		},
