@@ -249,7 +249,7 @@ class $modify(MyPlayerObject, PlayerObject) {
 		if (qualifiedForAlwaysNewBest) {
 			pl->showNewBest(true, 0, 0, false, false, false);
 		}
-		if (!getBool("newBestSFX") || !isNewBest(pl)) { return; }
+		if (!getBool("newBestSFX") || !isNewBest(pl) || pl->m_isTestMode || pl->m_isPracticeMode) { return; } // shouldnt play new best sfx in practice/testmode
 		const auto fmod = FMODAudioEngine::get();
 		if (!fmod) { return; }
 		if (const auto newBestSFXFile = Mod::get()->getConfigDir() / fmt::format("newBest.{}", getString("extension")); std::filesystem::exists(newBestSFXFile)) {
@@ -263,7 +263,7 @@ class $modify(MyPlayerObject, PlayerObject) {
 			system->createSound(newBestSFXFile.string().c_str(), FMOD_DEFAULT, nullptr, &sound);
 			system->playSound(sound, nullptr, false, &channel);
 			channel->setVolume(getInt("newBestVolume") / 100.0f);
-		} else if (!pl->m_isTestMode && !pl->m_isPracticeMode && theLevel->m_stars.value() == 0) {
+		} else if (theLevel->m_stars.value() == 0) {
 			fmod->playEffect("magicExplosion.ogg");
 		}
 	}
