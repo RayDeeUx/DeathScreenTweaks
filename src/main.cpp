@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <random>
 #include <regex>
+#include "Settings.hpp"
 
 using namespace geode::prelude;
 
