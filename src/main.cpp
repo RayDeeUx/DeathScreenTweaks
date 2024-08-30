@@ -20,6 +20,7 @@ std::vector<std::string> dNBMigration;
 bool completedJDDNCheck = false;
 
 $on_mod(Loaded) {
+	Mod::get()->addCustomSetting<MySettingValue>("configdir", "none");
 	auto pathDefault = (Mod::get()->getResourcesDir() / "default.txt");
 	std::ifstream file(pathDefault);
 	std::string placeHolder;
