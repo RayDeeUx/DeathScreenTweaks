@@ -8,6 +8,8 @@ project(DeathScreenTweaks VERSION 1.0.0)
 
 add_library(${PROJECT_NAME} SHARED
     src/main.cpp
+    src/Settings.cpp
+    src/Settings.hpp
     # Add your cpp files here
 )
 
