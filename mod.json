@@ -5,7 +5,7 @@
 		"android": "2.206",
 		"win": "2.206"
 	},
-	"version": "v1.4.0",
+	"version": "v1.4.1",
 	"id": "raydeeux.deathscreentweaks",
 	"name": "DeathScreenTweaks",
 	"developers": ["RayDeeUx", "sofabeddd"],
@@ -37,7 +37,13 @@
 		},
 		"custom": {
 			"name": "Include Custom Messages",
-			"description": "<cp>REQUIRES GAME RESTART TO APPLY.</c>\n\nIncludes your own custom \"New Best\" text.\nPlease edit the \"custom.txt\" file by opening this mod's config directory (look for the golden pencil button at the bottom left of the mod's introductory screen).",
+			"description": "<cp>REQUIRES GAME RESTART TO APPLY.</c>\n\nIncludes your own custom \"New Best\" text.\nPlease edit the \"custom.txt\" file by opening this mod's config directory.",
+			"type": "bool",
+			"default": false
+		},
+		"customQuotesOnly": {
+			"name": "Only Use Custom Messages",
+			"description": "<cp>REQUIRES GAME RESTART TO APPLY.</c>\n\nOnly uses your own custom \"New Best\" texts from \"custom.txt\" file.\n\nIf no custom quotes are found, the mod will fall back to the default set of quotes.",
 			"type": "bool",
 			"default": false
 		},

@@ -15,6 +15,7 @@ using namespace geode::prelude;
 const static std::regex percentRegex = std::regex(R"(^(\d+)%$)");
 
 std::vector<std::string> quotes;
+std::vector<std::string> customQuotes;
 std::vector<std::string> dNBMigration;
 
 bool completedJDDNCheck = false;
@@ -98,14 +99,15 @@ migration failed, womp womp)";
 				str = fmt::format("- {} -", str);
 			}
 			quotes.push_back(str);
+			customQuotes.push_back(str);
 		} // technically i can write two one-time use boolean variables to allow people to toggle these things on and off as they please without the quotes adding themselves multiple times into the vector, but i'd rather add the "restart required" barrier just to be extra safe
 	}
 }
 
-std::string grabRandomQuote() {
+std::string grabRandomQuote(std::vector<std::string> vector = quotes) {
 	std::mt19937 randomSeed(std::random_device{}());
-	std::shuffle(quotes.begin(), quotes.end(), randomSeed);
-	return quotes.front();
+	std::shuffle(vector.begin(), vector.end(), randomSeed);
+	return vector.front();
 }
 
 void forceEnableJustDont() {
@@ -188,7 +190,8 @@ class $modify(MyPlayLayer, PlayLayer) {
 					else { node->setString(fmt::format("{:.{}f}%", getCurrentPercent(), getInt("accuracy")).c_str()); }
 					continue;
 				}
-				const std::string randomString = grabRandomQuote();
+				std::string randomString = grabRandomQuote();
+				if (!customQuotes.empty() && getBool("customQuotesOnly")) randomString = grabRandomQuote(customQuotes);
 				if (fontFile != "goldFont.fnt" || std::ranges::find(quotes, nodeString) != quotes.end() || randomString.empty()) { continue; } // avoid regenerating new quotes
 				if (getBool("hideNewBestMessages")) {
 					node->setVisible(false);
