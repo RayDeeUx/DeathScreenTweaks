@@ -1,4 +1,6 @@
 # DeathScreenTweaks Changelog
+## v1.4.1
+- Added "Custom Quotes Only" option, by popular demand. (If no custom quotes are found, the mod will fall back to anything enabled from the default set of quotes.)
 ## v1.4.0
 - Added "Custom 'New Best' SFX" options. (suggested by [datacocat](https://discord.com/users/1216556628049133579))
 - Added "Always New Best" options. (suggested by [datacocat](https://discord.com/users/1216556628049133579))

@@ -191,7 +191,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 					continue;
 				}
 				std::string randomString = grabRandomQuote();
-				if (!customQuotes.empty() && getBool("customQuotesOnly")) randomString = grabRandomQuote(customQuotes);
+				if (!customQuotes.empty() && getBool("customTextsOnly")) randomString = grabRandomQuote(customQuotes);
 				if (fontFile != "goldFont.fnt" || std::ranges::find(quotes, nodeString) != quotes.end() || randomString.empty()) { continue; } // avoid regenerating new quotes
 				if (getBool("hideNewBestMessages")) {
 					node->setVisible(false);

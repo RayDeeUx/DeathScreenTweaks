@@ -41,9 +41,9 @@
 			"type": "bool",
 			"default": false
 		},
-		"customQuotesOnly": {
+		"customTextsOnly": {
 			"name": "Only Use Custom Messages",
-			"description": "<cp>REQUIRES GAME RESTART TO APPLY.</c>\n\nOnly uses your own custom \"New Best\" texts from \"custom.txt\" file.\n\nIf no custom quotes are found, the mod will fall back to the default set of quotes.",
+			"description": "<cp>REQUIRES GAME RESTART TO APPLY.</c>\n\nOnly uses your own custom \"New Best\" texts from \"custom.txt\" file.\n\nIf no custom quotes are found, the mod will fall back to the default set of quotes.\n\n<cr>Enabling this setting will override the \"Include Brandon Rogers\" setting if you have written your own custom quotes.</c>",
 			"type": "bool",
 			"default": false
 		},
