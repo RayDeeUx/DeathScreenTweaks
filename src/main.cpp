@@ -198,6 +198,17 @@ class $modify(MyPlayLayer, PlayLayer) {
 					continue;
 				}
 				if (!getBool("changeDeathText")) { continue; }
+				auto fontID = getInt("customFont");
+				if (fontID == -3) {
+					node->setFntFile("newBestFont.fnt"_spr);
+					node->setExtraKerning(1); // chars are too close to each other
+					randomString = utils::string::toUpper(randomString); // oxygene one does not support lowercase chars
+					if (randomString.starts_with("\'\'") && randomString.ends_with("\"")) {
+						randomString = randomString.replace(0, 2, "\"");
+					} else if (randomString.starts_with("\"") && randomString.ends_with("\'\'")) {
+						randomString = randomString.replace(0, 1, "\'\'");
+					}
+				}
 				node->setString(randomString.c_str(), true);
 				if (getBool("lineWrapping")) {
 					node->setAlignment(CCTextAlignment::kCCTextAlignmentCenter); // center text
@@ -206,12 +217,11 @@ class $modify(MyPlayLayer, PlayLayer) {
 					node->setWidth(420.f); // width of end screen minus 20px, not marajuana referenec
 					node->setScale(scale);
 				} else { node->limitLabelWidth(420.f, 10.f, .25f); } // you never know how long these custom strings might get
-				auto fontID = getInt("customFont");
 				if (fontID == -2) { node->setFntFile("chatFont.fnt"); }
 				else if (fontID == -1) { node->setFntFile("bigFont.fnt"); }
-				else if (fontID != 0) { node->setFntFile(fmt::format("gjFont{:02d}.fnt", fontID).c_str()); }
+				else if (fontID != 0 && fontID != -3) { node->setFntFile(fmt::format("gjFont{:02d}.fnt", fontID).c_str()); }
 				node->setAlignment(kCCTextAlignmentCenter);
-				if (fontID != 0 && getBool("customFontGoldColor")) { node->setColor({254, 207, 6}); }
+				if (fontID != 0 && fontID != -3 && getBool("customFontGoldColor")) { node->setColor({254, 207, 6}); }
 			}
 		}
 	}

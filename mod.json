@@ -78,10 +78,10 @@
 		},
 		"customFont": {
 			"name": "\"New Best\" Text Font #",
-			"description": "Sets the font of all \"New Best\" death messages. Default is 0 (falls back to <cl>goldFont</c>, as seen in vanilla Geometry Dash).\n\nNotes:\n- <cj>-1 for Pusab, -2 for chatFont.</c>\n- <cy>To use font numbers greater than 0: refer to the level editor for the font each number corresponds to, subtract that number by 1, and then put it here.</c>",
+			"description": "Sets the font of all \"New Best\" death messages. Default is 0 (falls back to <cl>goldFont</c>, as seen in vanilla Geometry Dash).\n\nNotes:\n- <cj>-1 for Pusab, -2 for chatFont, and -3 for Oxygene One (the font used to resemble the original \"New Best\" font,</c> <cl>suggested by Saritah/DeepResonanceX</c><cj>).</c>\n- <cy>To use font numbers greater than 0: refer to the level editor for the font each number corresponds to, subtract that number by 1, and then put it here.</c>",
 			"type": "int",
 			"default": 0,
-			"min": -2,
+			"min": -3,
 			"max": 59,
 			"control": {
 				"input": true,
@@ -188,7 +188,9 @@
 	},
 	"resources": {
 		"files": [
-			"resources/*.txt"
+			"resources/*.txt",
+			"resources/*.png",
+			"resources/*.fnt"
 		]
 	},
 	"incompatibilities": [
