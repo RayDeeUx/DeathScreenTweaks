@@ -200,6 +200,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 				auto fontID = getInt("customFont");
 				if (fontID == -3) {
 					node->setFntFile("newBestFont.fnt"_spr);
+					node->setExtraKerning(4);
 					randomString = utils::string::toUpper(randomString); // oxygene one does not support lowercase chars
 					if (randomString.starts_with("\'\'") && randomString.ends_with("\"")) {
 						randomString = randomString.replace(0, 2, "\"");
