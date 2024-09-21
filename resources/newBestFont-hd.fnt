@@ -60,7 +60,7 @@ char id=94 x=275 y=216 width=33 height=32 xoffset=5 yoffset=-5 xadvance=22 page=
 char id=61 x=310 y=216 width=29 height=29 xoffset=5 yoffset=6 xadvance=19 page=0 chnl=0 letter="="
 char id=43 x=341 y=216 width=29 height=29 xoffset=5 yoffset=6 xadvance=19 page=0 chnl=0 letter="+"
 char id=44 x=372 y=216 width=24 height=29 xoffset=5 yoffset=22 xadvance=14 page=0 chnl=0 letter=","
-char id=0 x=398 y=216 width=25 height=25 xoffset=7 yoffset=6 xadvance=17 page=0 chnl=0 letter="•"
+char id=0 x=398 y=216 width=25 height=25 xoffset=7 yoffset=6 xadvance=17 page=0 chnl=0 letter="ï¿½"
 char id=39 x=425 y=216 width=19 height=24 xoffset=5 yoffset=-3 xadvance=9 page=0 chnl=0 letter="'"
 char id=46 x=446 y=216 width=24 height=24 xoffset=5 yoffset=22 xadvance=14 page=0 chnl=0 letter="."
 char id=126 x=2 y=263 width=40 height=24 xoffset=5 yoffset=-3 xadvance=30 page=0 chnl=0 letter="~"
@@ -68,4 +68,4 @@ char id=96 x=44 y=263 width=22 height=20 xoffset=6 yoffset=-5 xadvance=16 page=0
 char id=45 x=68 y=263 width=29 height=19 xoffset=5 yoffset=12 xadvance=20 page=0 chnl=0 letter="-"
 char id=95 x=99 y=263 width=41 height=17 xoffset=3 yoffset=35 xadvance=27 page=0 chnl=0 letter="_"
 char id=32 x=142 y=263 width=13 height=13 xoffset=4 yoffset=29 xadvance=30 page=0 chnl=0 letter=" "
-kernings count=0
+kernings count=2

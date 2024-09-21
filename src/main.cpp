@@ -197,11 +197,9 @@ class $modify(MyPlayLayer, PlayLayer) {
 					node->setVisible(false);
 					continue;
 				}
-				if (!getBool("changeDeathText")) { continue; }
 				auto fontID = getInt("customFont");
 				if (fontID == -3) {
 					node->setFntFile("newBestFont.fnt"_spr);
-					node->setExtraKerning(1); // chars are too close to each other
 					randomString = utils::string::toUpper(randomString); // oxygene one does not support lowercase chars
 					if (randomString.starts_with("\'\'") && randomString.ends_with("\"")) {
 						randomString = randomString.replace(0, 2, "\"");
@@ -209,7 +207,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 						randomString = randomString.replace(0, 1, "\'\'");
 					}
 				}
-				node->setString(randomString.c_str(), true);
+				if (getBool("changeDeathText")) node->setString(randomString.c_str(), true);
 				if (getBool("lineWrapping")) {
 					node->setAlignment(CCTextAlignment::kCCTextAlignmentCenter); // center text
 					float scale = .25f * (155.f / randomString.length());

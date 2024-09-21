@@ -60,7 +60,7 @@ char id=94 x=875 y=289 width=57 height=55 xoffset=8 yoffset=-4 xadvance=43 page=
 char id=44 x=934 y=289 width=39 height=49 xoffset=7 yoffset=52 xadvance=29 page=0 chnl=0 letter=","
 char id=43 x=2 y=372 width=49 height=49 xoffset=7 yoffset=20 xadvance=38 page=0 chnl=0 letter="+"
 char id=61 x=53 y=372 width=49 height=49 xoffset=7 yoffset=20 xadvance=38 page=0 chnl=0 letter="="
-char id=0 x=104 y=372 width=41 height=41 xoffset=11 yoffset=19 xadvance=34 page=0 chnl=0 letter="•"
+char id=0 x=104 y=372 width=41 height=41 xoffset=11 yoffset=19 xadvance=34 page=0 chnl=0 letter="ï¿½"
 char id=46 x=147 y=372 width=39 height=39 xoffset=7 yoffset=52 xadvance=29 page=0 chnl=0 letter="."
 char id=126 x=188 y=372 width=71 height=39 xoffset=7 yoffset=0 xadvance=61 page=0 chnl=0 letter="~"
 char id=39 x=261 y=372 width=28 height=39 xoffset=7 yoffset=0 xadvance=18 page=0 chnl=0 letter="'"
@@ -68,4 +68,4 @@ char id=96 x=291 y=372 width=35 height=31 xoffset=10 yoffset=-3 xadvance=32 page
 char id=45 x=328 y=372 width=49 height=28 xoffset=7 yoffset=31 xadvance=40 page=0 chnl=0 letter="-"
 char id=95 x=379 y=372 width=73 height=24 xoffset=5 yoffset=78 xadvance=53 page=0 chnl=0 letter="_"
 char id=32 x=454 y=372 width=17 height=17 xoffset=6 yoffset=65 xadvance=61 page=0 chnl=0 letter=" "
-kernings count=0
+kernings count=2

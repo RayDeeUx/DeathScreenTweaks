@@ -63,9 +63,9 @@ char id=44 x=2 y=135 width=12 height=14 xoffset=3 yoffset=11 xadvance=7 page=0 c
 char id=39 x=16 y=135 width=9 height=12 xoffset=3 yoffset=-2 xadvance=5 page=0 chnl=0 letter="'"
 char id=46 x=27 y=135 width=12 height=12 xoffset=3 yoffset=11 xadvance=7 page=0 chnl=0 letter="."
 char id=126 x=41 y=135 width=20 height=12 xoffset=3 yoffset=-2 xadvance=15 page=0 chnl=0 letter="~"
-char id=0 x=63 y=135 width=12 height=12 xoffset=3 yoffset=3 xadvance=8 page=0 chnl=0 letter="•"
+char id=0 x=63 y=135 width=12 height=12 xoffset=3 yoffset=3 xadvance=8 page=0 chnl=0 letter="ï¿½"
 char id=96 x=77 y=135 width=11 height=10 xoffset=3 yoffset=-2 xadvance=8 page=0 chnl=0 letter="`"
 char id=45 x=90 y=135 width=14 height=9 xoffset=3 yoffset=5 xadvance=10 page=0 chnl=0 letter="-"
 char id=95 x=106 y=135 width=20 height=8 xoffset=1 yoffset=17 xadvance=13 page=0 chnl=0 letter="_"
 char id=32 x=128 y=135 width=6 height=6 xoffset=2 yoffset=14 xadvance=15 page=0 chnl=0 letter=" "
-kernings count=0
+kernings count=2
