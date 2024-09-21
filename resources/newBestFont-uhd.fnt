@@ -68,4 +68,4 @@ char id=96 x=291 y=372 width=35 height=31 xoffset=10 yoffset=-3 xadvance=32 page
 char id=45 x=328 y=372 width=49 height=28 xoffset=7 yoffset=31 xadvance=40 page=0 chnl=0 letter="-"
 char id=95 x=379 y=372 width=73 height=24 xoffset=5 yoffset=78 xadvance=53 page=0 chnl=0 letter="_"
 char id=32 x=454 y=372 width=17 height=17 xoffset=6 yoffset=65 xadvance=61 page=0 chnl=0 letter=" "
-kernings count=2
+kernings count=0
