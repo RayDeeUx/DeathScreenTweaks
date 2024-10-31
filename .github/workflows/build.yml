@@ -37,7 +37,7 @@ jobs:
         with:
           # build-config: RelWithDebInfo # [vscode] comment this out (and the line below!) to Release mode
           # export-pdb: true # [vscode] comment this out (and the line above!) to Release mode
-          # bindings: "raydeeux/bindings" # [vscode] comment this out to swap to "geode-sdk/bindings"
+          # bindings: "RayDeeUx/bindings" # [vscode] comment this out to swap to "geode-sdk/bindings"
           # bindings-ref: "deathscreentweaks" # comment this out to use default branch
           # sdk: nightly # [vscode] comment this out to use stable Geode SDK version
           combine: true
