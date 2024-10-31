@@ -2,6 +2,7 @@
 ## v1.4.2
 - Fix a bug where disabling "Custom "New Best" Texts" would also disable font settings for "New Best" texts.
 - Add Oxygene One font support (suggested by [Saritahh](https://discord.com/users/305158690204286979)).
+- Increase minimum requirements for using DeathScreenTweaks.
 ## v1.4.1
 - Added "Custom Quotes Only" option, by popular demand. (If no custom quotes are found, the mod will fall back to anything enabled from the default set of quotes.)
 ## v1.4.0
