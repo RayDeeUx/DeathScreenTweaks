@@ -1,4 +1,6 @@
 # DeathScreenTweaks Changelog
+## v1.4.3
+- Port to 2.2074.
 ## v1.4.2
 - Fix a bug where disabling "Custom "New Best" Texts" would also disable font settings for "New Best" texts.
 - Add Oxygene One font support (suggested by [Saritahh](https://discord.com/users/305158690204286979)).
