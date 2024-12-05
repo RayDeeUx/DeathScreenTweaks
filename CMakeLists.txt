@@ -8,6 +8,12 @@ project(DeathScreenTweaks VERSION 1.0.0)
 
 add_library(${PROJECT_NAME} SHARED
     src/main.cpp
+    src/MenuLayer.cpp
+    src/PlayLayer.cpp
+    src/FLAlertLayer.cpp
+    src/PlayerObject.cpp
+    src/Manager.cpp
+    src/Manager.hpp
     src/Settings.cpp
     src/Settings.hpp
     # Add your cpp files here

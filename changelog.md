@@ -1,4 +1,6 @@
 # DeathScreenTweaks Changelog
+## v1.5.0
+- Refactor source code into multiple files.
 ## v1.4.3
 - Port to 2.2074.
 ## v1.4.2
