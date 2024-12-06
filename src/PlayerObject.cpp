@@ -15,8 +15,7 @@ class $modify(MyPlayerObject, PlayerObject) {
 		PlayerObject::playerDestroyed(p0);
 		if (!getBool("enabled")) return;
 		const auto pl = PlayLayer::get();
-		if (!pl) return;
-		if (this != pl->m_player1) return;
+		if (!pl || this != pl->m_player1) return;
 		const auto theLevel = pl->m_level;
 		if (!theLevel || theLevel->isPlatformer()) return;
 		if (this == pl->m_player2 && theLevel->m_twoPlayerMode) return;

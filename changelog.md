@@ -1,6 +1,8 @@
 # DeathScreenTweaks Changelog
 ## v1.5.0
 - Refactor source code into multiple files.
+- Fix a bug where quotation marks weren't being replaced properly when using Oxygene One as the death screen font.
+- Redo Oxygene One font.
 ## v1.4.3
 - Port to 2.2074.
 ## v1.4.2
