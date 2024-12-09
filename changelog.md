@@ -2,7 +2,8 @@
 ## v1.5.0
 - Refactor source code into multiple files.
 - Fix a bug where quotation marks weren't being replaced properly when using Oxygene One as the death screen font.
-- Redo Oxygene One font.
+- Redo Oxygene One font to more accurately represent what's seen in vanilla GD.
+- Replace a song lyric from the default set with another.
 ## v1.4.3
 - Port to 2.2074.
 ## v1.4.2
