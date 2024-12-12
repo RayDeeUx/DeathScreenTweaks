@@ -11,6 +11,7 @@
 
 class $modify(MyPlayLayer, PlayLayer) {
 	static std::string grabRandomQuote(std::vector<std::string> vector = manager->quotes) {
+		if (vector.empty()) return "";
 		std::mt19937 randomSeed(std::random_device{}());
 		std::shuffle(vector.begin(), vector.end(), randomSeed);
 		return vector.front();
