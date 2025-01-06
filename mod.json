@@ -5,7 +5,7 @@
 		"android": "2.2074",
 		"win": "2.2074"
 	},
-	"version": "v1.5.1",
+	"version": "v1.5.2",
 	"id": "raydeeux.deathscreentweaks",
 	"name": "DeathScreenTweaks",
 	"developers": ["RayDeeUx", "sofabeddd"],
@@ -50,7 +50,7 @@
 		},
 		"brandonRogers": {
 			"name": "Include Brandon Rogers (READ!)",
-			"description": "<cp>REQUIRES GAME RESTART TO APPLY.</c>\n\nIncludes quotes from YouTube comedian Brandon Rogers.\n<cr>WARNING: Brandon Rogers' humor may not be for everyone.</c>\n<cy>By enabling this option, you agree to hold harmless the mod developer (RayDeeUx) or any lead developer of Geode and assume all responsibility for any resulting damages, including damages to your emotions, ego, self-esteem, or moral compass.</c>\n\n<cr>This is your only warning.</c>",
+			"description": "<cp>REQUIRES GAME RESTART TO APPLY.</c>\n\nIncludes quotes from YouTube comedian Brandon Rogers.\n<cr>WARNING: Brandon Rogers' humor may not be for everyone, but the quotes have been allowed by Geode's lead developers.</c>\n\n<cr>This is your only warning.</c>",
 			"type": "bool",
 			"default": false
 		},
@@ -79,7 +79,7 @@
 		},
 		"customFont": {
 			"name": "\"New Best\" Text Font #",
-			"description": "Sets the font of all \"New Best\" death messages. Default is 0 (falls back to <cl>goldFont</c>, as seen in vanilla Geometry Dash).\n\nNotes:\n- <cj>-1 for Pusab, -2 for chatFont, and -3 for Oxygene One (the font used to resemble the original \"New Best\" font,</c> <cl>suggested by Saritahh</c><cj>).</c>\n- <cy>To use font numbers greater than 0: refer to the level editor for the font each number corresponds to, subtract that number by 1, and then put it here.</c>\n<cl>- If using Oxygene One/-3, double quotation marks (\") will not be displayed. This is a problem from Jakob Fischer, the designer of the Oxygene One font.</c>",
+			"description": "Sets the font of all \"New Best\" death messages. 0 for Pusab, -1 for Golden Pusab, -2 for chatFont.\n-All other numbers: use the level editor, find the font each number corresponds to, subtract that number by 1, then put it here.</c>",
 			"type": "int",
 			"default": 0,
 			"min": -3,
@@ -125,7 +125,7 @@
 		},
 		"newBestSFX": {
 			"name": "\"New Best\" SFX",
-			"description": "<cl>Original idea by Tacocat.</c>\n\nPlay a unique SFX whenever you get a \"New Best\" screen. Only applies to legitimate \"New Best\" screens from Normal Mode (such screens from enabling <cl>\"Always New Best\"</c> are ignored).\n\n<cy>You will hear vanilla SFX if you enable this setting.</c>\n<cy>To use your own SFX during \"New Best\" screens, go to this mod's config directory and make sure there is an audio file named \"</c><cl>newBest</c><cy>\".</c>\n\n<cl>.mp3</c><cy>, </c><cl>.wav</c><cy>, </c><cl>.ogg</c><cy>, </c><cl>.oga</c><cy>, and</c> <cl>.flac</c> <cy>are supported.</c>",
+			"description": "<cl>Original idea by Tacocat.</c>\n\nPlay a unique SFX whenever you get a legitimate \"New Best\" screen during Normal Mode.Make sure there is an audio file named \"</c><cl>newBest</c><cy>\" in the config directory.</c>\n\n<cl>.mp3</c><cy>, </c><cl>.wav</c><cy>, </c><cl>.ogg</c><cy>, </c><cl>.oga</c><cy>, and</c> <cl>.flac</c> <cy>are supported.</c>",
 			"type": "bool",
 			"default": false
 		},
@@ -153,7 +153,7 @@
 		},
 		"alwaysNewBest": {
 			"name": "Always New Best [Normal Mode]",
-			"description": "<cl>Original idea by Tacocat.</c>\n\nShows a \"New Best\" screen, even when you did not die at a new best.\n\n<cy>Shown percentages from enabling this setting will be based on in-game/vanilla calculations</c> <cr>ONLY.</c>\n\n<cr>If you see two \"New Best\" screens when dying in a level, the game is giving you orbs on that level (which you probably hacked). I can't help you with that.</c>",
+			"description": "<cl>Original idea by Tacocat.</c>\n\nShows a \"New Best\" screen, even when you did not make a new best.\n\n<cy>Percentages displayed from this setting use in-game/vanilla calculations</c> <cr>ONLY.</c>\n\n<cr>If you see two \"New Best\" screens when dying in a level, you probably hacked that level.</c>",
 			"type": "bool",
 			"default": false
 		},
@@ -165,7 +165,7 @@
 		},
 		"alwaysNewBestPlaytest": {
 			"name": "Always New Best [Testmode]",
-			"description": "Always show a \"New Best\" when you die in <cl>testmode</c> (playtesting levels).\n<cl>You really shouldn't enable this. It just looks silly. But the option's here anyway because why not.</c>",
+			"description": "Always show a \"New Best\" when you die in <cl>testmode</c> (playtesting levels).\n<cl>You really shouldn't enable this. It just looks silly. But the option's here anyway, because why not.</c>",
 			"type": "bool",
 			"default": false
 		},

@@ -10,7 +10,6 @@ add_library(${PROJECT_NAME} SHARED
     src/main.cpp
     src/MenuLayer.cpp
     src/PlayLayer.cpp
-    src/FLAlertLayer.cpp
     src/PlayerObject.cpp
     src/Manager.cpp
     src/Manager.hpp
