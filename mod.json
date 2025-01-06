@@ -125,7 +125,7 @@
 		},
 		"newBestSFX": {
 			"name": "\"New Best\" SFX",
-			"description": "<cl>Original idea by Tacocat.</c>\n\nPlay a unique SFX whenever you get a legitimate \"New Best\" screen during Normal Mode.Make sure there is an audio file named \"</c><cl>newBest</c><cy>\" in the config directory.</c>\n\n<cl>.mp3</c><cy>, </c><cl>.wav</c><cy>, </c><cl>.ogg</c><cy>, </c><cl>.oga</c><cy>, and</c> <cl>.flac</c> <cy>are supported.</c>",
+			"description": "<cl>Original idea by Tacocat.</c>\n\nPlay a unique SFX whenever you get a legitimate \"New Best\" screen during Normal Mode.Make sure there is an audio file named \"</c><cl>newBest</c><cy>\" in the config directory.</c>\n\n.mp3, .wav, .ogg, .oga, and .flac are supported.",
 			"type": "bool",
 			"default": false
 		},
