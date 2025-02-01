@@ -2,6 +2,7 @@
 #include <fstream>
 #include "Settings.hpp"
 #include "Manager.hpp"
+#include "boilerplate.hpp"
 
 #define manager Manager::getSharedInstance()
 
@@ -9,22 +10,9 @@ using namespace geode::prelude;
 
 $on_mod(Loaded) {
 	(void) Mod::get()->registerCustomSettingType("configdir", &MyButtonSettingV3::parse);
-	auto pathDefault = (Mod::get()->getResourcesDir() / "default.txt");
-	std::ifstream file(pathDefault);
-	std::string placeHolder;
-	while (std::getline(file, placeHolder)) {
-		manager->quotes.push_back(placeHolder);
-	}
+	(void) Mod::get()->registerCustomSettingType("refresh", &MyButtonSettingV3::parse);
 
-	if (Mod::get()->getSettingValue<bool>("brandonRogers")) {
-		auto pathRogers = (Mod::get()->getResourcesDir() / "brandonrogers.txt");
-		std::ifstream bRogersFile(pathRogers);
-		std::string bRogers;
-		while (std::getline(bRogersFile, bRogers)) {
-			std::string hBananaStud = fmt::format("\"{}", bRogers);
-			manager->quotes.push_back(hBananaStud);
-		} // technically i can write two one-time use boolean variables to allow people to toggle these things on and off as they please without the quotes adding themselves multiple times into the vector, but i'd rather add the "restart required" barrier just to be extra safe
-	}
+	addResourceQuotes();
 
 	auto oldDNBMessages = (dirs::getModConfigDir() / "raydeeux.disturbingnewbests" / "custom.txt");
 	if (std::filesystem::exists(oldDNBMessages) && !Mod::get()->getSavedValue<bool>("migrationFromDNBSuccess")) {
@@ -74,21 +62,21 @@ migration failed, womp womp)";
 		}
 	}
 
-	if (Mod::get()->getSettingValue<bool>("custom")) {
-		auto pathCustomConfig = (Mod::get()->getConfigDir() / "custom.txt");
-		std::ifstream fileConfig(pathCustomConfig);
-		std::string str;
-		while (std::getline(fileConfig, str)) {
-			if (str.starts_with("\"") && str.ends_with("\"")) {
-				str = str.replace(0, 1, "\'\'");
-			} else if (str.starts_with("\'") && str.ends_with("\'")) {
-				str = str.replace(0, 2, "\"");
-			}
-			if (!Mod::get()->getSavedValue<bool>("noHyphens")) {
-				str = fmt::format("- {} -", str);
-			}
-			manager->quotes.push_back(str);
-			manager->customQuotes.push_back(str);
-		} // technically i can write two one-time use boolean variables to allow people to toggle these things on and off as they please without the quotes adding themselves multiple times into the vector, but i'd rather add the "restart required" barrier just to be extra safe
-	}
+	addQuotes("custom");
+
+	listenForSettingChanges("default", [](bool unusedVar) {
+		managerReset();
+	});
+
+	listenForSettingChanges("brandonRogers", [](bool unusedVar) {
+		managerReset();
+	});
+
+	listenForSettingChanges("snl50", [](bool unusedVar) {
+		managerReset();
+	});
+
+	listenForSettingChanges("custom", [](bool unusedVar) {
+		managerReset();
+	});
 }

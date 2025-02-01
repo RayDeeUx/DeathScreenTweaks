@@ -19,10 +19,15 @@
 			"default": true
 		},
 		"configdir": {
-			"name": "Click me to open the Config Directory!",
+			"name": "Config Directory: Manage Custom Texts",
 			"description": "Opens the config directory.",
-			"desc": "<cy>(Hopefully.)</c>\nThis setting does literally nothing new except being a button that acts as a shortcut to open the config directory for this mod (which is kind of important for using this mod properly, because this is where you will store your custom death screen splash texts), because the legendary developers in the Geode Team themselves forgot to add a shortcut button that would have done this exact same thing, and I have gotten far too many folks (rightfully) asking me to find the config directory when using some of my other mods, and I hate repeating the same things over and over again, and I don't know if the next major update for Geode will also repeat this mistake where HJfod forgets to include a config directory shortcut button, so this setting and this button are here for extra insurance, so please enjoy this extra button, I guess. Anyway, by the time you're finished reading this, your device should be finished with opening the config directory; press \"Aight\" to close this window.",
+			"desc": "<cy>(Hopefully.)</c>\nThis setting does literally nothing new except being a button that acts as a shortcut to open the config directory for this mod (which is kind of important for using this mod properly, because this is where you will store your custom end level screen splash texts), because the legendary developers in the Geode Team themselves forgot to add a shortcut button that would have done this exact same thing, and I have gotten far too many folks (rightfully) asking me to find the config directory when using some of my other mods, and I hate repeating the same things over and over again, and I don't know if the next major update for Geode will also repeat this mistake where HJfod forgets to include a config directory shortcut button, so this setting and this button are here for extra insurance, so please enjoy this extra button, I guess. Anyway, by the time you're finished reading this, your device should be finished with opening the config directory; press \"Aight\" to close this window.",
 			"type": "custom:configdir"
+		},
+		"refresh": {
+			"name": "Refresh Custom Texts",
+			"description": "Refresh your custom texts.",
+			"type": "custom:refresh"
 		},
 		"checkJustDont": {
 			"name": "Run \"Just Dont\"/\"Do Not...\" Check",
@@ -37,22 +42,28 @@
 			"default": true
 		},
 		"custom": {
-			"name": "Include Custom Messages",
-			"description": "<cp>REQUIRES GAME RESTART TO APPLY.</c>\n\nIncludes your own custom \"New Best\" text.\nPlease edit the \"custom.txt\" file by opening this mod's config directory.",
+			"name": "custom.txt \"New Best\" Texts",
+			"description": "Includes your own custom \"New Best\" text.\nPlease edit the \"custom.txt\" file by opening this mod's config directory.",
 			"type": "bool",
 			"default": false
 		},
 		"customTextsOnly": {
-			"name": "Only Use Custom Messages",
-			"description": "<cp>REQUIRES GAME RESTART TO APPLY.</c>\n\nOnly uses your own custom \"New Best\" texts from \"custom.txt\" file.\n\nIf no custom quotes are found, the mod will fall back to the default set of quotes.\n\n<cr>Enabling this setting will override the \"Include Brandon Rogers\" setting if you have written your own custom quotes.</c>",
+			"name": "Only Use custom.txt \"New Best\" Texts",
+			"description": "Only uses your own custom \"New Best\" texts from \"custom.txt\" file.\n\nIf no custom quotes are found, the mod will fall back to the default set of quotes.\n\n<cr>Enabling this setting will override the \"Include Brandon Rogers\" setting if you have written your own custom quotes.</c>",
 			"type": "bool",
 			"default": false
 		},
 		"brandonRogers": {
-			"name": "Include Brandon Rogers (READ!)",
-			"description": "<cp>REQUIRES GAME RESTART TO APPLY.</c>\n\nIncludes quotes from YouTube comedian Brandon Rogers.\n<cr>WARNING: Brandon Rogers' humor may not be for everyone, but the quotes have been allowed by Geode's lead developers.</c>\n\n<cr>This is your only warning.</c>",
+			"name": "Brandon Rogers (READ!)",
+			"description": "Includes quotes from YouTube comedian Brandon Rogers.\n<cr>WARNING: Brandon Rogers' humor may not be for everyone, but the quotes have been allowed by Geode's lead developers.</c>\n\n<cr>This is your only warning.</c>",
 			"type": "bool",
 			"default": false
+		},
+		"snl50": {
+			"name": "SNL50",
+			"description": "Includes quotes from Saturday Night Live (one from each season, hopefully).",
+			"type": "bool",
+			"default": true
 		},
 		"hideNewBestMessages": {
 			"name": "Hide \"New Best\" Messages",

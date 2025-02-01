@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Geode/loader/SettingV3.hpp>
+#include "boilerplate.hpp"
 
 using namespace geode::prelude;
 
@@ -30,6 +31,7 @@ public:
 
 class MyButtonSettingNodeV3 : public SettingNodeV3 {
 private:
+	std::string m_title = "";
 	std::string m_desc = "";
 public:
 	void onCommit() {}
@@ -41,6 +43,10 @@ public:
 		return false;
 	}
 	void onConfigDirButton(CCObject*) {
+		if (m_title == "Refresh Custom Texts") {
+			managerReset();
+			return FLAlertLayer::create("Success!", "You've refreshed your custom quotes.", "Close")->show();
+		}
 		file::openFolder(Mod::get()->getConfigDir());
 		#ifndef GEODE_IS_MOBILE
 		if (!CCKeyboardDispatcher::get()->getShiftKeyPressed()) return;
@@ -54,10 +60,10 @@ public:
 	bool init(std::shared_ptr<MyButtonSettingV3> setting, float width) {
 		if (!SettingNodeV3::init(setting, width)) return false;
 		this->setContentSize({ width, 40.f });
-		std::string name = setting->getName().value();
+		m_title = setting->getName().value();
 		m_desc = setting->getDescription().value();
 		auto theMenu = CCMenu::create();
-		auto theLabel = CCLabelBMFont::create(name.c_str(), "bigFont.fnt");
+		auto theLabel = CCLabelBMFont::create(m_title.c_str(), "bigFont.fnt");
 
 		// copied a bit from louis ck jr
 		theLabel->setScale(.35f);
