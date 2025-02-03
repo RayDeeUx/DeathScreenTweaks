@@ -59,8 +59,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 					continue;
 				}
 				std::string randomString = grabRandomQuote();
-				if (!manager->customQuotes.empty() && getModBool("customTextsOnly")) randomString = grabRandomQuote(manager->customQuotes);
-				if (fontFile != "goldFont.fnt" || std::ranges::find(manager->quotes, nodeString) != manager->quotes.end() || randomString.empty()) continue; // avoid regenerating new quotes
+				if (fontFile != "goldFont.fnt" || std::ranges::find(manager->quotes, nodeString) != manager->quotes.end()) continue; // avoid regenerating new quotes
 				if (getModBool("hideNewBestMessages")) {
 					node->setVisible(false);
 					continue;
@@ -72,14 +71,17 @@ class $modify(MyPlayLayer, PlayLayer) {
 					randomString = utils::string::toUpper(randomString); // oxygene one does not support lowercase chars
 					randomString = utils::string::replace(randomString, "\"", "\'\'"); // oxygene one does not support `"` char
 				}
-				if (getModBool("changeDeathText")) node->setString(randomString.c_str(), true);
+				if (getModBool("changeDeathText") && !randomString.empty()) {
+					if (!manager->customQuotes.empty() && getModBool("customTextsOnly")) randomString = grabRandomQuote(manager->customQuotes);
+					node->setString(randomString.c_str(), true);
+				}
 				if (getModBool("lineWrapping")) {
 					node->setAlignment(CCTextAlignment::kCCTextAlignmentCenter); // center text
 					float scale = .25f * (155.f / randomString.length());
 					if (scale > Mod::get()->getSettingValue<double>("maxScale")) scale = Mod::get()->getSettingValue<double>("maxScale");
 					node->setWidth(420.f); // width of end screen minus 20px, not marajuana referenec
 					node->setScale(scale);
-				} else { node->limitLabelWidth(420.f, 10.f, .25f); } // you never know how long these custom strings might get
+				} else node->limitLabelWidth(420.f, 10.f, .25f); // you never know how long these custom strings might get
 				if (fontID == -2) node->setFntFile("chatFont.fnt");
 				else if (fontID == -1) node->setFntFile("bigFont.fnt");
 				else if (fontID != 0 && fontID != -3) node->setFntFile(fmt::format("gjFont{:02d}.fnt", fontID).c_str());
