@@ -53,6 +53,12 @@
 			"type": "bool",
 			"default": false
 		},
+		"default": {
+			"name": "Default Set of \"New Best\" Texts",
+			"description": "Includes the default set of \"New Best\" Texts from this mod.",
+			"type": "bool",
+			"default": true
+		},
 		"brandonRogers": {
 			"name": "Brandon Rogers (READ!)",
 			"description": "Includes quotes from YouTube comedian Brandon Rogers.\n<cr>WARNING: Brandon Rogers' humor may not be for everyone, but the quotes have been allowed by Geode's lead developers.</c>\n\n<cr>This is your only warning.</c>",
