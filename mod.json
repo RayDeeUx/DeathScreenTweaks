@@ -36,7 +36,7 @@
 			"default": false
 		},
 		"changeDeathText": {
-			"name": "Custom \"New Best\" Texts",
+			"name": "Change \"New Best\" Texts",
 			"description": "Leaving this enabled is semi-important, since it's kind of the original purpose of this mod. You can disable it though if you want, I guess.",
 			"type": "bool",
 			"default": true
