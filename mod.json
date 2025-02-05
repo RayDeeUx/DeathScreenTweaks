@@ -71,12 +71,6 @@
 			"type": "bool",
 			"default": true
 		},
-		"hideNewBestMessages": {
-			"name": "Hide \"New Best\" Messages",
-			"description": "Hide death messages on \"New Best\" screens.",
-			"type": "bool",
-			"default": false
-		},
 		"lineWrapping": {
 			"name": "Linewrapping",
 			"description": "Allows linewrapping for all \"New Best\" death messages.\n\nUseful for anyone who wants incredibly long (but still legible) death messages.\n\nDisabling this option will ignore whatever value you have set for the \"'New Best' Text Max Scale\" setting below.",
@@ -116,6 +110,12 @@
 			"description": "Applies something close to the gold color for \"New Best\" death messages <cp>only if your setting for \"'New Best' Text Font #\" is not 0</c>.",
 			"type": "bool",
 			"default": true
+		},
+		"hideNewBestMessages": {
+			"name": "Hide \"New Best\" Messages",
+			"description": "Hide death messages on \"New Best\" screens.",
+			"type": "bool",
+			"default": false
 		},
 		"accuratePercent": {
 			"name": "Accurate Death Percentage",
