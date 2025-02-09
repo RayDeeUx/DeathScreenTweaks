@@ -69,7 +69,7 @@
 			"name": "SNL50",
 			"description": "Includes quotes from Saturday Night Live (one from each season, hopefully).",
 			"type": "bool",
-			"default": true
+			"default": false
 		},
 		"lineWrapping": {
 			"name": "Linewrapping",
