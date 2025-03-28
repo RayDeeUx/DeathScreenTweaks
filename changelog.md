@@ -1,4 +1,6 @@
 # DeathScreenTweaks Changelog
+## v1.6.1
+- Refactor shuffling algorithms because that's apparently what people do in their free time, I guess.
 ## v1.6.0
 - Added a "refresh quotes" button for convenience. No more full game restarts!
     - Toggling on/off quotes while the game is open will auto-reload quotes for the mod to choose from.
