@@ -13,8 +13,8 @@ class $modify(MyPlayLayer, PlayLayer) {
 	static std::string grabRandomQuote(std::vector<std::string> vector = manager->quotes) {
 		if (vector.empty()) return "";
 		static std::mt19937_64 engine(std::random_device{}());
-		std::uniform_int_distribution<size_t> dist(0, vec.size() - 1);
-		return vec.at(dist(engine));
+		std::uniform_int_distribution<size_t> dist(0, vector.size() - 1);
+		return vector.at(dist(engine));
 	}
 	static bool isNewBest(PlayLayer* pl) {
 		return pl->getCurrentPercentInt() > pl->m_level->m_normalPercent.value();
