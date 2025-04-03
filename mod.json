@@ -1,14 +1,18 @@
 {
-	"geode": "4.0.1",
+	"geode": "4.3.1",
 	"gd": {
 		"mac": "2.2074",
 		"android": "2.2074",
-		"win": "2.2074"
+		"win": "2.2074",
+		"ios": "2.2074"
 	},
-	"version": "v1.6.1",
+	"version": "v1.6.2",
 	"id": "raydeeux.deathscreentweaks",
 	"name": "DeathScreenTweaks",
-	"developers": ["RayDeeUx", "sofabeddd"],
+	"developers": [
+		"RayDeeUx",
+		"sofabeddd"
+	],
 	"description": "Various tweaks to the \"New Best\" screen. (Formerly DisturbingNewBests.)",
 	"repository": "https://github.com/RayDeeUx/DeathScreenTweaks",
 	"settings": {
@@ -82,8 +86,8 @@
 			"description": "Sets the max scale of all \"New Best\" death messages.\n\n(The \"Linewrapping\" setting above needs to be enabled for this setting to apply.)",
 			"type": "float",
 			"default": 1,
-			"min": 0.10,
-			"max": 1.20,
+			"min": 0.1,
+			"max": 1.2,
 			"control": {
 				"slider-step": 0.01
 			}
