@@ -1,4 +1,6 @@
 # DeathScreenTweaks Changelog
+## v1.6.2
+- Experimental iOS support.
 ## v1.6.1
 - Refactor shuffling algorithms because that's apparently what people do in their free time, I guess.
 ## v1.6.0
