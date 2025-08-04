@@ -23,7 +23,7 @@ public:
 
 	bool completedJDDNCheck = false;
 
-	float lastDeathPercent = 0.f;
+	float lastDeathPercent = -10.f;
 
 	static Manager* getSharedInstance() {
 		if (!instance) {

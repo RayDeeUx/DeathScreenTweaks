@@ -20,7 +20,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 	}
 	void onQuit() {
 		PlayLayer::onQuit();
-		Manager::getSharedInstance()->lastDeathPercent = 0.f;
+		Manager::getSharedInstance()->lastDeathPercent = -10.f;
 	}
 	void updateProgressbar() {
 		PlayLayer::updateProgressbar();
