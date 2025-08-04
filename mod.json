@@ -165,7 +165,7 @@
 			]
 		},
 		"newBestVolume": {
-			"name": "\"New Best\" SFX Volume",
+			"name": "\"New Best\" SFX Volume (%)",
 			"description": "Set the volume of your \"New Best\" SFX (as a percentage).",
 			"type": "int",
 			"default": 50,
@@ -204,9 +204,17 @@
 		},
 		"sisyphus": {
 			"name": "Sisyphus Mode",
-			"description": "<cl>Original idea by Polyflow.</c>\n\nWhen dying within ~0.01% of your previous death spot, Sisyphus SFX plays and (optionally) an image of Sisyphus appears.",
+			"description": "<cl>Original idea by Polyflow.</c>\n\nWhen dying within a threshold (0.1% by default) of your previous death spot, Sisyphus SFX plays and (optionally) an image of Sisyphus appears.",
 			"type": "bool",
 			"default": false
+		},
+		"sisyphusThreshold": {
+			"name": "Sisyphus Mode: Threshold",
+			"description": "Set the threshold (the difference between your last death % and current death %) to activate Sisyphus Mode.",
+			"type": "float",
+			"default": 0.1,
+			"min": 0.01,
+			"max": 10.0
 		},
 		"sisyphusPlaySFX": {
 			"name": "Sisyphus Mode: Play SFX",
@@ -225,6 +233,14 @@
 					"description": "Audio files"
 				}
 			]
+		},
+		"sisyphusVolume": {
+			"name": "Sisyphus Mode: SFX Volume (%)",
+			"description": "Set the volume of your Sisyphus Mode SFX (as a percentage).",
+			"type": "int",
+			"default": 50,
+			"min": 0,
+			"max": 100
 		},
 		"sisyphusAddImage": {
 			"name": "Sisyphus Mode: Add Image",
@@ -254,7 +270,8 @@
 		"files": [
 			"resources/*.txt",
 			"resources/*.png",
-			"resources/*.fnt"
+			"resources/*.fnt",
+			"resources/*.mp3"
 		]
 	},
 	"incompatibilities": [

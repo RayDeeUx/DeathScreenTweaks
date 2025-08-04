@@ -18,6 +18,10 @@ class $modify(MyPlayLayer, PlayLayer) {
 	static bool isNewBest(PlayLayer* pl) {
 		return pl->getCurrentPercentInt() > pl->m_level->m_normalPercent.value();
 	}
+	void onQuit() {
+		PlayLayer::onQuit();
+		Manager::getSharedInstance()->lastDeathPercent = 0.f;
+	}
 	void updateProgressbar() {
 		PlayLayer::updateProgressbar();
 		if (!getModBool("enabled") || m_level->isPlatformer() || !m_player1->m_isDead || m_isPlatformer) return;

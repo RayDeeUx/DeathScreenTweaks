@@ -1,4 +1,9 @@
 # DeathScreenTweaks Changelog
+## v1.7.0
+- Added Sisyphus Mode.
+  - Requires dying at similar percentages of a level to qualify.
+- Fix a big bug where the "New Best!" SFX was not playing at the correct times.
+  - (Darn, how did I screw that one up?)
 ## v1.6.2
 - Experimental iOS support.
 ## v1.6.1
