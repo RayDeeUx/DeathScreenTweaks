@@ -46,7 +46,7 @@ class $modify(MyPlayerObject, PlayerObject) {
 		Manager* manager = Manager::getSharedInstance();
 		const float plCurrentPercent = pl->getCurrentPercent();
 		const float originalDeathPercent = manager->lastDeathPercent;
-		const bool shouldActivateSisyphusMode = getBool("sisyphus") && std::abs(originalDeathPercent - plCurrentPercent) <= getFloat("sisyphusThreshold");
+		const bool shouldActivateSisyphusMode = getBool("sisyphus") && std::abs(originalDeathPercent - plCurrentPercent) <= static_cast<float>(std::clamp(getFloat("sisyphusThreshold"), .01, 10.));
 		manager->lastDeathPercent = plCurrentPercent;
 
 		const auto system = fmod->m_system;
@@ -94,8 +94,14 @@ class $modify(MyPlayerObject, PlayerObject) {
 				const CCSize replacementSize = newSisyphus->getContentSize();
 				const float yRatio = originalSize.height / replacementSize.height;
 				const float xRatio = originalSize.width / replacementSize.width;
+				const std::string& fillMode = getString("sisyphusImageFillMode");
 
-				newSisyphus->setScale(std::min(xRatio, yRatio));
+				if (fillMode == "Fit to Screen") newSisyphus->setScale(std::min(xRatio, yRatio));
+				else if (fillMode == "Fill Screen") newSisyphus->setScale(std::max(xRatio, yRatio));
+				else if (fillMode == "Stretch to Fill Screen") {
+					newSisyphus->setScaleX(xRatio);
+					newSisyphus->setScaleY(yRatio);
+				} else newSisyphus->setScale(static_cast<float>(std::clamp(getFloat("sisyphusImageScale"), .01, 5.)));
 				newSisyphus->setID("sisyphus"_spr);
 				newSisyphus->setTag(8042025);
 				newSisyphus->setPosition(playLayerParent->getContentSize() / 2.f);

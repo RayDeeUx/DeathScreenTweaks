@@ -260,6 +260,26 @@
 				}
 			]
 		},
+		"sisyphusImageFillMode": {
+			"name": "Sisyphus Mode: Image Fill Mode",
+			"description": "Select a fill mode for the image added during Sisyphus Mode.\n\n- Fit to Screen: Fits the image within the window while keeping the image's aspect ratio.\n- Fill Screen: The image fills the window while keeping the image's original aspect ratio.\n- Stretch to Fill Screen: Ignores the image's original aspect ratio to fill the entire game window.\n- Center: Places the image at the center of the screen (and optionally, respects the scale you selected in \"Sisyphus Mode: Center Fill Mode Scale\".",
+			"type": "string",
+			"default": "Fit to Screen",
+			"one-of": [
+				"Fit to Screen",
+				"Fill Screen",
+				"Stretch to Fill Screen",
+				"Center"
+			]
+		},
+		"sisyphusImageScale": {
+			"name": "Sisyphus Mode: Center Fill Mode Scale",
+			"description": "The scale being used when using the <cl>Center</c> Fill Mode option from the <cl>\"Sisyphus Mode: Image Fill Mode\"</c> setting.",
+			"type": "float",
+			"default": 1.0,
+			"min": 0.01,
+			"max": 5.00
+		},
 		"logging": {
 			"name": "Enable Logging",
 			"type": "bool",
