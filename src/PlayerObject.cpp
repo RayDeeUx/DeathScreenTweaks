@@ -81,7 +81,6 @@ class $modify(MyPlayerObject, PlayerObject) {
 				system->createSound(sisyphusSFXFile.string().c_str(), FMOD_DEFAULT, nullptr, &sound);
 				system->playSound(sound, nullptr, false, &channel);
 				channel->setVolume(getInt("sisyphusVolume") / 100.0f);
-				log::info("playing {} at volume {}", sisyphusSFXFile, getInt("sisyphusVolume") / 100.0f);
 			}
 			if (getBool("sisyphusAddImage") && std::filesystem::exists(sisyphusImageFile) && sisyphusImageFile.extension() == ".png" && pl->getParent()) {
 				CCNode* playLayerParent = pl->getParent();
