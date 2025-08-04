@@ -1,5 +1,4 @@
 #include <Geode/modify/PlayLayer.hpp>
-#include <iostream>
 #include <algorithm>
 #include <random>
 #include "Manager.hpp"
@@ -23,7 +22,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 		PlayLayer::updateProgressbar();
 		if (!getModBool("enabled") || m_level->isPlatformer() || !m_player1->m_isDead || m_isPlatformer) return;
 		CCNode* allTheGoodStuff = nullptr;
-		for (int i = getChildrenCount() - 1; i >= 0; i--) {
+		for (int i = static_cast<int>(getChildrenCount() - 1); i >= 0; i--) {
 			// NEW [good]: int i = getChildrenCount() - 1; i >= 0; i--
 			// ORIG [bad]: int i = getChildrenCount(); i-- > 0;
 			auto theLastCCNode = typeinfo_cast<CCNode*>(this->getChildren()->objectAtIndex(i));

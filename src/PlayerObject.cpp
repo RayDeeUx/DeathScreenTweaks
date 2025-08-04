@@ -1,6 +1,8 @@
 #include <Geode/modify/PlayerObject.hpp>
 #include <filesystem>
 
+#include "Manager.hpp"
+
 #define getBool Mod::get()->getSettingValue<bool>
 #define getString Mod::get()->getSettingValue<std::string>
 #define getInt Mod::get()->getSettingValue<int64_t>
@@ -30,15 +32,15 @@ class $modify(MyPlayerObject, PlayerObject) {
 			log::info("pl->m_level->m_normalPercent.value(): {}", pl->m_level->m_normalPercent.value());
 		}
 		if (qualifiedForAlwaysNewBest) pl->showNewBest(true, 0, 0, false, false, false);
-		if (!getBool("newBestSFX") || MyPlayerObject::isNewBest(pl) || pl->m_isTestMode || pl->m_isPracticeMode) return; // shouldnt play new best sfx in practice/testmode
+		if (pl->m_isTestMode || pl->m_isPracticeMode) return; // shouldnt play new best sfx in practice/testmode
 		const auto fmod = FMODAudioEngine::get();
-		if (!fmod) { return; }
-		if (const auto newBestSFXFile = Mod::get()->getConfigDir() / fmt::format("newBest.{}", getString("extension")); std::filesystem::exists(newBestSFXFile)) {
+		if (!fmod) return;
+		if (const std::filesystem::path& newBestSFXFile = Mod::get()->getConfigDir() / fmt::format("newBest.{}", getString("extension")); getBool("newBestSFX") &&  MyPlayerObject::isNewBest(pl) && std::filesystem::exists(newBestSFXFile)) {
 			if (getBool("logging")) {
 				log::info("newBestSFXFile: {}", newBestSFXFile.string());
 				log::info("getString(\"extension\"): {}", getString("extension"));
 			}
-			auto system = fmod->m_system;
+			const auto system = fmod->m_system;
 			FMOD::Channel* channel;
 			FMOD::Sound* sound;
 			system->createSound(newBestSFXFile.string().c_str(), FMOD_DEFAULT, nullptr, &sound);

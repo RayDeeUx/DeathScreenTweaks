@@ -1,10 +1,10 @@
 {
-	"geode": "4.3.1",
+	"geode": "4.4.0",
 	"gd": {
-		"mac": "2.2074",
-		"android": "2.2074",
 		"win": "2.2074",
-		"ios": "2.2074"
+		"mac": "2.2074",
+		"ios": "2.2074",
+		"android": "2.2074"
 	},
 	"version": "v1.6.2",
 	"id": "raydeeux.deathscreentweaks",
@@ -146,7 +146,7 @@
 		},
 		"newBestSFX": {
 			"name": "\"New Best\" SFX",
-			"description": "<cl>Original idea by Tacocat.</c>\n\nPlay a unique SFX whenever you get a legitimate \"New Best\" screen during Normal Mode.Make sure there is an audio file named \"</c><cl>newBest</c><cy>\" in the config directory.</c>\n\n.mp3, .wav, .ogg, .oga, and .flac are supported.",
+			"description": "<cl>Original idea by Tacocat.</c>\n\nPlay a unique SFX whenever you get a legitimate \"New Best\" screen during Normal Mode. Make sure there is an audio file named \"</c><cl>newBest</c><cy>\" in the config directory.</c>\n\n.mp3, .wav, .ogg, .oga, and .flac are supported.",
 			"type": "bool",
 			"default": false
 		},
@@ -201,6 +201,48 @@
 			"description": "<cl>Original idea by VolcaroCham.</c>\n\nHides the \"New Best\" screen when getting a new best.\n\nNot sure why anyone would willingly enable this, but now the option exists in this mod. Have fun.",
 			"type": "bool",
 			"default": false
+		},
+		"sisyphus": {
+			"name": "Sisyphus Mode",
+			"description": "<cl>Original idea by Polyflow.</c>\n\nWhen dying within ~0.01% of your previous death spot, Sisyphus SFX plays and (optionally) an image of Sisyphus appears.",
+			"type": "bool",
+			"default": false
+		},
+		"sisyphusPlaySFX": {
+			"name": "Sisyphus Mode: Play SFX",
+			"description": "<cl>Original idea by Polyflow.</c>\n\nPlay SFX for Sisyphus Mode.",
+			"type": "bool",
+			"default": true
+		},
+		"sisyphusSFX": {
+			"name": "Sisyphus Mode: SFX File",
+			"description": "<cl>Original idea by Polyflow.</c>\n\nChoose an audio file for Sisyphus Mode.\n\nMP3, WAV, FLAC, OGA, and OGG files ONLY.",
+			"type": "file",
+			"default": "{mod_resources_dir}/sisyphus.mp3",
+			"filters": [
+				{
+					"files": [ "*.mp3", "*.wav", "*.flac", "*.oga", "*.ogg" ],
+					"description": "Audio files"
+				}
+			]
+		},
+		"sisyphusAddImage": {
+			"name": "Sisyphus Mode: Add Image",
+			"description": "<cl>Original idea by Polyflow.</c>\n\nAdd an image for Sisyphus Mode.",
+			"type": "bool",
+			"default": true
+		},
+		"sisyphusImage": {
+			"name": "Sisyphus Mode: Image File",
+			"description": "<cl>Original idea by Polyflow.</c>\n\nChoose an image for Sisyphus Mode.\n\nPNG files ONLY.",
+			"type": "file",
+			"default": "{mod_resources_dir}/sisyphus.png",
+			"filters": [
+				{
+					"files": [ "*.png" ],
+					"description": "PNG files"
+				}
+			]
 		},
 		"logging": {
 			"name": "Enable Logging",
