@@ -106,7 +106,7 @@ class $modify(MyPlayerObject, PlayerObject) {
 				newSisyphus->setPosition(playLayerParent->getContentSize() / 2.f);
 
 				playLayerParent->addChild(newSisyphus);
-				newSisyphus->runAction(CCFadeOut::create(.5f));
+				newSisyphus->runAction(CCFadeOut::create(static_cast<float>(std::clamp(getFloat("sisyphusFadeOutTime"), 0., 10.))));
 			}
 		}
 	}

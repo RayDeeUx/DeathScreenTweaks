@@ -22,6 +22,10 @@ class $modify(MyPlayLayer, PlayLayer) {
 		PlayLayer::onQuit();
 		Manager::getSharedInstance()->lastDeathPercent = -10.f;
 	}
+	void levelComplete() {
+		PlayLayer::levelComplete();
+		Manager::getSharedInstance()->lastDeathPercent = -10.f;
+	}
 	void updateProgressbar() {
 		PlayLayer::updateProgressbar();
 		if (!getModBool("enabled") || m_level->isPlatformer() || !m_player1->m_isDead || m_isPlatformer) return;
@@ -84,8 +88,8 @@ class $modify(MyPlayLayer, PlayLayer) {
 			if (!randomString.empty()) hopefullyALabel->setString(randomString.c_str(), true);
 			if (getModBool("lineWrapping")) {
 				hopefullyALabel->setAlignment(CCTextAlignment::kCCTextAlignmentCenter); // center text
-				float scale = .25f * (155.f / randomString.length());
-				if (scale > Mod::get()->getSettingValue<double>("maxScale")) scale = Mod::get()->getSettingValue<double>("maxScale");
+				float scale = .25f * (155.f / static_cast<float>(randomString.length()));
+				if (scale > Mod::get()->getSettingValue<double>("maxScale")) scale = static_cast<float>(Mod::get()->getSettingValue<double>("maxScale"));
 				hopefullyALabel->setWidth(420.f); // width of end screen minus 20px, not marajuana referenec
 				hopefullyALabel->setScale(scale);
 			} else hopefullyALabel->limitLabelWidth(420.f, 10.f, .25f); // you never know how long these custom strings might get

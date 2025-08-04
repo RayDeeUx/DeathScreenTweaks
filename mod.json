@@ -260,6 +260,14 @@
 				}
 			]
 		},
+		"sisyphusFadeOutTime": {
+			"name": "Sisyphus Mode: Image Fade Out Time",
+			"description": "The time spent fading out the Sisyphus Mode image.",
+			"type": "float",
+			"default": 0.5,
+			"min": 0.01,
+			"max": 5.00
+		},
 		"sisyphusImageFillMode": {
 			"name": "Sisyphus Mode: Image Fill Mode",
 			"description": "Select a fill mode for the image added during Sisyphus Mode.\n\n- Fit to Screen: Fits the image within the window while keeping the image's aspect ratio.\n- Fill Screen: The image fills the window while keeping the image's original aspect ratio.\n- Stretch to Fill Screen: Ignores the image's original aspect ratio to fill the entire game window.\n- Center: Places the image at the center of the screen (and optionally, respects the scale you selected in \"Sisyphus Mode: Center Fill Mode Scale\".",
@@ -294,18 +302,16 @@
 			"resources/*.mp3"
 		]
 	},
-	"incompatibilities": [
-		{
-			"id": "raydeeux.disturbingnewbests",
-			"version": "*",
+	"incompatibilities": {
+		"raydeeux.disturbingnewbests": {
+			"version": ">=1.0.0",
 			"importance": "superseded"
 		},
-		{
-			"id": "cham.nonewbest",
-			"version": "*",
+		"cham.nonewbest": {
+			"version": ">=1.0.0",
 			"importance": "superseded"
 		}
-	],
+	},
 	"issues": {
 		"url": "https://discord.com/channels/911701438269386882/1205523212444639292",
 		"info": "To disable hyphen prefixes and suffixes in custom messages, edit saved.json. For other issues, ping me <cl>(@erymanthus)</c> in the Geode SDK Discord server's <cl>#help</c> channel if you need help. <cr>DMs are NOT accepted.</c>"

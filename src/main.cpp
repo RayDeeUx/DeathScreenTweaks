@@ -37,7 +37,7 @@ $on_mod(Loaded) {
 abc def
 sample text
 each line is a new "new best" message
-[this text file was brought to you by deathscreentweaks. if you're seeing this in the config directory for wholesomeendtexts, something has gone terribly TERRIBLY wrong-simply ping @erymanthus in the geode sdk discord server and do not panic!])";
+[make sure to edit this file!])";
 			(void) utils::file::writeString(pathCustom, content);
 		} else if (std::filesystem::exists(oldDNBMessages)) {
 			if (!manager->dNBMigration.empty()) {
