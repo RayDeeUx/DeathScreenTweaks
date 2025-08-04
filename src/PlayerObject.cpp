@@ -75,7 +75,7 @@ class $modify(MyPlayerObject, PlayerObject) {
 		if (!isNewBest && shouldActivateSisyphusMode) {
 			const std::filesystem::path& sisyphusSFXFile = getFile("sisyphusSFX");
 			const std::filesystem::path& sisyphusImageFile = getFile("sisyphusImage");
-			const std::string& extension = sisyphusSFXFile.extension();
+			const auto extension = sisyphusSFXFile.extension();
 			const bool audioIsValidExtension = extension == ".mp3" || extension == ".flac" || extension == ".wav" || extension == ".oga" || extension == ".ogg";
 			if (getBool("sisyphusPlaySFX") && std::filesystem::exists(sisyphusSFXFile) && audioIsValidExtension) {
 				system->createSound(sisyphusSFXFile.string().c_str(), FMOD_DEFAULT, nullptr, &sound);
