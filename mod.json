@@ -203,28 +203,28 @@
 			"default": false
 		},
 		"sisyphus": {
-			"name": "Sisyphus Mode",
-			"description": "<cl>Original idea by Polyflow.</c>\n\nWhen dying within a threshold (0.1% by default) of your previous death spot, Sisyphus SFX plays and (optionally) an image of Sisyphus appears.",
+			"name": "Sisyphus",
+			"description": "<cl>Original idea by Polyflow.</c>\n\nWhen dying within a threshold (0.1% by default) of your previous death spot, Sisyphus SFX plays and (optionally) an image of Sisyphus appears.\n\nPercentages reset when switching between Normal Mode and Practice Mode.\n<cy>Sisyphus is not available when playing from a Start Position.</c>",
 			"type": "bool",
 			"default": false
 		},
 		"sisyphusThreshold": {
-			"name": "Sisyphus Mode: Threshold",
-			"description": "Set the threshold (the difference between your last death % and current death %) to activate Sisyphus Mode.",
+			"name": "Sisyphus: Percentage Threshold",
+			"description": "Set the threshold (the difference between your last death % and current death %) to activate Sisyphus.",
 			"type": "float",
 			"default": 0.1,
 			"min": 0.01,
 			"max": 10.0
 		},
 		"sisyphusPlaySFX": {
-			"name": "Sisyphus Mode: Play SFX",
-			"description": "<cl>Original idea by Polyflow.</c>\n\nPlay SFX for Sisyphus Mode.",
+			"name": "Sisyphus: Play SFX",
+			"description": "<cl>Original idea by Polyflow.</c>\n\nPlay SFX for Sisyphus.",
 			"type": "bool",
 			"default": true
 		},
 		"sisyphusSFX": {
-			"name": "Sisyphus Mode: SFX File",
-			"description": "<cl>Original idea by Polyflow.</c>\n\nChoose an audio file for Sisyphus Mode.\n\nMP3, WAV, FLAC, OGA, and OGG files ONLY.",
+			"name": "Sisyphus: SFX File",
+			"description": "<cl>Original idea by Polyflow.</c>\n\nChoose an audio file for Sisyphus.\n\nMP3, WAV, FLAC, OGA, and OGG files ONLY.\n\n<cy>Make sure to choose audio that's not too long; I won't be responsible for enforcing that!</c>",
 			"type": "file",
 			"default": "{mod_resources_dir}/sisyphus.mp3",
 			"filters": [
@@ -235,22 +235,22 @@
 			]
 		},
 		"sisyphusVolume": {
-			"name": "Sisyphus Mode: SFX Volume (%)",
-			"description": "Set the volume of your Sisyphus Mode SFX (as a percentage).",
+			"name": "Sisyphus: SFX Volume (%)",
+			"description": "Set the volume of your Sisyphus SFX (as a percentage).",
 			"type": "int",
 			"default": 50,
 			"min": 0,
 			"max": 100
 		},
 		"sisyphusAddImage": {
-			"name": "Sisyphus Mode: Add Image",
-			"description": "<cl>Original idea by Polyflow.</c>\n\nAdd an image for Sisyphus Mode.",
+			"name": "Sisyphus: Add Image",
+			"description": "<cl>Original idea by Polyflow.</c>\n\nAdd an image for Sisyphus.",
 			"type": "bool",
 			"default": true
 		},
 		"sisyphusImage": {
-			"name": "Sisyphus Mode: Image File",
-			"description": "<cl>Original idea by Polyflow.</c>\n\nChoose an image for Sisyphus Mode.\n\nPNG files ONLY.",
+			"name": "Sisyphus: Image File",
+			"description": "<cl>Original idea by Polyflow.</c>\n\nChoose an image for Sisyphus.\n\nPNG files ONLY.",
 			"type": "file",
 			"default": "{mod_resources_dir}/sisyphus.png",
 			"filters": [
@@ -261,16 +261,16 @@
 			]
 		},
 		"sisyphusFadeOutTime": {
-			"name": "Sisyphus Mode: Image Fade Out Time",
-			"description": "The time spent fading out the Sisyphus Mode image.",
+			"name": "Sisyphus: Image Fade Out Time",
+			"description": "The time spent fading out the Sisyphus image.",
 			"type": "float",
 			"default": 0.5,
 			"min": 0.01,
 			"max": 5.00
 		},
 		"sisyphusImageFillMode": {
-			"name": "Sisyphus Mode: Image Fill Mode",
-			"description": "Select a fill mode for the image added during Sisyphus Mode.\n\n- Fit to Screen: Fits the image within the window while keeping the image's aspect ratio.\n- Fill Screen: The image fills the window while keeping the image's original aspect ratio.\n- Stretch to Fill Screen: Ignores the image's original aspect ratio to fill the entire game window.\n- Center: Places the image at the center of the screen (and optionally, respects the scale you selected in \"Sisyphus Mode: Center Fill Mode Scale\".",
+			"name": "Sisyphus: Image Fill Mode",
+			"description": "Select a fill mode for the image added during Sisyphus.\n\n- Fit to Screen: Fits the image within the window while keeping the image's aspect ratio.\n- Fill Screen: The image fills the window while keeping the image's original aspect ratio.\n- Stretch to Fill Screen: Ignores the image's original aspect ratio to fill the entire game window.\n- Center: Places the image at the center of the screen (and uses the scale you selected in \"Sisyphus: Center Fill Mode Scale\".",
 			"type": "string",
 			"default": "Fit to Screen",
 			"one-of": [
@@ -281,8 +281,8 @@
 			]
 		},
 		"sisyphusImageScale": {
-			"name": "Sisyphus Mode: Center Fill Mode Scale",
-			"description": "The scale being used when using the <cl>Center</c> Fill Mode option from the <cl>\"Sisyphus Mode: Image Fill Mode\"</c> setting.",
+			"name": "Sisyphus: Scale (for Center Fill Mode)",
+			"description": "The scale being used when using the <cl>Center</c> Fill Mode option from the <cl>\"Sisyphus: Image Fill Mode\"</c> setting.",
 			"type": "float",
 			"default": 1.0,
 			"min": 0.01,
