@@ -28,18 +28,17 @@ class $modify(MyPlayerObject, PlayerObject) {
 
 		const bool isNewBest = MyPlayerObject::isNewBest(pl);
 		const bool shouldPlayNewBestSFX = getBool("newBestSFX") && isNewBest;
-		bool qualifiedToShowNewBest = false;
+		bool qualifiedToShowAFakeNewBest = false;
 		// splitting it into three if statements for readability
-		if (!pl->m_isTestMode && !pl->m_isPracticeMode && getBool("alwaysNewBest") && !isNewBest) qualifiedToShowNewBest = true;
-		if (getBool("alwaysNewBestPlaytest") && pl->m_isTestMode) qualifiedToShowNewBest = true;
-		if (getBool("alwaysNewBestPractice") && pl->m_isPracticeMode) qualifiedToShowNewBest = true;
+		if (!pl->m_isTestMode && !pl->m_isPracticeMode && getBool("alwaysNewBest") && !isNewBest) qualifiedToShowAFakeNewBest = true;
+		if (getBool("alwaysNewBestPlaytest") && pl->m_isTestMode) qualifiedToShowAFakeNewBest = true;
+		if (getBool("alwaysNewBestPractice") && pl->m_isPracticeMode) qualifiedToShowAFakeNewBest = true;
 		if (getBool("logging")) {
 			log::info("pl->getCurrentPercentInt() <= pl->m_level->m_normalPercent.value(): {}", pl->getCurrentPercentInt() <= pl->m_level->m_normalPercent.value());
 			log::info("pl->getCurrentPercentInt(): {}", pl->getCurrentPercentInt());
 			log::info("pl->m_level->m_normalPercent.value(): {}", pl->m_level->m_normalPercent.value());
 		}
-		if (qualifiedToShowNewBest) pl->showNewBest(true, 0, 0, false, false, false);
-		if (pl->m_isTestMode || pl->m_isPracticeMode) return; // shouldnt play new best sfx in practice/testmode
+		if (qualifiedToShowAFakeNewBest) pl->showNewBest(true, 0, 0, false, false, false);
 		const auto fmod = FMODAudioEngine::get();
 		if (!fmod) return;
 
@@ -47,13 +46,15 @@ class $modify(MyPlayerObject, PlayerObject) {
 		const float plCurrentPercent = pl->getCurrentPercent();
 		const float originalDeathPercent = manager->lastDeathPercent;
 		const bool shouldActivateSisyphusMode = getBool("sisyphus") && std::abs(originalDeathPercent - plCurrentPercent) <= static_cast<float>(std::clamp(getFloat("sisyphusThreshold"), .01, 10.));
-		manager->lastDeathPercent = plCurrentPercent;
+		if (!pl->m_isTestMode) {
+			manager->lastDeathPercent = plCurrentPercent;
+		}
 
 		const auto system = fmod->m_system;
 		FMOD::Channel* channel;
 		FMOD::Sound* sound;
 
-		if (const std::filesystem::path& newBestSFXFile = Mod::get()->getConfigDir() / fmt::format("newBest.{}", getString("extension")); shouldPlayNewBestSFX && std::filesystem::exists(newBestSFXFile)) {
+		if (const std::filesystem::path& newBestSFXFile = Mod::get()->getConfigDir() / fmt::format("newBest.{}", getString("extension")); shouldPlayNewBestSFX && std::filesystem::exists(newBestSFXFile) && !pl->m_isTestMode && !pl->m_isPracticeMode) {
 			if (getBool("logging")) {
 				log::info("newBestSFXFile: {}", newBestSFXFile.string());
 				log::info("getString(\"extension\"): {}", getString("extension"));
@@ -72,7 +73,7 @@ class $modify(MyPlayerObject, PlayerObject) {
 		sisyphusImage
 		*/
 
-		if (!isNewBest && shouldActivateSisyphusMode) {
+		if (CCNode* playLayerParent = pl->getParent(); !isNewBest && shouldActivateSisyphusMode && playLayerParent && !pl->m_isTestMode) {
 			const std::filesystem::path& sisyphusSFXFile = getFile("sisyphusSFX");
 			const std::filesystem::path& sisyphusImageFile = getFile("sisyphusImage");
 			const auto extension = sisyphusSFXFile.extension();
@@ -83,7 +84,6 @@ class $modify(MyPlayerObject, PlayerObject) {
 				channel->setVolume(getInt("sisyphusVolume") / 100.0f);
 			}
 			if (getBool("sisyphusAddImage") && std::filesystem::exists(sisyphusImageFile) && sisyphusImageFile.extension() == ".png" && pl->getParent()) {
-				CCNode* playLayerParent = pl->getParent();
 				if (CCNode* sisyphusByID = playLayerParent->getChildByID("sisyphus"_spr)) sisyphusByID->removeMeAndCleanup();
 				else if (CCNode* sisyphusByTag = playLayerParent->getChildByTag(8042025)) sisyphusByTag->removeMeAndCleanup();
 

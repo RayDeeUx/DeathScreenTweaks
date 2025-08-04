@@ -26,6 +26,14 @@ class $modify(MyPlayLayer, PlayLayer) {
 		PlayLayer::levelComplete();
 		Manager::getSharedInstance()->lastDeathPercent = -10.f;
 	}
+	void togglePracticeMode(bool practiceMode) {
+		PlayLayer::togglePracticeMode(practiceMode);
+		Manager::getSharedInstance()->lastDeathPercent = -10.f;
+	}
+	void resetLevelFromStart() {
+		PlayLayer::resetLevelFromStart();
+		Manager::getSharedInstance()->lastDeathPercent = -10.f;
+	}
 	void updateProgressbar() {
 		PlayLayer::updateProgressbar();
 		if (!getModBool("enabled") || m_level->isPlatformer() || !m_player1->m_isDead || m_isPlatformer) return;
