@@ -43,16 +43,18 @@ class $modify(MyPlayLayer, PlayLayer) {
 		if (!getModBool("enabled") || m_level->isPlatformer() || !m_player1->m_isDead || m_isPlatformer) return;
 		CCNode* newBestNodeProbably = nullptr;
 		bool foundCurrencyRewardLayer = false;
+		bool hasKeyLabel = false;
 		const bool isNewBest = MyPlayLayer::isNewBest(this);
 		for (int i = static_cast<int>(getChildrenCount() - 1); i >= 0; i--) {
 			// NEW [good]: int i = getChildrenCount() - 1; i >= 0; i--
 			// ORIG [bad]: int i = getChildrenCount(); i-- > 0;
 			auto theLastCCNode = typeinfo_cast<CCNode*>(this->getChildren()->objectAtIndex(i));
-			if (typeinfo_cast<CurrencyRewardLayer*>(theLastCCNode)) {
+			if (const auto crl = typeinfo_cast<CurrencyRewardLayer*>(theLastCCNode)) {
 				// hide CurrencyRewardLayer
 				if (getModBool("currencyLayer")) {
 					foundCurrencyRewardLayer = true;
 					theLastCCNode->setVisible(false);
+					if (crl->m_keysLabel) hasKeyLabel = true;
 				}
 				continue;
 			}
@@ -66,7 +68,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 		if (!newBestNodeProbably) return;
 		if (manager->hasNextKeyWhenLoaded && getModBool("currencyLayer") && !manager->addedNextKeyWhenLabel && m_level->m_stars.value() > 1 && foundCurrencyRewardLayer) {
 			CCLabelBMFont* nextKeyWhen = CCLabelBMFont::create(fmt::format("Key: {}/500", GameStatsManager::sharedState()->getTotalCollectedCurrency() % 500).c_str(), "bigFont.fnt");
-			nextKeyWhen->setID("next-key-when-compat-label"_spr);
+			nextKeyWhen->setID("next-key-when-orbs-compat-label"_spr);
 			nextKeyWhen->setTag(8042025);
 			nextKeyWhen->setScale(.5f);
 			nextKeyWhen->setColor({45, 255, 255});
@@ -74,7 +76,18 @@ class $modify(MyPlayLayer, PlayLayer) {
 			nextKeyWhen->setPositionY(nextKeyWhen->getPositionY() - 90.f);
 			newBestNodeProbably->addChild(nextKeyWhen);
 			manager->addedNextKeyWhenLabel = true;
+			if (hasKeyLabel) {
+				CCLabelBMFont* newKeyLabel = CCLabelBMFont::create("(+1 Key!)", "bigFont.fnt");
+				newKeyLabel->setID("next-key-when-key-compat-label"_spr);
+				newKeyLabel->setTag(8052025);
+				newKeyLabel->setScale(.5f);
+				newKeyLabel->setColor({235, 235, 235});
+				newKeyLabel->setPosition(nextKeyWhen->getPosition());
+				newKeyLabel->setPositionY(nextKeyWhen->getPositionY() - 25.f);
+				newBestNodeProbably->addChild(newKeyLabel);
+			}
 		}
+		std::smatch match;
 		for (CCNode* child : CCArrayExt<CCNode*>(newBestNodeProbably->getChildren())) {
 			if (child->getID() == "next-key-when-compat-label"_spr) continue;
 			const auto hopefullyALabel = typeinfo_cast<CCLabelBMFont*>(child);
@@ -85,7 +98,6 @@ class $modify(MyPlayLayer, PlayLayer) {
 				// this is the node displaying where you died as a new best
 				if (isNewBest && getModBool("accuratePercent")) return hopefullyALabel->setString(fmt::format("{:.{}f}%", getCurrentPercent(), getModInt("accuracy")).c_str());
 				// i have to do all of this because robtop's wonderful technology shows percent from previous death if i dont include all of this
-				std::smatch match;
 				if (!std::regex_match(nodeString, match, manager->percentRegex)) continue;
 				auto percent = std::regex_replace(nodeString, std::regex("%"), "");
 				auto percentAsInt = utils::numFromString<int>(percent);

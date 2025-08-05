@@ -38,7 +38,7 @@ class $modify(MyPlayerObject, PlayerObject) {
 			log::info("pl->getCurrentPercentInt(): {}", pl->getCurrentPercentInt());
 			log::info("pl->m_level->m_normalPercent.value(): {}", pl->m_level->m_normalPercent.value());
 		}
-		if (qualifiedToShowAFakeNewBest) pl->showNewBest(true, 0, 0, false, false, false);
+		if (qualifiedToShowAFakeNewBest) pl->showNewBest(false, 0, 0, false, false, false);
 		const auto fmod = FMODAudioEngine::get();
 		if (!fmod) return;
 
