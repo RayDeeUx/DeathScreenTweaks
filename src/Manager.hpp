@@ -23,6 +23,9 @@ public:
 
 	bool completedJDDNCheck = false;
 
+	bool hasNextKeyWhenLoaded = false;
+	bool addedNextKeyWhenLabel = false;
+
 	float lastDeathPercent = -10.f;
 
 	static Manager* getSharedInstance() {

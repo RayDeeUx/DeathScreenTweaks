@@ -16,11 +16,12 @@ class $modify(MyMenuLayer, MenuLayer) {
 		}
 	}
 	bool init() {
-		bool result = MenuLayer::init();
+		if (!MenuLayer::init()) return false;
 		if (!manager->completedJDDNCheck && getBool("enabled") && getBool("checkJustDont")) {
 			MyMenuLayer::forceEnableJustDont();
 		}
 		manager->completedJDDNCheck = true;
-		return result;
+		manager->hasNextKeyWhenLoaded = Loader::get()->isModLoaded("alphalaneous.next_key_when");
+		return true;
 	}
 };

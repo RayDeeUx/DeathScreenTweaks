@@ -18,6 +18,10 @@ class $modify(MyPlayLayer, PlayLayer) {
 	static bool isNewBest(PlayLayer* pl) {
 		return pl->getCurrentPercentInt() > pl->m_level->m_normalPercent.value();
 	}
+	void resetLevel() {
+		PlayLayer::resetLevel();
+		Manager::getSharedInstance()->addedNextKeyWhenLabel = false;
+	}
 	void onQuit() {
 		PlayLayer::onQuit();
 		Manager::getSharedInstance()->lastDeathPercent = -10.f;
@@ -37,35 +41,52 @@ class $modify(MyPlayLayer, PlayLayer) {
 	void updateProgressbar() {
 		PlayLayer::updateProgressbar();
 		if (!getModBool("enabled") || m_level->isPlatformer() || !m_player1->m_isDead || m_isPlatformer) return;
-		CCNode* allTheGoodStuff = nullptr;
+		CCNode* newBestNodeProbably = nullptr;
+		bool foundCurrencyRewardLayer = false;
+		const bool isNewBest = MyPlayLayer::isNewBest(this);
 		for (int i = static_cast<int>(getChildrenCount() - 1); i >= 0; i--) {
 			// NEW [good]: int i = getChildrenCount() - 1; i >= 0; i--
 			// ORIG [bad]: int i = getChildrenCount(); i-- > 0;
 			auto theLastCCNode = typeinfo_cast<CCNode*>(this->getChildren()->objectAtIndex(i));
 			if (typeinfo_cast<CurrencyRewardLayer*>(theLastCCNode)) {
 				// hide CurrencyRewardLayer
-				if (getModBool("currencyLayer")) theLastCCNode->setVisible(false);
+				if (getModBool("currencyLayer")) {
+					foundCurrencyRewardLayer = true;
+					theLastCCNode->setVisible(false);
+				}
 				continue;
 			}
 			if (!theLastCCNode || theLastCCNode == this->m_uiLayer) continue; // skip UILayer
 			if (theLastCCNode->getZOrder() != 100) continue;
 			if (theLastCCNode->getChildrenCount() < 2) continue;
 			if (getModBool("noVisibleNewBest")) return theLastCCNode->setVisible(false);
-			allTheGoodStuff = theLastCCNode;
+			newBestNodeProbably = theLastCCNode;
 			break;
 		}
-		if (!allTheGoodStuff) return;
-		for (const auto child : CCArrayExt<CCNode*>(allTheGoodStuff->getChildren())) {
+		if (!newBestNodeProbably) return;
+		if (manager->hasNextKeyWhenLoaded && getModBool("currencyLayer") && !manager->addedNextKeyWhenLabel && m_level->m_stars.value() > 1 && foundCurrencyRewardLayer) {
+			CCLabelBMFont* nextKeyWhen = CCLabelBMFont::create(fmt::format("Key: {}/500", GameStatsManager::sharedState()->getTotalCollectedCurrency() % 500).c_str(), "bigFont.fnt");
+			nextKeyWhen->setID("next-key-when-compat-label"_spr);
+			nextKeyWhen->setTag(8042025);
+			nextKeyWhen->setScale(.5f);
+			nextKeyWhen->setColor({45, 255, 255});
+			nextKeyWhen->setPosition(newBestNodeProbably->getContentSize() / 2.f);
+			nextKeyWhen->setPositionY(nextKeyWhen->getPositionY() - 90.f);
+			newBestNodeProbably->addChild(nextKeyWhen);
+			manager->addedNextKeyWhenLabel = true;
+		}
+		for (CCNode* child : CCArrayExt<CCNode*>(newBestNodeProbably->getChildren())) {
+			if (child->getID() == "next-key-when-compat-label"_spr) continue;
 			const auto hopefullyALabel = typeinfo_cast<CCLabelBMFont*>(child);
-			if (!hopefullyALabel) continue;
+			if (!hopefullyALabel || hopefullyALabel->getTag() == 8042025) continue;
 			std::string nodeString = hopefullyALabel->getString();
 			std::string fontFile = hopefullyALabel->getFntFile();
 			if (nodeString.ends_with("%") && fontFile == "bigFont.fnt") {
 				// this is the node displaying where you died as a new best
-				if (MyPlayLayer::isNewBest(this) && getModBool("accuratePercent")) return hopefullyALabel->setString(fmt::format("{:.{}f}%", getCurrentPercent(), getModInt("accuracy")).c_str());
+				if (isNewBest && getModBool("accuratePercent")) return hopefullyALabel->setString(fmt::format("{:.{}f}%", getCurrentPercent(), getModInt("accuracy")).c_str());
 				// i have to do all of this because robtop's wonderful technology shows percent from previous death if i dont include all of this
 				std::smatch match;
-				if (!std::regex_match(nodeString, match, manager->percentRegex)) { continue; }
+				if (!std::regex_match(nodeString, match, manager->percentRegex)) continue;
 				auto percent = std::regex_replace(nodeString, std::regex("%"), "");
 				auto percentAsInt = utils::numFromString<int>(percent);
 				if (percentAsInt.isErr()) continue;
