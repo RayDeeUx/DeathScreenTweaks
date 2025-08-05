@@ -196,6 +196,12 @@
 			"type": "bool",
 			"default": false
 		},
+		"currencyLayerNextKeyWhenCompat": {
+			"name": "\"Next Key When?\" Hidden Reward Animations Compat",
+			"description": "Shows your progress to the next key when <cl>Next Keys When? by Alphalaneous</c> is loaded and \"Hide Reward Animations\" is enabled.",
+			"type": "bool",
+			"default": true
+		},
 		"noVisibleNewBest": {
 			"name": "Hide \"New Best\" Screen",
 			"description": "<cl>Original idea by VolcaroCham.</c>\n\nHides the \"New Best\" screen when getting a new best.\n\nNot sure why anyone would willingly enable this, but now the option exists in this mod. Have fun.",

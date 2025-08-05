@@ -42,7 +42,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 		PlayLayer::updateProgressbar();
 		if (!getModBool("enabled") || m_level->isPlatformer() || !m_player1->m_isDead || m_isPlatformer) return;
 		CCNode* newBestNodeProbably = nullptr;
-		bool foundCurrencyRewardLayer = false;
+		bool hasOrbsLabel = false;
 		bool hasKeyLabel = false;
 		const bool isNewBest = MyPlayLayer::isNewBest(this);
 		for (int i = static_cast<int>(getChildrenCount() - 1); i >= 0; i--) {
@@ -52,8 +52,8 @@ class $modify(MyPlayLayer, PlayLayer) {
 			if (const auto crl = typeinfo_cast<CurrencyRewardLayer*>(theLastCCNode)) {
 				// hide CurrencyRewardLayer
 				if (getModBool("currencyLayer")) {
-					foundCurrencyRewardLayer = true;
 					theLastCCNode->setVisible(false);
+					if (crl->m_orbsLabel) hasOrbsLabel = true;
 					if (crl->m_keysLabel) hasKeyLabel = true;
 				}
 				continue;
@@ -65,27 +65,31 @@ class $modify(MyPlayLayer, PlayLayer) {
 			newBestNodeProbably = theLastCCNode;
 			break;
 		}
-		if (!newBestNodeProbably) return;
-		if (manager->hasNextKeyWhenLoaded && getModBool("currencyLayer") && !manager->addedNextKeyWhenLabel && m_level->m_stars.value() > 1 && foundCurrencyRewardLayer) {
-			CCLabelBMFont* nextKeyWhen = CCLabelBMFont::create(fmt::format("Key: {}/500", GameStatsManager::sharedState()->getTotalCollectedCurrency() % 500).c_str(), "bigFont.fnt");
-			nextKeyWhen->setID("next-key-when-orbs-compat-label"_spr);
-			nextKeyWhen->setTag(8042025);
-			nextKeyWhen->setScale(.5f);
-			nextKeyWhen->setColor({45, 255, 255});
-			nextKeyWhen->setPosition(newBestNodeProbably->getContentSize() / 2.f);
-			nextKeyWhen->setPositionY(nextKeyWhen->getPositionY() - 90.f);
-			newBestNodeProbably->addChild(nextKeyWhen);
-			manager->addedNextKeyWhenLabel = true;
+		if (!newBestNodeProbably || newBestNodeProbably->getUserObject("modified-already"_spr)) return;
+		newBestNodeProbably->setUserObject("modified-already"_spr, CCBool::create(true));
+		if (manager->hasNextKeyWhenLoaded && getModBool("currencyLayer") && getModBool("currencyLayerNextKeyWhenCompat") && !manager->addedNextKeyWhenLabel && m_level->m_stars.value() > 1) {
+			if (hasOrbsLabel) {
+				CCLabelBMFont* nextKeyWhen = CCLabelBMFont::create(fmt::format("Key: {}/500", GameStatsManager::sharedState()->getTotalCollectedCurrency() % 500).c_str(), "bigFont.fnt");
+				nextKeyWhen->setID("next-key-when-orbs-compat-label"_spr);
+				nextKeyWhen->setTag(8042025);
+				nextKeyWhen->setScale(.5f);
+				nextKeyWhen->setColor({45, 255, 255});
+				nextKeyWhen->setPosition(newBestNodeProbably->getContentSize() / 2.f);
+				nextKeyWhen->setPositionY(nextKeyWhen->getPositionY() - 90.f);
+				newBestNodeProbably->addChild(nextKeyWhen);
+			}
 			if (hasKeyLabel) {
 				CCLabelBMFont* newKeyLabel = CCLabelBMFont::create("(+1 Key!)", "bigFont.fnt");
 				newKeyLabel->setID("next-key-when-key-compat-label"_spr);
 				newKeyLabel->setTag(8052025);
 				newKeyLabel->setScale(.5f);
 				newKeyLabel->setColor({235, 235, 235});
-				newKeyLabel->setPosition(nextKeyWhen->getPosition());
-				newKeyLabel->setPositionY(nextKeyWhen->getPositionY() - 25.f);
+				newKeyLabel->setPosition(newBestNodeProbably->getContentSize() / 2.f);
+				newKeyLabel->setPositionY(newKeyLabel->getPositionY() - 90.f);
+				if (hasOrbsLabel) newKeyLabel->setPositionY(newKeyLabel->getPositionY() - 15.f);
 				newBestNodeProbably->addChild(newKeyLabel);
 			}
+			manager->addedNextKeyWhenLabel = true;
 		}
 		std::smatch match;
 		for (CCNode* child : CCArrayExt<CCNode*>(newBestNodeProbably->getChildren())) {
