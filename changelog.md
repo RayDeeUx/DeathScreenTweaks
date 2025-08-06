@@ -1,7 +1,10 @@
 # DeathScreenTweaks Changelog
 ## v1.7.0
-- Added Sisyphus Mode.
+- Added Sisyphus.
   - Requires dying at similar percentages of a level to qualify.
+  - Comes with numerous options from including a custom image, changing the SFX, adjusting thresholds, and changing custom image scaling options.
+- Added soft compatibility option when `Hide Rewards Animations` is enabled while <cl>Alphalaneous' Next Key When?</c> mod is installed.
+  - Comes with additional "+1 Key!" indicator when receiving a new key while `Hide Rewards Animations` is enabled.
 - Fix a big bug where the "New Best!" SFX was not playing at the correct times.
   - (Darn, how did I screw that one up?)
 ## v1.6.2
