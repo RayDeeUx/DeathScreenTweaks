@@ -232,7 +232,7 @@
 			"name": "Sisyphus: SFX File",
 			"description": "<cl>Original idea by Polyflow.</c>\n\nChoose an audio file for Sisyphus.\n\nMP3, WAV, FLAC, OGA, and OGG files ONLY.\n\n<cy>Make sure to choose audio that's not too long; I won't be responsible for enforcing that!</c>",
 			"type": "file",
-			"default": "{mod_resources_dir}/sisyphus.mp3",
+			"default": "{mod_resources_dir}/sisyphusShort.mp3",
 			"filters": [
 				{
 					"files": [ "*.mp3", "*.wav", "*.flac", "*.oga", "*.ogg" ],
