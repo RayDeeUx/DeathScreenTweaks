@@ -9,6 +9,9 @@
 #define manager Manager::getSharedInstance()
 
 class $modify(MyPlayLayer, PlayLayer) {
+	static void onModify(auto& self) {
+		if (Loader::get()->isModLoaded("gdsrwave.jfp")) (void) self.setHookPriorityBeforePost("PlayLayer::updateProgressbar", "gdsrwave.jfp");
+	}
 	static std::string grabRandomQuote(std::vector<std::string> vector = manager->quotes) {
 		if (vector.empty()) return "";
 		static std::mt19937_64 engine(std::random_device{}());
