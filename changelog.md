@@ -1,4 +1,6 @@
 # DeathScreenTweaks Changelog
+## v1.7.2
+- Fix a bug introduced in v1.7.0 where fake "New Best" messages would spawn in twice on two-player levels. Sorry about that!
 ## v1.7.1
 - Fixed compatability issues with JFP by changing function hooks.
 ## v1.7.0
