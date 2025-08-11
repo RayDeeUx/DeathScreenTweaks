@@ -66,13 +66,6 @@ class $modify(MyPlayerObject, PlayerObject) {
 			fmod->playEffect("magicExplosion.ogg");
 		}
 
-		/*
-		sisyphusPlaySFX
-		sisyphusSFX
-		sisyphusAddImage
-		sisyphusImage
-		*/
-
 		if (CCNode* playLayerParent = pl->getParent(); !isNewBest && shouldActivateSisyphusMode && playLayerParent && !pl->m_isTestMode) {
 			const std::filesystem::path& sisyphusSFXFile = getFile("sisyphusSFX");
 			const std::filesystem::path& sisyphusImageFile = getFile("sisyphusImage");
