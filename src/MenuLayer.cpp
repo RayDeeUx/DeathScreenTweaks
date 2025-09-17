@@ -22,6 +22,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 		}
 		manager->completedJDDNCheck = true;
 		manager->hasNextKeyWhenLoaded = Loader::get()->isModLoaded("alphalaneous.next_key_when");
+		manager->hasPRNTSCRN = Loader::get()->isModLoaded("ninxout.prntscrn");
 		return true;
 	}
 };

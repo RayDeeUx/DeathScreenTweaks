@@ -23,6 +23,7 @@ public:
 
 	bool completedJDDNCheck = false;
 
+	bool hasPRNTSCRN = false;
 	bool hasNextKeyWhenLoaded = false;
 	bool addedNextKeyWhenLabel = false;
 
