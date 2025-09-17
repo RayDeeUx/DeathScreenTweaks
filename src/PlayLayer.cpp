@@ -1,4 +1,3 @@
-#include <ninxout.prntscrn/include/api.hpp>
 #include <Geode/modify/PlayLayer.hpp>
 #include <algorithm>
 #include <random>
@@ -18,28 +17,6 @@ class $modify(MyPlayLayer, PlayLayer) {
 	}
 	static bool isNewBest(PlayLayer* pl) {
 		return pl->getCurrentPercentInt() > pl->m_level->m_normalPercent.value();
-	}
-	static bool isNewBestFloat(PlayLayer* pl) {
-		return pl->getCurrentPercent() > pl->m_level->m_normalPercent.value();
-	}
-	void PRNTSCRNOnDeath(float) {
-		const std::string& screenshotPreference = getModString("screenshotOnDeathPreference");
-		log::info("screenshotPreference: {}", screenshotPreference);
-		if (!manager->hasPRNTSCRN) return;
-		log::info("screenshotPreference: {}, mod is loaded", screenshotPreference);
-		if (screenshotPreference == "Screenshot the Level, Keep UI") {
-			(void) PRNTSCRN::screenshotPlayLayerWithoutAnyVisibilityFilters();
-		} else if (screenshotPreference == "Screenshot the Level, Hide (~99% of) UI") {
-			bool originalSetting = Loader::get()->getLoadedMod("ninxout.prntscrn")->getSettingValue<bool>("hide-ui");
-			Loader::get()->getLoadedMod("ninxout.prntscrn")->setSettingValue<bool>("hide-ui", true);
-			(void) PRNTSCRN::screenshotNode(this);
-			Loader::get()->getLoadedMod("ninxout.prntscrn")->setSettingValue<bool>("hide-ui", originalSetting);
-		} else if (screenshotPreference == "Screenshot the Level, Use PRNTSCRN Settings") {
-			(void) PRNTSCRN::screenshotNode(this);
-		} else {
-			(void) PRNTSCRN::screenshotNode(CCScene::get());
-		}
-		log::info("screenshot Taken?");
 	}
 	void resetLevel() {
 		PlayLayer::resetLevel();
@@ -166,15 +143,6 @@ class $modify(MyPlayLayer, PlayLayer) {
 			else if (fontID != 0 && fontID != -3) hopefullyALabel->setFntFile(fmt::format("gjFont{:02d}.fnt", fontID).c_str());
 			hopefullyALabel->setAlignment(kCCTextAlignmentCenter);
 			if (fontID != 0 && fontID != -3 && getModBool("customFontGoldColor")) hopefullyALabel->setColor({254, 207, 6});
-		}
-	}
-	void showNewBest(bool newReward, int orbs, int diamonds, bool demonKey, bool noRetry, bool noTitle) {
-		PlayLayer::showNewBest(newReward, orbs, diamonds, demonKey, noRetry, noTitle);
-		log::info("isNewBestFloat: {}", MyPlayLayer::isNewBestFloat(this));
-		log::info("manager->hasPRNTSCRN: {}", manager->hasPRNTSCRN);
-		if (manager->hasPRNTSCRN && MyPlayLayer::isNewBestFloat(this) && getModBool("screenshotOnDeath")) {
-			log::info("screenshottingg.......");
-			this->scheduleOnce(schedule_selector(MyPlayLayer::PRNTSCRNOnDeath), .5f);
 		}
 	}
 };
