@@ -45,18 +45,6 @@
 			"type": "bool",
 			"default": false
 		},
-		"screenshotOnDeathPreference": {
-			"name": "Auto-Screenshot Preferred Type (READ!)",
-			"description": "Pick the kind of screenshot you want. No, you can't have all of the types of screenshots; pick wisely!\n\n<cy>\"But this could've been a toggle in PRNTSCRN!\"</c> No.",
-			"type": "string",
-			"default": "Screenshot As-Is",
-			"one-of": [
-				"Screenshot As-Is",
-				"Screenshot the Level, Keep UI",
-				"Screenshot the Level, Hide (~99% of) UI",
-				"Screenshot the Level, Use PRNTSCRN Settings"
-			]
-		},
 		"changeDeathText": {
 			"name": "Change \"New Best\" Texts",
 			"description": "Leaving this enabled is semi-important, since it's kind of the original purpose of this mod. You can disable it though if you want, I guess.",
