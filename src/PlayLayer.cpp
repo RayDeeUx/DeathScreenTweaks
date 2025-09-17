@@ -154,6 +154,10 @@ class $modify(MyPlayLayer, PlayLayer) {
 		log::info("isNewBestFloat: {}", MyPlayLayer::isNewBestFloat(this));
 		log::info("manager->hasPRNTSCRN: {}", manager->hasPRNTSCRN);
 		if (!manager->hasPRNTSCRN || !MyPlayLayer::isNewBestFloat(this) || !getModBool("screenshotOnDeath")) return;
-		(void) PRNTSCRN::screenshotNode(CCScene::get());
+		this->scheduleOnce(schedule_selector(MyPlayLayer::PRNTSCRNOnDeath), .275f);
+	}
+	void PRNTSCRNOnDeath(float) {
+		(void) PRNTSCRN::screenshotNodeAdvanced(this, {}, {});
+		(void) PRNTSCRN::screenshotNodeAdvanced(CCScene::get(), {}, {});
 	}
 };
