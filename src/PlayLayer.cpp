@@ -157,7 +157,18 @@ class $modify(MyPlayLayer, PlayLayer) {
 		this->scheduleOnce(schedule_selector(MyPlayLayer::PRNTSCRNOnDeath), .275f);
 	}
 	void PRNTSCRNOnDeath(float) {
-		(void) PRNTSCRN::screenshotNodeAdvanced(this, {FMODAudioEngine::get()}, {""_spr});
+		const std::string& screenshotOnDeathPreference = getModString("screenshotOnDeathPreference");
+		if (screenshotOnDeathPreference == "Keep UI") {
+			(void) PRNTSCRN::screenshotNodeAdvanced(this, {FMODAudioEngine::get()}, {""_spr});
+		} else if (screenshotOnDeathPreference == "Hide (~99% of) UI") {
+			Mod* prntscrn = Loader::get()->getLoadedMod("ninxout.prntscrn");
+			bool originalValue = prntscrn->getSettingValue<bool>("hide-ui");
+			prntscrn->setSettingValue<bool>("hide-ui", true);
+			(void) PRNTSCRN::screenshotNode(this);
+			prntscrn->setSettingValue<bool>("hide-ui", originalValue);
+		} else {
+			(void) PRNTSCRN::screenshotNode(this);
+		}
 		(void) PRNTSCRN::screenshotNodeAdvanced(CCScene::get(), {FMODAudioEngine::get()}, {""_spr});
 	}
 };
