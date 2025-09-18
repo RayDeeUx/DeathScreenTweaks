@@ -50,18 +50,14 @@ class $modify(MyPlayerObject, PlayerObject) {
 			manager->lastDeathPercent = plCurrentPercent;
 		}
 
-		const auto system = fmod->m_system;
-		FMOD::Channel* channel;
-		FMOD::Sound* sound;
-
 		if (const std::filesystem::path& newBestSFXFile = Mod::get()->getConfigDir() / fmt::format("newBest.{}", getString("extension")); shouldPlayNewBestSFX && std::filesystem::exists(newBestSFXFile) && !pl->m_isTestMode && !pl->m_isPracticeMode) {
 			if (getBool("logging")) {
 				log::info("newBestSFXFile: {}", newBestSFXFile.string());
 				log::info("getString(\"extension\"): {}", getString("extension"));
 			}
-			system->createSound(newBestSFXFile.string().c_str(), FMOD_DEFAULT, nullptr, &sound);
-			system->playSound(sound, nullptr, false, &channel);
-			channel->setVolume(getInt("newBestVolume") / 100.0f);
+			manager->system->createSound(geode::utils::string::pathToString(newBestSFXFile).c_str(), FMOD_DEFAULT, nullptr, &manager->sound);
+			manager->system->playSound(manager->sound, nullptr, false, &manager->channel);
+			manager->channel->setVolume(getInt("newBestVolume") / 100.0f);
 		} else if (theLevel->m_stars.value() == 0 && shouldPlayNewBestSFX) {
 			fmod->playEffect("magicExplosion.ogg");
 		}
@@ -72,9 +68,9 @@ class $modify(MyPlayerObject, PlayerObject) {
 			const auto extension = sisyphusSFXFile.extension();
 			const bool audioIsValidExtension = extension == ".mp3" || extension == ".flac" || extension == ".wav" || extension == ".oga" || extension == ".ogg";
 			if (getBool("sisyphusPlaySFX") && std::filesystem::exists(sisyphusSFXFile) && audioIsValidExtension) {
-				system->createSound(sisyphusSFXFile.string().c_str(), FMOD_DEFAULT, nullptr, &sound);
-				system->playSound(sound, nullptr, false, &channel);
-				channel->setVolume(getInt("sisyphusVolume") / 100.0f);
+				manager->system->createSound(geode::utils::string::pathToString(sisyphusSFXFile).c_str(), FMOD_DEFAULT, nullptr, &manager->sound);
+				manager->system->playSound(manager->sound, nullptr, false, &manager->channel);
+				manager->channel->setVolume(getInt("sisyphusVolume") / 100.0f);
 			}
 			if (getBool("sisyphusAddImage") && std::filesystem::exists(sisyphusImageFile) && sisyphusImageFile.extension() == ".png" && pl->getParent()) {
 				if (CCNode* sisyphusByID = playLayerParent->getChildByID("sisyphus"_spr)) sisyphusByID->removeMeAndCleanup();
@@ -86,14 +82,17 @@ class $modify(MyPlayerObject, PlayerObject) {
 				const CCSize replacementSize = newSisyphus->getContentSize();
 				const float yRatio = originalSize.height / replacementSize.height;
 				const float xRatio = originalSize.width / replacementSize.width;
-				const std::string& fillMode = getString("sisyphusImageFillMode");
+				const std::string& fillMode = utils::string::toLower(getString("sisyphusImageFillMode"));
 
-				if (fillMode == "Fit to Screen") newSisyphus->setScale(std::min(xRatio, yRatio));
-				else if (fillMode == "Fill Screen") newSisyphus->setScale(std::max(xRatio, yRatio));
-				else if (fillMode == "Stretch to Fill Screen") {
+				if (fillMode == "fit to screen") newSisyphus->setScale(std::min(xRatio, yRatio));
+				else if (fillMode == "fill screen") newSisyphus->setScale(std::max(xRatio, yRatio));
+				else if (fillMode == "stretch to fill screen") {
 					newSisyphus->setScaleX(xRatio);
 					newSisyphus->setScaleY(yRatio);
-				} else newSisyphus->setScale(static_cast<float>(std::clamp(getFloat("sisyphusImageScale"), .01, 5.)));
+				} else {
+					newSisyphus->setScale(static_cast<float>(std::clamp(getFloat("sisyphusImageScale"), .01, 5.)));
+				}
+
 				newSisyphus->setID("sisyphus"_spr);
 				newSisyphus->setTag(8042025);
 				newSisyphus->setPosition(playLayerParent->getContentSize() / 2.f);
