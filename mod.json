@@ -43,7 +43,8 @@
 			"name": "Auto-Screenshot on Death",
 			"description": "Automatically take a screenshot when getting a New Best.\n\n<cy>\"But this could've been a toggle in PRNTSCRN!\"</c> No.",
 			"type": "bool",
-			"default": false
+			"default": false,
+			"enable-if": "loaded:ninxout.prntscrn"
 		},
 		"screenshotOnDeathPreference": {
 			"name": "(READ CAREFULLY!) Auto-Screenshot on Death, But...",
@@ -54,7 +55,8 @@
 				"Keep UI",
 				"Hide (~99% of) UI",
 				"Use PRNTSCRN Settings"
-			]
+			],
+			"enable-if": "loaded:ninxout.prntscrn"
 		},
 		"changeDeathText": {
 			"name": "Change \"New Best\" Texts",
@@ -326,7 +328,10 @@
 		]
 	},
 	"dependencies": {
-		"ninxout.prntscrn": ">=1.0.3"
+		"ninxout.prntscrn": {
+			"version": ">=1.0.5",
+			"importance": "recommended"
+		}
 	},
 	"incompatibilities": {
 		"raydeeux.disturbingnewbests": {
