@@ -1,10 +1,16 @@
 # DeathScreenTweaks Changelog
+## v1.7.3
+- Added `Auto-Screenshot on Death`.
+  - Requires PRNTSCRN to use.
+  - Check the additional `Auto-Screenshot on Death, But...` setting to fine-tune UI visibility in your screenshots.
+- Hopefully fixed `Sisyphus Audio` not stopping when the player respawns.
+  - To restore original behavior, disable `Sisyphus: Stop SFX on Respawn`.
 ## v1.7.2
 - Fix a bug introduced in v1.7.0 where fake "New Best" messages would spawn in twice on two-player levels. Sorry about that!
 ## v1.7.1
 - Fixed compatability issues with JFP by changing function hooks.
 ## v1.7.0
-- Added Sisyphus.
+- Added `Sisyphus`.
   - Requires dying at similar percentages of a level to qualify.
   - Comes with numerous options from including a custom image, changing the SFX, adjusting thresholds, and changing custom image scaling options.
 - Added soft compatibility option when `Hide Rewards Animations` is enabled while <cl>Alphalaneous' Next Key When?</c> mod is installed.

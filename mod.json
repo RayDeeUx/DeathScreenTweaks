@@ -47,8 +47,8 @@
 			"enable-if": "loaded:ninxout.prntscrn"
 		},
 		"screenshotOnDeathPreference": {
-			"name": "(READ CAREFULLY!) Auto-Screenshot on Death, But...",
-			"description": "Pick the kind of screenshot you want. No, you can't have all of the types of screenshots; pick wisely!\n\n<cy>\"But this could've been a setting in PRNTSCRN!\"</c> No.",
+			"name": "(READ CAREFULLY!) ~Auto-Screenshot on Death, But...",
+			"description": "Pick the kind of screenshot you want. No, you can't have all of the types of screenshots; pick wisely!\nThe player will always be visible in screenshots from this option.\n\n<cy>\"But this could've been a setting in PRNTSCRN!\"</c> No.",
 			"type": "string",
 			"default": "Use PRNTSCRN Settings",
 			"one-of": [
@@ -258,6 +258,12 @@
 					"description": "Audio files"
 				}
 			]
+		},
+		"sisyphusStopSFXOnRespawn": {
+			"name": "Sisyphus: Stop SFX on Respawn",
+			"description": "<cl>Original idea by Polyflow.</c>\n\nStop SFX for Sisyphus on player respawn.",
+			"type": "bool",
+			"default": true
 		},
 		"sisyphusVolume": {
 			"name": "Sisyphus: SFX Volume (%)",

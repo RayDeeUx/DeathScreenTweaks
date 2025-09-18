@@ -25,27 +25,44 @@ class $modify(MyPlayLayer, PlayLayer) {
 	void resetLevel() {
 		PlayLayer::resetLevel();
 		manager->addedNextKeyWhenLabel = false;
-		if (manager->channel) manager->channel->stop();
+		if (!manager->channel) return;
+		if (!getModBool("sisyphusStopSFXOnRespawn")) return;
+		bool isPlayingBoolean;
+		manager->channel->isPlaying(&isPlayingBoolean);
+		if (isPlayingBoolean) manager->channel->stop();
 	}
 	void onQuit() {
 		PlayLayer::onQuit();
 		manager->lastDeathPercent = -10.f;
-		if (manager->channel) manager->channel->stop();
+		if (!manager->channel) return;
+		bool isPlayingBoolean;
+		manager->channel->isPlaying(&isPlayingBoolean);
+		if (isPlayingBoolean) manager->channel->stop();
 	}
 	void levelComplete() {
 		PlayLayer::levelComplete();
 		manager->lastDeathPercent = -10.f;
-		if (manager->channel) manager->channel->stop();
+		if (!manager->channel) return;
+		bool isPlayingBoolean;
+		manager->channel->isPlaying(&isPlayingBoolean);
+		if (isPlayingBoolean) manager->channel->stop();
 	}
 	void togglePracticeMode(bool practiceMode) {
 		PlayLayer::togglePracticeMode(practiceMode);
 		manager->lastDeathPercent = -10.f;
-		if (manager->channel) manager->channel->stop();
+		if (!manager->channel) return;
+		bool isPlayingBoolean;
+		manager->channel->isPlaying(&isPlayingBoolean);
+		if (isPlayingBoolean) manager->channel->stop();
 	}
 	void resetLevelFromStart() {
 		PlayLayer::resetLevelFromStart();
 		manager->lastDeathPercent = -10.f;
-		if (manager->channel) manager->channel->stop();
+		if (!manager->channel) return;
+		if (!getModBool("enabled") || !getModBool("sisyphusStopSFXOnRespawn")) return;
+		bool isPlayingBoolean;
+		manager->channel->isPlaying(&isPlayingBoolean);
+		if (manager->channel && isPlayingBoolean) manager->channel->stop();
 	}
 	void updateInfoLabel() {
 		PlayLayer::updateInfoLabel();
