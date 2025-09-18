@@ -168,13 +168,12 @@ class $modify(MyPlayLayer, PlayLayer) {
 	}
 	void showNewBest(bool newReward, int orbs, int diamonds, bool demonKey, bool noRetry, bool noTitle) {
 		PlayLayer::showNewBest(newReward, orbs, diamonds, demonKey, noRetry, noTitle);
-		if (!getModBool("enabled") || !m_player1->m_isDead || this->m_isPracticeMode || this->m_isTestMode) return;
-		log::info("isNewBestFloat: {}", MyPlayLayer::didPlayerDieAtNewBestFloat());
-		log::info("manager->hasPRNTSCRN: {}", manager->hasPRNTSCRN);
+		if (!getModBool("enabled") || !m_player1->m_isDead || this->m_isPracticeMode || this->m_isTestMode || m_isPlatformer || (m_level && m_level->isPlatformer())) return;
 		if (!manager->hasPRNTSCRN || !getModBool("screenshotOnDeath")) return;
-		this->scheduleOnce(schedule_selector(MyPlayLayer::PRNTSCRNOnDeath), .275f);
+		this->scheduleOnce(schedule_selector(MyPlayLayer::PRNTSCRNOnDeath), .24f);
 	}
 	void PRNTSCRNOnDeath(float) {
+		if (!getModBool("enabled") || !m_player1->m_isDead || this->m_isPracticeMode || this->m_isTestMode || m_isPlatformer || (m_level && m_level->isPlatformer())) return;
 		if (!manager->hasPRNTSCRN || !getModBool("screenshotOnDeath")) return;
 
 		Mod* prntscrn = Loader::get()->getLoadedMod("ninxout.prntscrn");
@@ -183,15 +182,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 		const std::string& screenshotOnDeathWhen = utils::string::toLower(getModString("screenshotOnDeathWhen"));
 		const bool hasStars = m_level && m_level->m_stars.value() > 0;
 		bool shouldScreenshot = false;
-		/*
-		"\"new best\" deaths (rated)",
-		"all deaths (rated)",
-		"\"new best\" deaths (unrated)",
-		"all deaths (unrated)",
-		"\"new best\" deaths (all)",
-		"all deaths (all)",
-		"always"
-		*/
+
 		if (screenshotOnDeathWhen == "always") shouldScreenshot = true;
 		else if (utils::string::startsWith(screenshotOnDeathWhen, "\"new best\" ") && MyPlayLayer::didPlayerDieAtNewBestFloat()) {
 			if (utils::string::endsWith(screenshotOnDeathWhen, " (all)")) shouldScreenshot = true;
