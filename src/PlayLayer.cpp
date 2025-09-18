@@ -21,11 +21,11 @@ class $modify(MyPlayLayer, PlayLayer) {
 		std::uniform_int_distribution<size_t> dist(0, vector.size() - 1);
 		return vector.at(dist(engine));
 	}
-	static bool isNewBest(PlayLayer* pl) {
-		return pl->getCurrentPercentInt() > pl->m_level->m_normalPercent.value();
+	bool didPlayerDieAtNewBest() {
+		return this->getCurrentPercentInt() > this->m_level->m_normalPercent.value();
 	}
-	static bool isNewBestFloat(PlayLayer* pl) {
-		return pl->getCurrentPercent() > pl->m_level->m_normalPercent.value();
+	bool didPlayerDieAtNewBestFloat() {
+		return this->getCurrentPercent() > this->m_level->m_normalPercent.value();
 	}
 	void resetLevel() {
 		PlayLayer::resetLevel();
@@ -65,7 +65,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 		CCNode* newBestNodeProbably = nullptr;
 		bool hasOrbsLabel = false;
 		bool hasKeyLabel = false;
-		const bool isNewBest = MyPlayLayer::isNewBest(this);
+		const bool isNewBest = MyPlayLayer::didPlayerDieAtNewBest();
 		for (int i = static_cast<int>(getChildrenCount() - 1); i >= 0; i--) {
 			// NEW [good]: int i = getChildrenCount() - 1; i >= 0; i--
 			// ORIG [bad]: int i = getChildrenCount(); i-- > 0;
@@ -169,16 +169,42 @@ class $modify(MyPlayLayer, PlayLayer) {
 	void showNewBest(bool newReward, int orbs, int diamonds, bool demonKey, bool noRetry, bool noTitle) {
 		PlayLayer::showNewBest(newReward, orbs, diamonds, demonKey, noRetry, noTitle);
 		if (!getModBool("enabled") || !m_player1->m_isDead || this->m_isPracticeMode || this->m_isTestMode) return;
-		log::info("isNewBestFloat: {}", MyPlayLayer::isNewBestFloat(this));
+		log::info("isNewBestFloat: {}", MyPlayLayer::didPlayerDieAtNewBestFloat());
 		log::info("manager->hasPRNTSCRN: {}", manager->hasPRNTSCRN);
-		if (!manager->hasPRNTSCRN || !MyPlayLayer::isNewBestFloat(this) || !getModBool("screenshotOnDeath")) return;
+		if (!manager->hasPRNTSCRN || !getModBool("screenshotOnDeath")) return;
 		this->scheduleOnce(schedule_selector(MyPlayLayer::PRNTSCRNOnDeath), .275f);
 	}
 	void PRNTSCRNOnDeath(float) {
-		if (!manager->hasPRNTSCRN || !MyPlayLayer::isNewBestFloat(this) || !getModBool("screenshotOnDeath")) return;
+		if (!manager->hasPRNTSCRN || !getModBool("screenshotOnDeath")) return;
 
 		Mod* prntscrn = Loader::get()->getLoadedMod("ninxout.prntscrn");
 		if (!prntscrn) return;
+
+		const std::string& screenshotOnDeathWhen = utils::string::toLower(getModString("screenshotOnDeathWhen"));
+		const bool hasStars = m_level && m_level->m_stars.value() > 0;
+		bool shouldScreenshot = false;
+		/*
+		"\"new best\" deaths (rated)",
+		"all deaths (rated)",
+		"\"new best\" deaths (unrated)",
+		"all deaths (unrated)",
+		"\"new best\" deaths (all)",
+		"all deaths (all)",
+		"always"
+		*/
+		if (screenshotOnDeathWhen == "always") shouldScreenshot = true;
+		else if (utils::string::startsWith(screenshotOnDeathWhen, "\"new best\" ") && MyPlayLayer::didPlayerDieAtNewBestFloat()) {
+			if (utils::string::endsWith(screenshotOnDeathWhen, " (all)")) shouldScreenshot = true;
+			else if (hasStars && utils::string::endsWith(screenshotOnDeathWhen, " (rated)")) shouldScreenshot = true;
+			else if (!hasStars && utils::string::endsWith(screenshotOnDeathWhen, " (unrated)")) shouldScreenshot = true;
+			else shouldScreenshot = false;
+		} else if (utils::string::startsWith(screenshotOnDeathWhen, "all ")) {
+			if (utils::string::endsWith(screenshotOnDeathWhen, " (all)")) shouldScreenshot = true;
+			else if (hasStars && utils::string::endsWith(screenshotOnDeathWhen, " (rated)")) shouldScreenshot = true;
+			else if (!hasStars && utils::string::endsWith(screenshotOnDeathWhen, " (unrated)")) shouldScreenshot = true;
+			else shouldScreenshot = false;
+		} else shouldScreenshot = false;
+		if (!shouldScreenshot) return;
 
 		const std::string& screenshotOnDeathPreference = utils::string::toLower(getModString("screenshotOnDeathPreference"));
 		const bool originalHidePlayerValue = prntscrn->getSettingValue<bool>("hide-player");
@@ -197,6 +223,6 @@ class $modify(MyPlayLayer, PlayLayer) {
 		}
 		(void) PRNTSCRN::screenshotNodeAdvanced(CCScene::get(), {FMODAudioEngine::get()}, {""_spr});
 
-		prntscrn->setSettingValue<bool>("hide-ui", originalHidePlayerValue);
+		prntscrn->setSettingValue<bool>("hide-player", originalHidePlayerValue);
 	}
 };

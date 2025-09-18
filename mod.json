@@ -41,13 +41,30 @@
 		},
 		"screenshotOnDeath": {
 			"name": "Auto-Screenshot on Death",
-			"description": "Automatically take a screenshot when getting a New Best.\n\n<cy>\"But this could've been a toggle in PRNTSCRN!\"</c> No.",
+			"description": "Automatically take a screenshot when dying.\n\n<cy>\"But this could've been a toggle in PRNTSCRN!\"</c> No.",
 			"type": "bool",
 			"default": false,
 			"enable-if": "loaded:ninxout.prntscrn"
 		},
+		"screenshotOnDeathWhen": {
+			"name": "Auto-Screenshot on Death, When...",
+			"description": "Decide when to take a screenshot when dying.\n\n<cy>\"But this could've been a setting in PRNTSCRN!\"</c> No.",
+			"type": "string",
+			"default": "\"New Best\" Deaths (Rated)",
+			"one-of": [
+				"\"New Best\" Deaths (Rated)",
+				"All Deaths (Rated)",
+				"\"New Best\" Deaths (Unrated)",
+				"All Deaths (Unrated)",
+				"\"New Best\" Deaths (All)",
+				"All Deaths (All)",
+				"Always",
+				"Never"
+			],
+			"enable-if": "loaded:ninxout.prntscrn"
+		},
 		"screenshotOnDeathPreference": {
-			"name": "(READ CAREFULLY!) ~Auto-Screenshot on Death, But...",
+			"name": "(READ CAREFULLY!) Auto-Screenshot on Death, But...",
 			"description": "Pick the kind of screenshot you want. No, you can't have all of the types of screenshots; pick wisely!\nThe player will always be visible in screenshots from this option.\n\n<cy>\"But this could've been a setting in PRNTSCRN!\"</c> No.",
 			"type": "string",
 			"default": "Use PRNTSCRN Settings",
