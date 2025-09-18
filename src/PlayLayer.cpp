@@ -24,23 +24,28 @@ class $modify(MyPlayLayer, PlayLayer) {
 	}
 	void resetLevel() {
 		PlayLayer::resetLevel();
-		Manager::getSharedInstance()->addedNextKeyWhenLabel = false;
+		manager->addedNextKeyWhenLabel = false;
+		if (manager->channel) manager->channel->stop();
 	}
 	void onQuit() {
 		PlayLayer::onQuit();
-		Manager::getSharedInstance()->lastDeathPercent = -10.f;
+		manager->lastDeathPercent = -10.f;
+		if (manager->channel) manager->channel->stop();
 	}
 	void levelComplete() {
 		PlayLayer::levelComplete();
-		Manager::getSharedInstance()->lastDeathPercent = -10.f;
+		manager->lastDeathPercent = -10.f;
+		if (manager->channel) manager->channel->stop();
 	}
 	void togglePracticeMode(bool practiceMode) {
 		PlayLayer::togglePracticeMode(practiceMode);
-		Manager::getSharedInstance()->lastDeathPercent = -10.f;
+		manager->lastDeathPercent = -10.f;
+		if (manager->channel) manager->channel->stop();
 	}
 	void resetLevelFromStart() {
 		PlayLayer::resetLevelFromStart();
-		Manager::getSharedInstance()->lastDeathPercent = -10.f;
+		manager->lastDeathPercent = -10.f;
+		if (manager->channel) manager->channel->stop();
 	}
 	void updateInfoLabel() {
 		PlayLayer::updateInfoLabel();
