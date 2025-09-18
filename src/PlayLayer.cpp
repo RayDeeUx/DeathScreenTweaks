@@ -157,7 +157,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 		this->scheduleOnce(schedule_selector(MyPlayLayer::PRNTSCRNOnDeath), .275f);
 	}
 	void PRNTSCRNOnDeath(float) {
-		(void) PRNTSCRN::screenshotNodeAdvanced(this, {}, {});
-		(void) PRNTSCRN::screenshotNodeAdvanced(CCScene::get(), {}, {});
+		(void) PRNTSCRN::screenshotNodeAdvanced(this, {FMODAudioEngine::get()}, {""_spr});
+		(void) PRNTSCRN::screenshotNodeAdvanced(CCScene::get(), {FMODAudioEngine::get()}, {""_spr});
 	}
 };
