@@ -158,18 +158,24 @@ class $modify(MyPlayLayer, PlayLayer) {
 		this->scheduleOnce(schedule_selector(MyPlayLayer::PRNTSCRNOnDeath), .275f);
 	}
 	void PRNTSCRNOnDeath(float) {
-		const std::string& screenshotOnDeathPreference = getModString("screenshotOnDeathPreference");
-		if (screenshotOnDeathPreference == "Keep UI") {
+		if (!manager->hasPRNTSCRN || !MyPlayLayer::isNewBestFloat(this) || !getModBool("screenshotOnDeath")) return;
+		Mod* prntscrn = Loader::get()->getLoadedMod("ninxout.prntscrn");
+		if (!prntscrn) return;
+		const std::string& screenshotOnDeathPreference = utils::string::toLower(getModString("screenshotOnDeathPreference"));
+		const bool originalHidePlayerValue = prntscrn->getSettingValue<bool>("hide-player");
+		prntscrn->setSettingValue<bool>("hide-player", false);
+		log::info("screenshotOnDeathPreference: {}", screenshotOnDeathPreference);
+		if (screenshotOnDeathPreference == "keep ui") {
 			(void) PRNTSCRN::screenshotNodeAdvanced(this, {FMODAudioEngine::get()}, {""_spr});
-		} else if (screenshotOnDeathPreference == "Hide (~99% of) UI") {
-			Mod* prntscrn = Loader::get()->getLoadedMod("ninxout.prntscrn");
-			bool originalValue = prntscrn->getSettingValue<bool>("hide-ui");
+		} else if (screenshotOnDeathPreference == "hide (~99% of) ui") {
+			const bool originalHideUIValue = prntscrn->getSettingValue<bool>("hide-ui");
 			prntscrn->setSettingValue<bool>("hide-ui", true);
 			(void) PRNTSCRN::screenshotNode(this);
-			prntscrn->setSettingValue<bool>("hide-ui", originalValue);
+			prntscrn->setSettingValue<bool>("hide-ui", originalHideUIValue);
 		} else {
 			(void) PRNTSCRN::screenshotNode(this);
 		}
 		(void) PRNTSCRN::screenshotNodeAdvanced(CCScene::get(), {FMODAudioEngine::get()}, {""_spr});
+		prntscrn->setSettingValue<bool>("hide-ui", originalHidePlayerValue);
 	}
 };

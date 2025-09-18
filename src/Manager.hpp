@@ -29,6 +29,10 @@ public:
 
 	float lastDeathPercent = -10.f;
 
+	FMOD::Sound* sound;
+	FMOD::Channel* channel;
+	FMOD::System* system = FMODAudioEngine::sharedEngine()->m_system;
+
 	static Manager* getSharedInstance() {
 		if (!instance) {
 			instance = new Manager();
