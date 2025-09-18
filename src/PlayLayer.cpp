@@ -151,6 +151,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 	}
 	void showNewBest(bool newReward, int orbs, int diamonds, bool demonKey, bool noRetry, bool noTitle) {
 		PlayLayer::showNewBest(newReward, orbs, diamonds, demonKey, noRetry, noTitle);
+		if (!getModBool("enabled") || !m_player1->m_isDead || this->m_isPracticeMode || this->m_isTestMode) return;
 		log::info("isNewBestFloat: {}", MyPlayLayer::isNewBestFloat(this));
 		log::info("manager->hasPRNTSCRN: {}", manager->hasPRNTSCRN);
 		if (!manager->hasPRNTSCRN || !MyPlayLayer::isNewBestFloat(this) || !getModBool("screenshotOnDeath")) return;
