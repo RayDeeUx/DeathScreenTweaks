@@ -9,6 +9,11 @@
 #define getModInt Mod::get()->getSettingValue<int64_t>
 #define manager Manager::getSharedInstance()
 
+#define STOP_MANAGER_CHANNEL\
+	bool isPlayingBoolean;\
+	manager->channel->isPlaying(&isPlayingBoolean);\
+	if (isPlayingBoolean) manager->channel->stop();
+
 class $modify(MyPlayLayer, PlayLayer) {
 	static std::string grabRandomQuote(std::vector<std::string> vector = manager->quotes) {
 		if (vector.empty()) return "";
@@ -27,42 +32,32 @@ class $modify(MyPlayLayer, PlayLayer) {
 		manager->addedNextKeyWhenLabel = false;
 		if (!manager->channel) return;
 		if (!getModBool("sisyphusStopSFXOnRespawn")) return;
-		bool isPlayingBoolean;
-		manager->channel->isPlaying(&isPlayingBoolean);
-		if (isPlayingBoolean) manager->channel->stop();
+		STOP_MANAGER_CHANNEL
 	}
 	void onQuit() {
 		PlayLayer::onQuit();
 		manager->lastDeathPercent = -10.f;
 		if (!manager->channel) return;
-		bool isPlayingBoolean;
-		manager->channel->isPlaying(&isPlayingBoolean);
-		if (isPlayingBoolean) manager->channel->stop();
+		STOP_MANAGER_CHANNEL
 	}
 	void levelComplete() {
 		PlayLayer::levelComplete();
 		manager->lastDeathPercent = -10.f;
 		if (!manager->channel) return;
-		bool isPlayingBoolean;
-		manager->channel->isPlaying(&isPlayingBoolean);
-		if (isPlayingBoolean) manager->channel->stop();
+		STOP_MANAGER_CHANNEL
 	}
 	void togglePracticeMode(bool practiceMode) {
 		PlayLayer::togglePracticeMode(practiceMode);
 		manager->lastDeathPercent = -10.f;
 		if (!manager->channel) return;
-		bool isPlayingBoolean;
-		manager->channel->isPlaying(&isPlayingBoolean);
-		if (isPlayingBoolean) manager->channel->stop();
+		STOP_MANAGER_CHANNEL
 	}
 	void resetLevelFromStart() {
 		PlayLayer::resetLevelFromStart();
 		manager->lastDeathPercent = -10.f;
 		if (!manager->channel) return;
 		if (!getModBool("enabled") || !getModBool("sisyphusStopSFXOnRespawn")) return;
-		bool isPlayingBoolean;
-		manager->channel->isPlaying(&isPlayingBoolean);
-		if (manager->channel && isPlayingBoolean) manager->channel->stop();
+		STOP_MANAGER_CHANNEL
 	}
 	void updateInfoLabel() {
 		PlayLayer::updateInfoLabel();
