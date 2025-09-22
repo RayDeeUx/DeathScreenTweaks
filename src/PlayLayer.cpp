@@ -62,7 +62,8 @@ class $modify(MyPlayLayer, PlayLayer) {
 	}
 	void updateInfoLabel() {
 		PlayLayer::updateInfoLabel();
-		if (!getModBool("enabled") || m_level->isPlatformer() || !m_player1->m_isDead || m_isPlatformer) return;
+		if (!getModBool("enabled") || !m_level || m_level->isPlatformer() || !m_player1->m_isDead || m_isPlatformer) return;
+
 		CCNode* newBestNodeProbably = nullptr;
 		bool hasOrbsLabel = false;
 		bool hasKeyLabel = false;
@@ -87,10 +88,21 @@ class $modify(MyPlayLayer, PlayLayer) {
 			newBestNodeProbably = theLastCCNode;
 			break;
 		}
+
 		if (!newBestNodeProbably || newBestNodeProbably->getUserObject("modified-already"_spr)) return;
 		newBestNodeProbably->setUserObject("modified-already"_spr, CCBool::create(true));
-		if (getModBool("xPosPercentEnable")) newBestNodeProbably->setPositionX(CCScene::get()->getContentWidth() * (std::clamp<float>(getModFloat("xPosPercent"), 0.f, 100.f) / 100.f));
-		if (getModBool("yPosPercentEnable")) newBestNodeProbably->setPositionY(CCScene::get()->getContentHeight() * (std::clamp<float>(getModFloat("yPosPercent"), 0.f, 100.f) / 100.f));
+
+		if (getModBool("xPosPercentEnable")) {
+			const float cWidth = CCScene::get()->getContentWidth();
+			if (m_level->m_stars.value() == 0) newBestNodeProbably->setPositionX(cWidth * (std::clamp<float>(getModFloat("xPosPercent"), 0.f, 100.f) / 100.f));
+			else newBestNodeProbably->setPositionX(cWidth * (std::clamp<float>(getModFloat("xPosPercentRatedLevels"), 0.f, 100.f) / 100.f));
+		}
+		if (getModBool("yPosPercentEnable")) {
+			const float cHeight = CCScene::get()->getContentHeight();
+			if (m_level->m_stars.value() == 0) newBestNodeProbably->setPositionY(cHeight * (std::clamp<float>(getModFloat("yPosPercent"), 0.f, 100.f) / 100.f));
+			else newBestNodeProbably->setPositionY(cHeight * (std::clamp<float>(getModFloat("yPosPercentRatedLevels"), 0.f, 100.f) / 100.f));
+		}
+
 		if (manager->hasNextKeyWhenLoaded && getModBool("currencyLayer") && getModBool("currencyLayerNextKeyWhenCompat") && !manager->addedNextKeyWhenLabel && m_level->m_stars.value() > 1) {
 			if (hasOrbsLabel) {
 				CCLabelBMFont* nextKeyWhen = CCLabelBMFont::create(fmt::format("Key: {}/500", GameStatsManager::sharedState()->getTotalCollectedCurrency() % 500).c_str(), "bigFont.fnt");
@@ -115,13 +127,17 @@ class $modify(MyPlayLayer, PlayLayer) {
 			}
 			manager->addedNextKeyWhenLabel = true;
 		}
+
 		std::smatch match;
 		for (CCNode* child : CCArrayExt<CCNode*>(newBestNodeProbably->getChildren())) {
 			if (child->getID() == "next-key-when-compat-label"_spr) continue;
+
 			const auto hopefullyALabel = typeinfo_cast<CCLabelBMFont*>(child);
 			if (!hopefullyALabel || hopefullyALabel->getTag() == 8042025) continue;
+
 			std::string nodeString = hopefullyALabel->getString();
 			std::string fontFile = hopefullyALabel->getFntFile();
+
 			if (nodeString.ends_with("%") && fontFile == "bigFont.fnt") {
 				// this is the node displaying where you died as a new best
 				if (isNewBest && getModBool("accuratePercent")) return hopefullyALabel->setString(fmt::format("{:.{}f}%", getCurrentPercent(), getModInt("accuracy")).c_str());
@@ -131,29 +147,35 @@ class $modify(MyPlayLayer, PlayLayer) {
 				auto percentAsInt = utils::numFromString<int>(percent);
 				if (percentAsInt.isErr()) continue;
 				auto currPercent = this->getCurrentPercentInt();
+
 				if (getModBool("logging")) {
 					log::info("percentAsInt == currentPercentInt: {}", percentAsInt.unwrap() == currPercent);
 					log::info("percentAsInt: {}", percentAsInt.unwrap());
 					log::info("getCurrentPercentInt: {}", currPercent);
 				}
+
 				if (!getModBool("accuratePercent")) hopefullyALabel->setString(fmt::format("{}%", currPercent).c_str());
 				else hopefullyALabel->setString(fmt::format("{:.{}f}%", getCurrentPercent(), getModInt("accuracy")).c_str());
 				continue;
 			}
+
 			std::string randomString = !manager->customQuotes.empty() && getModBool("customTextsOnly") ? grabRandomQuote(manager->customQuotes) : grabRandomQuote();
 			if (fontFile != "goldFont.fnt" || std::ranges::find(manager->quotes, nodeString) != manager->quotes.end()) continue; // avoid regenerating new quotes
 			if (getModBool("hideNewBestMessages")) {
 				hopefullyALabel->setVisible(false);
 				continue;
 			}
+
 			if (!getModBool("changeDeathText")) continue;
 			auto fontID = getModInt("customFont");
+
 			if (fontID == -3) {
 				hopefullyALabel->setFntFile("newBestFont.fnt"_spr);
 				hopefullyALabel->setExtraKerning(4);
 				randomString = utils::string::toUpper(randomString); // oxygene one does not support lowercase chars
 				randomString = utils::string::replace(randomString, "\"", "\'\'"); // oxygene one does not support `"` char
 			}
+
 			if (!randomString.empty()) hopefullyALabel->setString(randomString.c_str(), true);
 			if (getModBool("lineWrapping")) {
 				hopefullyALabel->setAlignment(CCTextAlignment::kCCTextAlignmentCenter); // center text
@@ -162,6 +184,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 				hopefullyALabel->setWidth(420.f); // width of end screen minus 20px, not marajuana referenec
 				hopefullyALabel->setScale(scale);
 			} else hopefullyALabel->limitLabelWidth(420.f, 10.f, .25f); // you never know how long these custom strings might get
+
 			if (fontID == -2) hopefullyALabel->setFntFile("chatFont.fnt");
 			else if (fontID == -1) hopefullyALabel->setFntFile("bigFont.fnt");
 			else if (fontID != 0 && fontID != -3) hopefullyALabel->setFntFile(fmt::format("gjFont{:02d}.fnt", fontID).c_str());
