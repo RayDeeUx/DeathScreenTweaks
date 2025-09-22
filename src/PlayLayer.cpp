@@ -153,11 +153,6 @@ class $modify(MyPlayLayer, PlayLayer) {
 				std::clamp<float>(getModFloat("scaleHoldDurationNoOrbsAndNoDiamonds"), .1f, 1.f) :
 				std::clamp<float>(getModFloat("scaleHoldDuration"), .1f, 1.5f)
 			);
-			/*
-			scaleShrinkingDuration
-			scaleShrinkingEasingType
-			scaleShrinkingEasingRate
-			*/
 			CCActionInterval* scaleShrinkToAction = CCScaleTo::create(
 				std::clamp<float>(getModFloat("scaleShrinkingDuration"), 0.f, .5f),
 				.01f, .01f
@@ -166,6 +161,11 @@ class $modify(MyPlayLayer, PlayLayer) {
 				scaleShrinkToAction, getModString("scaleShrinkingEasingType"),
 				std::clamp<float>(getModFloat("scaleShrinkingEasingRate"), .1f, 4.f)
 			);
+			CCSequence* sequence = CCSequence::create(
+				easedScaleToAction, delay,
+				easedScaleToShrinkAction, CCRemoveSelf::create()
+			);
+			newBestNodeProbably->runAction(sequence);
 		}
 
 		if (manager->hasNextKeyWhenLoaded && getModBool("currencyLayer") && getModBool("currencyLayerNextKeyWhenCompat") && !manager->addedNextKeyWhenLabel && m_level->m_stars.value() > 1) {

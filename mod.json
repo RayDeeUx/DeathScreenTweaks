@@ -405,7 +405,7 @@
 		"scaleEasingType": {
 			"name": "Scale Growing Easing Type",
 			"type": "string",
-			"default": "Ease Elastic Out",
+			"default": "Elastic Out",
 			"one-of": [
 				"None (Linear)",
 				"Ease In", "Ease Out", "Ease In Out",
