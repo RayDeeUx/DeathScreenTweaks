@@ -338,31 +338,143 @@
 		},
 		"xPosPercentEnable": {
 			"name": "Custom Position X (%)",
-			"description": "This setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
+			"description": "Using this setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
 			"type": "bool",
 			"default": false
 		},
 		"xPosPercent": {
 			"name": "Position X (%)",
 			"type": "float",
-			"description": "This setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
+			"description": "Using this setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
+			"default": 50.00,
+			"min": 0.000,
+			"max": 100.0
+		},
+		"xPosPercentRatedLevels": {
+			"name": "Position X (%) [For Rated Levels]",
+			"type": "float",
+			"description": "Using this setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
 			"default": 50.00,
 			"min": 0.000,
 			"max": 100.0
 		},
 		"yPosPercentEnable":{
 			"name": "Custom Position Y (%)",
-			"description": "This setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
+			"description": "Using this setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
 			"type": "bool",
 			"default": false
 		},
 		"yPosPercent": {
 			"name": "Position Y (%)",
 			"type": "float",
-			"description": "This setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
+			"description": "Using this setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
 			"default": 50.00,
 			"min": 0.000,
 			"max": 100.0
+		},
+		"yPosPercentRatedLevels": {
+			"name": "Position Y (%) [For Rated Levels]",
+			"type": "float",
+			"description": "Using this setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
+			"default": 50.00,
+			"min": 0.000,
+			"max": 100.0
+		},
+		"customScaleAnim": {
+			"name": "Custom Scale Anim",
+			"description": "Enables the mod to change the scale animation.",
+			"type": "bool",
+			"default": false
+		},
+		"scaleFrom": {
+			"name": "Initial Scale",
+			"description": "The scale the \"New Best\" screen will scale from.",
+			"type": "float",
+			"default": 0.00,
+			"min": 0.00,
+			"max": 0.50
+		},
+		"scaleDuration": {
+			"name": "Scale Growing Duration",
+			"description": "The duration of the \"New Best\" growing animation.",
+			"type": "float",
+			"default": 0.40,
+			"min": 0.00,
+			"max": 0.50
+		},
+		"scaleEasingType": {
+			"name": "Scale Growing Easing Type",
+			"type": "string",
+			"default": "Ease Elastic Out",
+			"one-of": [
+				"None (Linear)",
+				"Ease In", "Ease Out", "Ease In Out",
+				"Back In", "Back Out", "Back In Out",
+				"Bounce In", "Bounce Out", "Bounce In Out",
+				"Elastic In", "Elastic Out", "Elastic In Out",
+				"Exponential In", "Exponential Out", "Exponential In Out",
+				"Sine In", "Sine Out", "Sine In Out"
+			]
+		},
+		"scaleEasingRate": {
+			"name": "Scale Growing Easing Rate",
+			"type": "float",
+			"default": 0.60,
+			"min": 0.10,
+			"max": 4.00
+		},
+		"scaleTo": {
+			"name": "Final Scale",
+			"description": "The scale the \"New Best\" screen will scale to.",
+			"type": "float",
+			"default": 1.00,
+			"min": 0.50,
+			"max": 1.50
+		},
+		"scaleShrinkingDuration": {
+			"name": "Scale Shrinking Duration",
+			"description": "The duration of the \"New Best\" shrinking animation.",
+			"type": "float",
+			"default": 0.20,
+			"min": 0.00,
+			"max": 0.50
+		},
+		"scaleShrinkingEasingType": {
+			"name": "Scale Shrinking Easing Type",
+			"type": "string",
+			"default": "Ease In",
+			"one-of": [
+				"None (Linear)",
+				"Ease In", "Ease Out", "Ease In Out",
+				"Back In", "Back Out", "Back In Out",
+				"Bounce In", "Bounce Out", "Bounce In Out",
+				"Elastic In", "Elastic Out", "Elastic In Out",
+				"Exponential In", "Exponential Out", "Exponential In Out",
+				"Sine In", "Sine Out", "Sine In Out"
+			]
+		},
+		"scaleShrinkingEasingRate": {
+			"name": "Scale Shrinking Easing Rate",
+			"type": "float",
+			"default": 2.00,
+			"min": 0.10,
+			"max": 4.00
+		},
+		"scaleHoldDurationNoOrbsAndNoDiamonds": {
+			"name": "Scale Hold Duration (No Orbs and No Diamonds)",
+			"description": "The duration of the pause between the \"New Best\" screen's \"appearance\" animation and the \"New Best\" screen's \"disappearance\" animation. (Only applies when no orbs and no diamonds are gained on death.)",
+			"type": "float",
+			"default": 0.10,
+			"min": 0.10,
+			"max": 1.00
+		},
+		"scaleHoldDuration": {
+			"name": "Scale Hold Duration (With Orbs or Diamonds)",
+			"description": "The duration of the pause between the \"New Best\" screen's \"appearance\" animation and the \"New Best\" screen's \"disappearance\" animation. (Only applies when any orbs or any diamonds are gained.)",
+			"type": "float",
+			"default": 1.30,
+			"min": 0.10,
+			"max": 1.50
 		},
 		"logging": {
 			"name": "Enable Logging",

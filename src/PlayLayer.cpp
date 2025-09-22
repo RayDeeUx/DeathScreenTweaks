@@ -28,6 +28,38 @@ class $modify(MyPlayLayer, PlayLayer) {
 	bool didPlayerDieAtNewBestFloat() {
 		return this->getCurrentPercent() > this->m_level->m_normalPercent.value();
 	}
+	static CCActionInterval* getEaseTypeForCustomScaleAnimation(CCActionInterval* action, const std::string& modStringSetting, const float easingRate) {
+		if (!action) return nullptr;
+		const std::string& easeType = utils::string::toLower(modStringSetting);
+
+		if (easeType == "none (linear)" || easeType == "none" || easeType == "linear") return action;
+
+		if (easeType == "ease in") return CCEaseIn::create(action, easingRate);
+		if (easeType == "ease out") return CCEaseOut::create(action, easingRate);
+		if (easeType == "ease in out") return CCEaseInOut::create(action, easingRate);
+
+		if (easeType == "back in") return CCEaseBackIn::create(action);
+		if (easeType == "back out") return CCEaseBackOut::create(action);
+		if (easeType == "back in out") return CCEaseBackInOut::create(action);
+
+		if (easeType == "bounce in") return CCEaseBounceIn::create(action);
+		if (easeType == "bounce out") return CCEaseBounceOut::create(action);
+		if (easeType == "bounce in out") return CCEaseBounceInOut::create(action);
+
+		if (easeType == "elastic in") return CCEaseElasticIn::create(action, easingRate);
+		if (easeType == "elastic out") return CCEaseElasticOut::create(action, easingRate);
+		if (easeType == "elastic in out") return CCEaseElasticInOut::create(action, easingRate);
+
+		if (easeType == "exponential in") return CCEaseExponentialIn::create(action);
+		if (easeType == "exponential out") return CCEaseExponentialOut::create(action);
+		if (easeType == "exponential in out") return CCEaseExponentialInOut::create(action);
+
+		if (easeType == "sine in") return CCEaseSineIn::create(action);
+		if (easeType == "sine out") return CCEaseSineOut::create(action);
+		if (easeType == "sine in out") return CCEaseSineInOut::create(action);
+
+		return CCEaseElasticOut::create(action, easingRate);
+	}
 	void resetLevel() {
 		PlayLayer::resetLevel();
 		manager->addedNextKeyWhenLabel = false;
@@ -67,6 +99,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 		CCNode* newBestNodeProbably = nullptr;
 		bool hasOrbsLabel = false;
 		bool hasKeyLabel = false;
+		bool hasDiamondsOrOrbs = false;
 		const bool isNewBest = MyPlayLayer::didPlayerDieAtNewBest();
 		for (int i = static_cast<int>(getChildrenCount() - 1); i >= 0; i--) {
 			// NEW [good]: int i = getChildrenCount() - 1; i >= 0; i--
@@ -78,6 +111,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 					theLastCCNode->setVisible(false);
 					if (crl->m_orbsLabel) hasOrbsLabel = true;
 					if (crl->m_keysLabel) hasKeyLabel = true;
+					if (crl->m_diamonds > 0 || crl->m_orbs > 0) hasDiamondsOrOrbs = m_level->m_stars.value() > 0;
 				}
 				continue;
 			}
@@ -101,6 +135,37 @@ class $modify(MyPlayLayer, PlayLayer) {
 			const float cHeight = CCScene::get()->getContentHeight();
 			if (m_level->m_stars.value() == 0) newBestNodeProbably->setPositionY(cHeight * (std::clamp<float>(getModFloat("yPosPercent"), 0.f, 100.f) / 100.f));
 			else newBestNodeProbably->setPositionY(cHeight * (std::clamp<float>(getModFloat("yPosPercentRatedLevels"), 0.f, 100.f) / 100.f));
+		}
+
+		if (getModBool("customScaleAnim")) {
+			newBestNodeProbably->stopAllActions();
+			newBestNodeProbably->setScale(std::clamp<float>(getModFloat("scaleFrom"), 0.f, .5f));
+			CCActionInterval* scaleToAction = CCScaleTo::create(
+				std::clamp<float>(getModFloat("scaleDuration"), 0.f, .5f),
+				std::clamp<float>(getModFloat("scaleTo"), .5f, 1.5f)
+			);
+			CCActionInterval* easedScaleToAction = MyPlayLayer::getEaseTypeForCustomScaleAnimation(
+				scaleToAction, getModString("scaleEasingType"),
+				std::clamp<float>(getModFloat("scaleEasingRate"), .1f, 4.f)
+			);
+			CCDelayTime* delay = CCDelayTime::create(
+				!hasDiamondsOrOrbs ?
+				std::clamp<float>(getModFloat("scaleHoldDurationNoOrbsAndNoDiamonds"), .1f, 1.f) :
+				std::clamp<float>(getModFloat("scaleHoldDuration"), .1f, 1.5f)
+			);
+			/*
+			scaleShrinkingDuration
+			scaleShrinkingEasingType
+			scaleShrinkingEasingRate
+			*/
+			CCActionInterval* scaleShrinkToAction = CCScaleTo::create(
+				std::clamp<float>(getModFloat("scaleShrinkingDuration"), 0.f, .5f),
+				.01f, .01f
+			);
+			CCActionInterval* easedScaleToShrinkAction = MyPlayLayer::getEaseTypeForCustomScaleAnimation(
+				scaleShrinkToAction, getModString("scaleShrinkingEasingType"),
+				std::clamp<float>(getModFloat("scaleShrinkingEasingRate"), .1f, 4.f)
+			);
 		}
 
 		if (manager->hasNextKeyWhenLoaded && getModBool("currencyLayer") && getModBool("currencyLayerNextKeyWhenCompat") && !manager->addedNextKeyWhenLabel && m_level->m_stars.value() > 1) {
