@@ -136,6 +136,10 @@ class $modify(MyPlayLayer, PlayLayer) {
 			if (m_level->m_stars.value() == 0) newBestNodeProbably->setPositionY(cHeight * (std::clamp<float>(getModFloat("yPosPercent"), 0.f, 100.f) / 100.f));
 			else newBestNodeProbably->setPositionY(cHeight * (std::clamp<float>(getModFloat("yPosPercentRatedLevels"), 0.f, 100.f) / 100.f));
 		}
+		if (getModBool("rotationEnable")) {
+			if (m_level->m_stars.value() == 0) newBestNodeProbably->setRotation(std::clamp<float>(getModFloat("rotation"), 0.f, 360.f));
+			else newBestNodeProbably->setRotation(std::clamp<float>(getModFloat("rotationRatedLevels"), 0.f, 360.f));
+		}
 
 		if (getModBool("customScaleAnim")) {
 			newBestNodeProbably->stopAllActions();

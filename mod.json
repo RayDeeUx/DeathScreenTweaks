@@ -337,18 +337,10 @@
 			"max": 5.00
 		},
 		"xPosPercentEnable": {
-			"name": "Custom Position X (%)",
+			"name": "Custom Position X",
 			"description": "Using this setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
 			"type": "bool",
 			"default": false
-		},
-		"xPosPercent": {
-			"name": "Position X (%)",
-			"type": "float",
-			"description": "Using this setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
-			"default": 50.00,
-			"min": 0.000,
-			"max": 100.0
 		},
 		"xPosPercentRatedLevels": {
 			"name": "Position X (%) [For Rated Levels]",
@@ -358,19 +350,19 @@
 			"min": 0.000,
 			"max": 100.0
 		},
-		"yPosPercentEnable":{
-			"name": "Custom Position Y (%)",
-			"description": "Using this setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
-			"type": "bool",
-			"default": false
-		},
-		"yPosPercent": {
-			"name": "Position Y (%)",
+		"xPosPercent": {
+			"name": "Position X (%)",
 			"type": "float",
 			"description": "Using this setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
 			"default": 50.00,
 			"min": 0.000,
 			"max": 100.0
+		},
+		"yPosPercentEnable":{
+			"name": "Custom Position Y",
+			"description": "Using this setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
+			"type": "bool",
+			"default": false
 		},
 		"yPosPercentRatedLevels": {
 			"name": "Position Y (%) [For Rated Levels]",
@@ -380,8 +372,35 @@
 			"min": 0.000,
 			"max": 100.0
 		},
+		"yPosPercent": {
+			"name": "Position Y (%)",
+			"type": "float",
+			"description": "Using this setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
+			"default": 50.00,
+			"min": 0.000,
+			"max": 100.0
+		},
+		"rotationEnable": {
+			"name": "Custom Rotation",
+			"type": "bool",
+			"default": false
+		},
+		"rotationRatedLevels": {
+			"name": "Rotation [For Rated Levels]",
+			"type": "float",
+			"default": 0.00,
+			"min": 0.000,
+			"max": 360.0
+		},
+		"rotation": {
+			"name": "Rotation",
+			"type": "float",
+			"default": 0.00,
+			"min": 0.000,
+			"max": 360.0
+		},
 		"customScaleAnim": {
-			"name": "Custom Scale Anim",
+			"name": "Custom Scale Animation",
 			"description": "Enables the mod to change the scale animation.",
 			"type": "bool",
 			"default": false
