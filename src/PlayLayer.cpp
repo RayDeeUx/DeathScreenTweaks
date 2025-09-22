@@ -163,7 +163,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 			);
 			CCSequence* sequence = CCSequence::create(
 				easedScaleToAction, delay,
-				easedScaleToShrinkAction, CCRemoveSelf::create()
+				easedScaleToShrinkAction, CCRemoveSelf::create(), nullptr
 			);
 			newBestNodeProbably->runAction(sequence);
 		}
