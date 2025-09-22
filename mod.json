@@ -336,6 +336,34 @@
 			"min": 0.01,
 			"max": 5.00
 		},
+		"xPosPercentEnable": {
+			"name": "Custom Position X (%)",
+			"description": "This setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
+			"type": "bool",
+			"default": false
+		},
+		"xPosPercent": {
+			"name": "Position X (%)",
+			"type": "float",
+			"description": "This setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
+			"default": 50.00,
+			"min": 0.000,
+			"max": 100.0
+		},
+		"yPosPercentEnable":{
+			"name": "Custom Position Y (%)",
+			"description": "This setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
+			"type": "bool",
+			"default": false
+		},
+		"yPosPercent": {
+			"name": "Position Y (%)",
+			"type": "float",
+			"description": "This setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
+			"default": 50.00,
+			"min": 0.000,
+			"max": 100.0
+		},
 		"logging": {
 			"name": "Enable Logging",
 			"type": "bool",
@@ -364,6 +392,11 @@
 		"cham.nonewbest": {
 			"version": ">=1.0.0",
 			"importance": "superseded"
+		},
+		"snix.movenewbest": {
+			"version": ">=1.0.0",
+			"importance": "superseded",
+			"offhandCommentGeodeWontUseThis": "holy crap, this mod smells so strongly of vibecoded slop from the depths of hell and back that it's actually really sad"
 		}
 	},
 	"issues": {

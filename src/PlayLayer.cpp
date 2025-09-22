@@ -6,6 +6,7 @@
 
 #define getModBool Mod::get()->getSettingValue<bool>
 #define getModString Mod::get()->getSettingValue<std::string>
+#define getModFloat Mod::get()->getSettingValue<double>
 #define getModInt Mod::get()->getSettingValue<int64_t>
 #define manager Manager::getSharedInstance()
 
@@ -88,6 +89,8 @@ class $modify(MyPlayLayer, PlayLayer) {
 		}
 		if (!newBestNodeProbably || newBestNodeProbably->getUserObject("modified-already"_spr)) return;
 		newBestNodeProbably->setUserObject("modified-already"_spr, CCBool::create(true));
+		if (getModBool("xPosPercentEnable")) newBestNodeProbably->setPositionX(CCScene::get()->getContentWidth() * (std::clamp<float>(getModFloat("xPosPercent"), 0.f, 100.f) / 100.f));
+		if (getModBool("yPosPercentEnable")) newBestNodeProbably->setPositionY(CCScene::get()->getContentHeight() * (std::clamp<float>(getModFloat("yPosPercent"), 0.f, 100.f) / 100.f));
 		if (manager->hasNextKeyWhenLoaded && getModBool("currencyLayer") && getModBool("currencyLayerNextKeyWhenCompat") && !manager->addedNextKeyWhenLabel && m_level->m_stars.value() > 1) {
 			if (hasOrbsLabel) {
 				CCLabelBMFont* nextKeyWhen = CCLabelBMFont::create(fmt::format("Key: {}/500", GameStatsManager::sharedState()->getTotalCollectedCurrency() % 500).c_str(), "bigFont.fnt");
