@@ -337,7 +337,7 @@
 			"max": 5.00
 		},
 		"xPosPercentEnable": {
-			"name": "Custom Position X",
+			"name": "Customize Position X",
 			"description": "Using this setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
 			"type": "bool",
 			"default": false
@@ -359,7 +359,7 @@
 			"max": 100.0
 		},
 		"yPosPercentEnable":{
-			"name": "Custom Position Y",
+			"name": "Customize Position Y",
 			"description": "Using this setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
 			"type": "bool",
 			"default": false
@@ -381,7 +381,7 @@
 			"max": 100.0
 		},
 		"rotationEnable": {
-			"name": "Custom Rotation",
+			"name": "Customize Rotation",
 			"type": "bool",
 			"default": false
 		},
@@ -400,7 +400,7 @@
 			"max": 360.0
 		},
 		"customScaleAnim": {
-			"name": "Custom Scale Animation",
+			"name": "Customize Scale Animation",
 			"description": "Enables the mod to change the scale animation.",
 			"type": "bool",
 			"default": false

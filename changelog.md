@@ -1,8 +1,10 @@
 # DeathScreenTweaks Changelog
 ## v1.7.3
-- Added `Custom Position` and `Custom Rotation`.
+- Added `Customize Position` and `Customize Rotation`.
   - Quite frankly, this shouldn't exist in the first place, but it's here purely for the sake of supporting it. :P
   - (ChatGPT really needs to do a better job with leaving anchor points alone for nodes that won't even respond to anchor points...)
+- Added `Customize Scale Animation`.
+  - Change most of the traits of the scaling "New Best!" animation.
 - Added `Auto-Screenshot on Death`.
   - Requires PRNTSCRN to use.
   - Check the additional `Auto-Screenshot on Death, But...` setting to fine-tune UI visibility in your screenshots.
