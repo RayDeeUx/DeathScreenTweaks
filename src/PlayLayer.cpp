@@ -154,7 +154,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 			);
 			CCDelayTime* delay = CCDelayTime::create(
 				!hasDiamondsOrOrbs ?
-				std::clamp<float>(getModFloat("scaleHoldDurationNoOrbsAndNoDiamonds"), .1f, 1.f) :
+				std::clamp<float>(getModFloat("scaleHoldDurationNoOrbsAndNoDiamonds"), .1f, 1.5f) :
 				std::clamp<float>(getModFloat("scaleHoldDuration"), .1f, 1.5f)
 			);
 			CCActionInterval* scaleShrinkToAction = CCScaleTo::create(
