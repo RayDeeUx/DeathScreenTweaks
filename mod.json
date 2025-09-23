@@ -450,6 +450,22 @@
 			"min": 0.50,
 			"max": 1.50
 		},
+		"scaleHoldDurationNoOrbsAndNoDiamonds": {
+			"name": "Scale Hold Duration (No Orbs and No Diamonds)",
+			"description": "The duration of the pause between the \"New Best\" screen's \"appearance\" animation and the \"New Best\" screen's \"disappearance\" animation. (Only applies when no orbs and no diamonds are gained on death.)",
+			"type": "float",
+			"default": 0.70,
+			"min": 0.10,
+			"max": 1.50
+		},
+		"scaleHoldDuration": {
+			"name": "Scale Hold Duration (With Orbs or Diamonds)",
+			"description": "The duration of the pause between the \"New Best\" screen's \"appearance\" animation and the \"New Best\" screen's \"disappearance\" animation. (Only applies when any orbs or any diamonds are gained.)",
+			"type": "float",
+			"default": 1.30,
+			"min": 0.10,
+			"max": 1.50
+		},
 		"scaleShrinkingDuration": {
 			"name": "Scale Shrinking Duration",
 			"description": "The duration of the \"New Best\" shrinking animation.",
@@ -478,22 +494,6 @@
 			"default": 2.00,
 			"min": 0.10,
 			"max": 4.00
-		},
-		"scaleHoldDurationNoOrbsAndNoDiamonds": {
-			"name": "Scale Hold Duration (No Orbs and No Diamonds)",
-			"description": "The duration of the pause between the \"New Best\" screen's \"appearance\" animation and the \"New Best\" screen's \"disappearance\" animation. (Only applies when no orbs and no diamonds are gained on death.)",
-			"type": "float",
-			"default": 0.70,
-			"min": 0.10,
-			"max": 1.50
-		},
-		"scaleHoldDuration": {
-			"name": "Scale Hold Duration (With Orbs or Diamonds)",
-			"description": "The duration of the pause between the \"New Best\" screen's \"appearance\" animation and the \"New Best\" screen's \"disappearance\" animation. (Only applies when any orbs or any diamonds are gained.)",
-			"type": "float",
-			"default": 1.30,
-			"min": 0.10,
-			"max": 1.50
 		},
 		"logging": {
 			"name": "Enable Logging",
