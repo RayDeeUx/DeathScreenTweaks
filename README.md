@@ -9,6 +9,7 @@ Spices things up a bit when receiving a "New Best" screen.\
 * SFX specifically for getting a \"New Best\".
 * Sisyphus effect, for when dying near the same spot as your previous attempt.
 * Hide the rewards animation, or the entire "New Best" screen.
+* Change the position, rotation, and scaling animation of the "New Best" screen.
 
 ## Notes
 <co>\* This mod *will* try to auto-enable the `"Just, Don't..."`/`"Do Not..."` vanilla in-game setting.</c>
