@@ -519,15 +519,6 @@
 		"raydeeux.disturbingnewbests": {
 			"version": ">=1.0.0",
 			"importance": "superseded"
-		},
-		"cham.nonewbest": {
-			"version": ">=1.0.0",
-			"importance": "superseded"
-		},
-		"snix.movenewbest": {
-			"version": ">=1.0.0",
-			"importance": "superseded",
-			"offhandCommentGeodeWontUseThis": "this mod is vibecoded slop and the anchorpoint calls dont even work lmaoooooooooo"
 		}
 	},
 	"issues": {
