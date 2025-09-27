@@ -5,6 +5,8 @@
   - (ChatGPT really needs to do a better job with leaving anchor points alone for nodes that won't even respond to anchor points...)
 - Added `Customize Scale Animation`.
   - Change most of the traits of the scaling "New Best!" animation.
+  - Options include editing the backdrop opacity, animation durations, and easing durations. Check the mod settings for more!
+  - All default options are exactly as seen in vanilla GD.
 - Added `Auto-Screenshot on Death`.
   - Requires PRNTSCRN to use.
   - Check the additional `Auto-Screenshot on Death, But...` setting to fine-tune UI visibility in your screenshots.
