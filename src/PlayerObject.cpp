@@ -33,11 +33,9 @@ class $modify(MyPlayerObject, PlayerObject) {
 		if (!pl->m_isTestMode && !pl->m_isPracticeMode && getBool("alwaysNewBest") && !isNewBest) qualifiedToShowAFakeNewBest = true;
 		if (getBool("alwaysNewBestPlaytest") && pl->m_isTestMode) qualifiedToShowAFakeNewBest = true;
 		if (getBool("alwaysNewBestPractice") && pl->m_isPracticeMode) qualifiedToShowAFakeNewBest = true;
-		if (getBool("logging")) {
-			log::info("pl->getCurrentPercentInt() <= pl->m_level->m_normalPercent.value(): {}", pl->getCurrentPercentInt() <= pl->m_level->m_normalPercent.value());
-			log::info("pl->getCurrentPercentInt(): {}", pl->getCurrentPercentInt());
-			log::info("pl->m_level->m_normalPercent.value(): {}", pl->m_level->m_normalPercent.value());
-		}
+		log::info("pl->getCurrentPercentInt() <= pl->m_level->m_normalPercent.value(): {}", pl->getCurrentPercentInt() <= pl->m_level->m_normalPercent.value());
+		log::info("pl->getCurrentPercentInt(): {}", pl->getCurrentPercentInt());
+		log::info("pl->m_level->m_normalPercent.value(): {}", pl->m_level->m_normalPercent.value());
 		if (qualifiedToShowAFakeNewBest) pl->showNewBest(false, 0, 0, false, false, false);
 		const auto fmod = FMODAudioEngine::get();
 		if (!fmod) return;
@@ -51,10 +49,8 @@ class $modify(MyPlayerObject, PlayerObject) {
 		}
 
 		if (const std::filesystem::path& newBestSFXFile = Mod::get()->getConfigDir() / fmt::format("newBest.{}", getString("extension")); shouldPlayNewBestSFX && std::filesystem::exists(newBestSFXFile) && !pl->m_isTestMode && !pl->m_isPracticeMode) {
-			if (getBool("logging")) {
-				log::info("newBestSFXFile: {}", newBestSFXFile.string());
-				log::info("getString(\"extension\"): {}", getString("extension"));
-			}
+			log::info("newBestSFXFile: {}", newBestSFXFile.string());
+			log::info("getString(\"extension\"): {}", getString("extension"));
 			manager->system->createSound(geode::utils::string::pathToString(newBestSFXFile).c_str(), FMOD_DEFAULT, nullptr, &manager->sound);
 			manager->system->playSound(manager->sound, nullptr, false, &manager->channel);
 			manager->channel->setVolume(getInt("newBestVolume") / 100.0f);

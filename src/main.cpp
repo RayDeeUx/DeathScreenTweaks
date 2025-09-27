@@ -9,6 +9,7 @@
 using namespace geode::prelude;
 
 $on_mod(Loaded) {
+	Mod::get()->setLoggingEnabled(Mod::get()->getSettingValue<bool>("logging"));
 	(void) Mod::get()->registerCustomSettingType("configdir", &MyButtonSettingV3::parse);
 	(void) Mod::get()->registerCustomSettingType("refresh", &MyButtonSettingV3::parse);
 

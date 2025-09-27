@@ -496,7 +496,7 @@
 			"max": 4.00
 		},
 		"logging": {
-			"name": "Enable Logging",
+			"name": "Logging",
 			"type": "bool",
 			"default": false
 		}

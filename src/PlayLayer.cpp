@@ -217,11 +217,9 @@ class $modify(MyPlayLayer, PlayLayer) {
 				if (percentAsInt.isErr()) continue;
 				auto currPercent = this->getCurrentPercentInt();
 
-				if (getModBool("logging")) {
-					log::info("percentAsInt == currentPercentInt: {}", percentAsInt.unwrap() == currPercent);
-					log::info("percentAsInt: {}", percentAsInt.unwrap());
-					log::info("getCurrentPercentInt: {}", currPercent);
-				}
+				log::info("percentAsInt == currentPercentInt: {}", percentAsInt.unwrap() == currPercent);
+				log::info("percentAsInt: {}", percentAsInt.unwrap());
+				log::info("getCurrentPercentInt: {}", currPercent);
 
 				if (!getModBool("accuratePercent")) hopefullyALabel->setString(fmt::format("{}%", currPercent).c_str());
 				else hopefullyALabel->setString(fmt::format("{:.{}f}%", getCurrentPercent(), getModInt("accuracy")).c_str());
