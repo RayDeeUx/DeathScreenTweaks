@@ -3,7 +3,8 @@
 - Added iOS JIT-less support.
 - Added `Customize Position` and `Customize Rotation`.
   - Quite frankly, this shouldn't exist in the first place, but it's here purely for the sake of supporting it. :P
-  - (ChatGPT really needs to do a better job with leaving anchor points alone for nodes that won't even respond to anchor points...)
+  - (Claude Sonnet 4 really needs to do a better job with leaving anchor points alone for nodes that won't even respond to anchor points...)
+  - All default options are NOT exactly as seen in vanilla GD. If you would not like to edit positions or rotations, leave them disabled.
 - Added `Customize Scale Animation`.
   - Change most of the traits of the scaling "New Best!" animation.
   - Options include editing the backdrop opacity, animation durations, and easing durations. Check the mod settings for more!
