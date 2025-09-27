@@ -338,14 +338,14 @@
 		},
 		"xPosPercentEnable": {
 			"name": "Customize Position X",
-			"description": "Using this setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
+			"description": "Using this setting is not recommended. The \"developer\" (probably Claude Sonnet 4) that this \"feature\" \"took\" \"inspiration\" from never accounted for potentially off-screen elements.",
 			"type": "bool",
 			"default": false
 		},
 		"xPosPercentRatedLevels": {
-			"name": "Position X (%) [For Rated Levels]",
+			"name": "Position X (%) (Rated Levels)",
 			"type": "float",
-			"description": "Using this setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
+			"description": "Using this setting is not recommended. The \"developer\" (probably Claude Sonnet 4) that this \"feature\" \"took\" \"inspiration\" from never accounted for potentially off-screen elements.",
 			"default": 50.00,
 			"min": 0.000,
 			"max": 100.0
@@ -353,21 +353,21 @@
 		"xPosPercent": {
 			"name": "Position X (%)",
 			"type": "float",
-			"description": "Using this setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
+			"description": "Using this setting is not recommended. The \"developer\" (probably Claude Sonnet 4) that this \"feature\" \"took\" \"inspiration\" from never accounted for potentially off-screen elements.",
 			"default": 50.00,
 			"min": 0.000,
 			"max": 100.0
 		},
 		"yPosPercentEnable":{
 			"name": "Customize Position Y",
-			"description": "Using this setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
+			"description": "Using this setting is not recommended. The \"developer\" (probably Claude Sonnet 4) that this \"feature\" \"took\" \"inspiration\" from never accounted for potentially off-screen elements.",
 			"type": "bool",
 			"default": false
 		},
 		"yPosPercentRatedLevels": {
-			"name": "Position Y (%) [For Rated Levels]",
+			"name": "Position Y (%) (Rated Levels)",
 			"type": "float",
-			"description": "Using this setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
+			"description": "Using this setting is not recommended. The \"developer\" (probably Claude Sonnet 4) that this \"feature\" \"took\" \"inspiration\" from never accounted for potentially off-screen elements.",
 			"default": 50.00,
 			"min": 0.000,
 			"max": 100.0
@@ -375,7 +375,7 @@
 		"yPosPercent": {
 			"name": "Position Y (%)",
 			"type": "float",
-			"description": "Using this setting is not recommended. The \"developer\" (probably ChatGPT 5.0) that inspired this \"feature\" never took into account about potentially off-screen elements.",
+			"description": "Using this setting is not recommended. The \"developer\" (probably Claude Sonnet 4) that this \"feature\" \"took\" \"inspiration\" from never accounted for potentially off-screen elements.",
 			"default": 50.00,
 			"min": 0.000,
 			"max": 100.0
@@ -386,7 +386,7 @@
 			"default": false
 		},
 		"rotationRatedLevels": {
-			"name": "Rotation [For Rated Levels]",
+			"name": "Rotation (Rated Levels)",
 			"type": "float",
 			"default": 0.00,
 			"min": 0.000,
