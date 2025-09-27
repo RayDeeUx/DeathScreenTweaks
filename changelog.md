@@ -1,5 +1,6 @@
 # DeathScreenTweaks Changelog
-## v1.7.3
+## v1.8.0
+- Added iOS JIT-less support.
 - Added `Customize Position` and `Customize Rotation`.
   - Quite frankly, this shouldn't exist in the first place, but it's here purely for the sake of supporting it. :P
   - (ChatGPT really needs to do a better job with leaving anchor points alone for nodes that won't even respond to anchor points...)
