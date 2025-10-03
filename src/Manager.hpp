@@ -25,7 +25,10 @@ public:
 
 	bool hasPRNTSCRN = false;
 	bool hasNextKeyWhenLoaded = false;
+	bool deathAnimationsFromZilko = false;
+
 	bool addedNextKeyWhenLabel = false;
+	int selectedDeathAnimation = -1;
 
 	float lastDeathPercent = -10.f;
 

@@ -60,6 +60,11 @@ class $modify(MyPlayLayer, PlayLayer) {
 
 		return CCEaseElasticOut::create(action, easingRate);
 	}
+	void setupHasCompleted() {
+		PlayLayer::setupHasCompleted();
+		if (!manager->deathAnimationsFromZilko) return;
+		manager->selectedDeathAnimation = Loader::get()->getLoadedMod("zilko.death_animations")->getSavedValue<int64_t>("selected-animation");
+	}
 	void resetLevel() {
 		PlayLayer::resetLevel();
 		manager->addedNextKeyWhenLabel = false;
@@ -150,11 +155,6 @@ class $modify(MyPlayLayer, PlayLayer) {
 		bool isFromZilkoMod = false;
 		const bool isNewBest = MyPlayLayer::didPlayerDieAtNewBest();
 
-		if (CCNode* deathAnim = this->getChildByID("zilko.death_animations/death-animation"); deathAnim && deathAnim->getTag() == 23) {
-			if (CCNode* crl = deathAnim->getChildByID("reward-layer"); crl && getModBool("currencyLayer")) crl->setVisible(false);
-			newBestNodeProbably = deathAnim->getChildByID("container");
-			isFromZilkoMod = true;
-		}
 		for (int i = static_cast<int>(getChildrenCount() - 1); i >= 0; i--) {
 			// NEW [good]: int i = getChildrenCount() - 1; i >= 0; i--
 			// ORIG [bad]: int i = getChildrenCount(); i-- > 0;
@@ -173,9 +173,14 @@ class $modify(MyPlayLayer, PlayLayer) {
 			if (theLastCCNode->getZOrder() != 100) continue;
 			if (theLastCCNode->getChildrenCount() < 2) continue;
 			if (getModBool("noVisibleNewBest")) return theLastCCNode->setVisible(false);
-			if (!isFromZilkoMod) newBestNodeProbably = theLastCCNode;
+			if (!manager->deathAnimationsFromZilko) newBestNodeProbably = theLastCCNode;
 			else theLastCCNode->setVisible(false);
-			break;
+			if (newBestNodeProbably) break;
+			if (manager->deathAnimationsFromZilko && theLastCCNode->getID() == "zilko.death_animations/death-animation" && theLastCCNode->getTag() == 23) {
+				if (CCNode* crl = theLastCCNode->getChildByID("reward-layer"); crl && getModBool("currencyLayer")) crl->setVisible(false);
+				newBestNodeProbably = theLastCCNode->getChildByID("container");
+				isFromZilkoMod = true;
+			}
 		}
 
 		if (!newBestNodeProbably || newBestNodeProbably->getUserObject("modified-already"_spr)) return;
