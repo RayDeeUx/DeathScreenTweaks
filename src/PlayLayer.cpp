@@ -151,32 +151,33 @@ class $modify(MyPlayLayer, PlayLayer) {
 		const bool isNewBest = MyPlayLayer::didPlayerDieAtNewBest();
 
 		if (CCNode* deathAnim = this->getChildByID("zilko.death_animations/death-animation")) {
-			if (deathAnim->getChildByType<CurrencyRewardLayer*>(0)) {
+			if (deathAnim->getChildByType<CCLayerColor*>(0)) {
+				if (CurrencyRewardLayer* crl = deathAnim->getChildByType<CurrencyRewardLayer*>(0); crl && getModBool("currencyLayer")) crl->setVisible(false);
 				newBestNodeProbably = static_cast<CCNode*>(deathAnim->getChildren()->objectAtIndex(1));
 				isFromZilkoMod = true;
 			}
-		} else {
-			for (int i = static_cast<int>(getChildrenCount() - 1); i >= 0; i--) {
-				// NEW [good]: int i = getChildrenCount() - 1; i >= 0; i--
-				// ORIG [bad]: int i = getChildrenCount(); i-- > 0;
-				auto theLastCCNode = typeinfo_cast<CCNode*>(this->getChildren()->objectAtIndex(i));
-				if (const auto crl = typeinfo_cast<CurrencyRewardLayer*>(theLastCCNode)) {
-					// hide CurrencyRewardLayer
-					if (getModBool("currencyLayer")) {
-						theLastCCNode->setVisible(false);
-						if (crl->m_orbsLabel) hasOrbsLabel = true;
-						if (crl->m_keysLabel) hasKeyLabel = true;
-						if (crl->m_diamonds > 0 || crl->m_orbs > 0) hasDiamondsOrOrbs = m_level->m_stars.value() > 0;
-					}
-					continue;
+		}
+		for (int i = static_cast<int>(getChildrenCount() - 1); i >= 0; i--) {
+			// NEW [good]: int i = getChildrenCount() - 1; i >= 0; i--
+			// ORIG [bad]: int i = getChildrenCount(); i-- > 0;
+			auto theLastCCNode = typeinfo_cast<CCNode*>(this->getChildren()->objectAtIndex(i));
+			if (const auto crl = typeinfo_cast<CurrencyRewardLayer*>(theLastCCNode)) {
+				// hide CurrencyRewardLayer
+				if (getModBool("currencyLayer")) {
+					theLastCCNode->setVisible(false);
+					if (crl->m_orbsLabel) hasOrbsLabel = true;
+					if (crl->m_keysLabel) hasKeyLabel = true;
+					if (crl->m_diamonds > 0 || crl->m_orbs > 0) hasDiamondsOrOrbs = m_level->m_stars.value() > 0;
 				}
-				if (!theLastCCNode || theLastCCNode == this->m_uiLayer) continue; // skip UILayer
-				if (theLastCCNode->getZOrder() != 100) continue;
-				if (theLastCCNode->getChildrenCount() < 2) continue;
-				if (getModBool("noVisibleNewBest")) return theLastCCNode->setVisible(false);
-				newBestNodeProbably = theLastCCNode;
-				break;
+				continue;
 			}
+			if (!theLastCCNode || theLastCCNode == this->m_uiLayer) continue; // skip UILayer
+			if (theLastCCNode->getZOrder() != 100) continue;
+			if (theLastCCNode->getChildrenCount() < 2) continue;
+			if (getModBool("noVisibleNewBest")) return theLastCCNode->setVisible(false);
+			if (!isFromZilkoMod) newBestNodeProbably = theLastCCNode;
+			else theLastCCNode->setVisible(false);
+			break;
 		}
 
 		if (!newBestNodeProbably || newBestNodeProbably->getUserObject("modified-already"_spr)) return;
