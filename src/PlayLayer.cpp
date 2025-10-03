@@ -150,12 +150,10 @@ class $modify(MyPlayLayer, PlayLayer) {
 		bool isFromZilkoMod = false;
 		const bool isNewBest = MyPlayLayer::didPlayerDieAtNewBest();
 
-		if (CCNode* deathAnim = this->getChildByID("zilko.death_animations/death-animation")) {
-			if (deathAnim->getChildByType<CCLayerColor*>(0)) {
-				if (CurrencyRewardLayer* crl = deathAnim->getChildByType<CurrencyRewardLayer*>(0); crl && getModBool("currencyLayer")) crl->setVisible(false);
-				newBestNodeProbably = static_cast<CCNode*>(deathAnim->getChildren()->objectAtIndex(1));
-				isFromZilkoMod = true;
-			}
+		if (CCNode* deathAnim = this->getChildByID("zilko.death_animations/death-animation"); deathAnim && deathAnim->getTag() == 23) {
+			if (CCNode* crl = deathAnim->getChildByID("reward-layer"); crl && getModBool("currencyLayer")) crl->setVisible(false);
+			newBestNodeProbably = deathAnim->getChildByID("container");
+			isFromZilkoMod = true;
 		}
 		for (int i = static_cast<int>(getChildrenCount() - 1); i >= 0; i--) {
 			// NEW [good]: int i = getChildrenCount() - 1; i >= 0; i--
