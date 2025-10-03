@@ -144,10 +144,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 			newBestNodeProbably->runAction(sequence);
 		}
 	}
-	void updateInfoLabel() {
-		PlayLayer::updateInfoLabel();
-		if (!getModBool("enabled") || !m_level || m_level->isPlatformer() || !m_player1->m_isDead || m_isPlatformer) return;
-
+	void findAndModifyTheNewBestNode() {
 		CCNode* newBestNodeProbably = nullptr;
 		bool hasOrbsLabel = false;
 		bool hasKeyLabel = false;
@@ -274,6 +271,12 @@ class $modify(MyPlayLayer, PlayLayer) {
 			hopefullyALabel->setAlignment(kCCTextAlignmentCenter);
 			if (fontID != 0 && fontID != -3 && getModBool("customFontGoldColor")) hopefullyALabel->setColor({254, 207, 6});
 		}
+	}
+
+	void updateInfoLabel() {
+		PlayLayer::updateInfoLabel();
+		if (!getModBool("enabled") || !m_level || m_level->isPlatformer() || !m_player1->m_isDead || m_isPlatformer) return;
+		MyPlayLayer::findAndModifyTheNewBestNode();
 	}
 	void showNewBest(bool newReward, int orbs, int diamonds, bool demonKey, bool noRetry, bool noTitle) {
 		PlayLayer::showNewBest(newReward, orbs, diamonds, demonKey, noRetry, noTitle);
