@@ -178,7 +178,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 			if (theLastCCNode->getZOrder() != 100) continue;
 			if (theLastCCNode->getChildrenCount() < 2) continue;
 			if (getModBool("noVisibleNewBest")) return theLastCCNode->setVisible(false);
-			if (!manager->deathAnimationsFromZilko) newBestNodeProbably = theLastCCNode;
+			if (!isFromZilkoMod) newBestNodeProbably = theLastCCNode;
 			else theLastCCNode->setVisible(false);
 			break;
 		}
@@ -189,7 +189,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 		if (!isFromZilkoMod) MyPlayLayer::applyNodeTraitsCustomization(newBestNodeProbably, hasDiamondsOrOrbs);
 
 		if (manager->hasNextKeyWhenLoaded && getModBool("currencyLayer") && getModBool("currencyLayerNextKeyWhenCompat") && !manager->addedNextKeyWhenLabel && m_level->m_stars.value() > 1) {
-			if (hasOrbsLabel) {
+			if (hasOrbsLabel || isFromZilkoMod) {
 				CCLabelBMFont* nextKeyWhen = CCLabelBMFont::create(fmt::format("Key: {}/500", GameStatsManager::sharedState()->getTotalCollectedCurrency() % 500).c_str(), "bigFont.fnt");
 				nextKeyWhen->setID("next-key-when-orbs-compat-label"_spr);
 				nextKeyWhen->setTag(8042025);
