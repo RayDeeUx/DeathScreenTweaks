@@ -92,40 +92,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 		if (!getModBool("enabled") || !getModBool("sisyphusStopSFXOnRespawn")) return;
 		STOP_MANAGER_CHANNEL
 	}
-	void updateInfoLabel() {
-		PlayLayer::updateInfoLabel();
-		if (!getModBool("enabled") || !m_level || m_level->isPlatformer() || !m_player1->m_isDead || m_isPlatformer) return;
-
-		CCNode* newBestNodeProbably = nullptr;
-		bool hasOrbsLabel = false;
-		bool hasKeyLabel = false;
-		bool hasDiamondsOrOrbs = false;
-		const bool isNewBest = MyPlayLayer::didPlayerDieAtNewBest();
-		for (int i = static_cast<int>(getChildrenCount() - 1); i >= 0; i--) {
-			// NEW [good]: int i = getChildrenCount() - 1; i >= 0; i--
-			// ORIG [bad]: int i = getChildrenCount(); i-- > 0;
-			auto theLastCCNode = typeinfo_cast<CCNode*>(this->getChildren()->objectAtIndex(i));
-			if (const auto crl = typeinfo_cast<CurrencyRewardLayer*>(theLastCCNode)) {
-				// hide CurrencyRewardLayer
-				if (getModBool("currencyLayer")) {
-					theLastCCNode->setVisible(false);
-					if (crl->m_orbsLabel) hasOrbsLabel = true;
-					if (crl->m_keysLabel) hasKeyLabel = true;
-					if (crl->m_diamonds > 0 || crl->m_orbs > 0) hasDiamondsOrOrbs = m_level->m_stars.value() > 0;
-				}
-				continue;
-			}
-			if (!theLastCCNode || theLastCCNode == this->m_uiLayer) continue; // skip UILayer
-			if (theLastCCNode->getZOrder() != 100) continue;
-			if (theLastCCNode->getChildrenCount() < 2) continue;
-			if (getModBool("noVisibleNewBest")) return theLastCCNode->setVisible(false);
-			newBestNodeProbably = theLastCCNode;
-			break;
-		}
-
-		if (!newBestNodeProbably || newBestNodeProbably->getUserObject("modified-already"_spr)) return;
-		newBestNodeProbably->setUserObject("modified-already"_spr, CCBool::create(true));
-
+	void applyNodeTraitsCustomization(CCNode *newBestNodeProbably, bool hasDiamondsOrOrbs) {
 		if (getModBool("xPosPercentEnable")) {
 			const float cWidth = CCScene::get()->getContentWidth();
 			if (m_level->m_stars.value() == 0) newBestNodeProbably->setPositionX(cWidth * (std::clamp<float>(getModFloat("xPosPercent"), 0.f, 100.f) / 100.f));
@@ -154,8 +121,8 @@ class $modify(MyPlayLayer, PlayLayer) {
 			);
 			CCDelayTime* delay = CCDelayTime::create(
 				!hasDiamondsOrOrbs ?
-				std::clamp<float>(getModFloat("scaleHoldDurationNoOrbsAndNoDiamonds"), .1f, 1.5f) :
-				std::clamp<float>(getModFloat("scaleHoldDuration"), .1f, 1.5f)
+					std::clamp<float>(getModFloat("scaleHoldDurationNoOrbsAndNoDiamonds"), .1f, 1.5f) :
+					std::clamp<float>(getModFloat("scaleHoldDuration"), .1f, 1.5f)
 			);
 			CCActionInterval* scaleShrinkToAction = CCScaleTo::create(
 				std::clamp<float>(getModFloat("scaleShrinkingDuration"), 0.f, .5f),
@@ -171,6 +138,51 @@ class $modify(MyPlayLayer, PlayLayer) {
 			);
 			newBestNodeProbably->runAction(sequence);
 		}
+	}
+	void updateInfoLabel() {
+		PlayLayer::updateInfoLabel();
+		if (!getModBool("enabled") || !m_level || m_level->isPlatformer() || !m_player1->m_isDead || m_isPlatformer) return;
+
+		CCNode* newBestNodeProbably = nullptr;
+		bool hasOrbsLabel = false;
+		bool hasKeyLabel = false;
+		bool hasDiamondsOrOrbs = false;
+		bool isFromZilkoMod = false;
+		const bool isNewBest = MyPlayLayer::didPlayerDieAtNewBest();
+
+		if (CCNode* deathAnim = this->getChildByID("zilko.death_animations/death-animation")) {
+			if (deathAnim->getChildByType<CurrencyRewardLayer*>(0)) {
+				newBestNodeProbably = static_cast<CCNode*>(deathAnim->getChildren()->objectAtIndex(1));
+				isFromZilkoMod = true;
+			}
+		} else {
+			for (int i = static_cast<int>(getChildrenCount() - 1); i >= 0; i--) {
+				// NEW [good]: int i = getChildrenCount() - 1; i >= 0; i--
+				// ORIG [bad]: int i = getChildrenCount(); i-- > 0;
+				auto theLastCCNode = typeinfo_cast<CCNode*>(this->getChildren()->objectAtIndex(i));
+				if (const auto crl = typeinfo_cast<CurrencyRewardLayer*>(theLastCCNode)) {
+					// hide CurrencyRewardLayer
+					if (getModBool("currencyLayer")) {
+						theLastCCNode->setVisible(false);
+						if (crl->m_orbsLabel) hasOrbsLabel = true;
+						if (crl->m_keysLabel) hasKeyLabel = true;
+						if (crl->m_diamonds > 0 || crl->m_orbs > 0) hasDiamondsOrOrbs = m_level->m_stars.value() > 0;
+					}
+					continue;
+				}
+				if (!theLastCCNode || theLastCCNode == this->m_uiLayer) continue; // skip UILayer
+				if (theLastCCNode->getZOrder() != 100) continue;
+				if (theLastCCNode->getChildrenCount() < 2) continue;
+				if (getModBool("noVisibleNewBest")) return theLastCCNode->setVisible(false);
+				newBestNodeProbably = theLastCCNode;
+				break;
+			}
+		}
+
+		if (!newBestNodeProbably || newBestNodeProbably->getUserObject("modified-already"_spr)) return;
+		newBestNodeProbably->setUserObject("modified-already"_spr, CCBool::create(true));
+
+		if (!isFromZilkoMod) MyPlayLayer::applyNodeTraitsCustomization(newBestNodeProbably, hasDiamondsOrOrbs);
 
 		if (manager->hasNextKeyWhenLoaded && getModBool("currencyLayer") && getModBool("currencyLayerNextKeyWhenCompat") && !manager->addedNextKeyWhenLabel && m_level->m_stars.value() > 1) {
 			if (hasOrbsLabel) {
