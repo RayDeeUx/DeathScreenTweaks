@@ -24,10 +24,9 @@ class $modify(MyPlayerObject, PlayerObject) {
 		const auto theLevel = pl->m_level;
 		if (!theLevel || theLevel->isPlatformer()) return;
 		if (this == pl->m_player2 && theLevel->m_twoPlayerMode) return;
-		if (this == pl->m_player1 && !this->m_isDead) return;
 
 		Manager* manager = Manager::getSharedInstance();
-		manager->lastDeathPercent = pl->getCurrentPercent();
+		if (this == pl->m_player1 && this->m_isDead) manager->lastDeathPercent = pl->getCurrentPercent();
 
 		const bool isNewBest = MyPlayerObject::isNewBest(pl);
 		const bool shouldPlayNewBestSFX = getBool("newBestSFX") && isNewBest;
