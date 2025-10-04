@@ -32,6 +32,8 @@ public:
 
 	float lastDeathPercent = -10.f;
 
+	float currentDeathPercentForQueueInMainLoader = -1.f;
+
 	FMOD::Sound* sound;
 	FMOD::Channel* channel;
 	FMOD::System* system = FMODAudioEngine::sharedEngine()->m_system;

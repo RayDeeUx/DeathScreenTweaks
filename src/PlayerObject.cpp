@@ -1,6 +1,5 @@
 #include <Geode/modify/PlayerObject.hpp>
 #include <filesystem>
-
 #include "Manager.hpp"
 
 #define getBool Mod::get()->getSettingValue<bool>
@@ -25,6 +24,10 @@ class $modify(MyPlayerObject, PlayerObject) {
 		const auto theLevel = pl->m_level;
 		if (!theLevel || theLevel->isPlatformer()) return;
 		if (this == pl->m_player2 && theLevel->m_twoPlayerMode) return;
+		if (this == pl->m_player1 && !this->m_isDead) return;
+
+		Manager* manager = Manager::getSharedInstance();
+		manager->lastDeathPercent = pl->getCurrentPercent();
 
 		const bool isNewBest = MyPlayerObject::isNewBest(pl);
 		const bool shouldPlayNewBestSFX = getBool("newBestSFX") && isNewBest;
@@ -40,7 +43,6 @@ class $modify(MyPlayerObject, PlayerObject) {
 		const auto fmod = FMODAudioEngine::get();
 		if (!fmod) return;
 
-		Manager* manager = Manager::getSharedInstance();
 		const float plCurrentPercent = pl->getCurrentPercent();
 		const float originalDeathPercent = manager->lastDeathPercent;
 		const bool shouldActivateSisyphusMode = getBool("sisyphus") && std::abs(originalDeathPercent - plCurrentPercent) <= static_cast<float>(std::clamp(getFloat("sisyphusThreshold"), .01, 10.));

@@ -62,6 +62,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 	}
 	void setupHasCompleted() {
 		PlayLayer::setupHasCompleted();
+		manager->lastDeathPercent = -10.f;
 		if (!manager->deathAnimationsFromZilko) return;
 		manager->selectedDeathAnimation = Loader::get()->getLoadedMod("zilko.death_animations")->getSavedValue<int64_t>("selected-animation");
 	}
@@ -75,6 +76,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 	void onQuit() {
 		PlayLayer::onQuit();
 		manager->lastDeathPercent = -10.f;
+		manager->currentDeathPercentForQueueInMainLoader = -1.f;
 		if (!manager->channel) return;
 		STOP_MANAGER_CHANNEL
 	}
@@ -145,6 +147,8 @@ class $modify(MyPlayLayer, PlayLayer) {
 		}
 	}
 	void findAndModifyTheNewBestNode() {
+		if (!getModBool("enabled") || !m_level || m_level->isPlatformer() || m_isPlatformer) return;
+
 		CCNode* newBestNodeProbably = nullptr;
 		bool hasOrbsLabel = false;
 		bool hasKeyLabel = false;
@@ -184,6 +188,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 		newBestNodeProbably->setUserObject("modified-already"_spr, CCBool::create(true));
 
 		if (!isFromZilkoMod) MyPlayLayer::applyNodeTraitsCustomization(newBestNodeProbably, hasDiamondsOrOrbs);
+		// out of respect for zilko's mod i will not be changing its duration
 
 		if (manager->hasNextKeyWhenLoaded && getModBool("currencyLayer") && getModBool("currencyLayerNextKeyWhenCompat") && !manager->addedNextKeyWhenLabel && m_level->m_stars.value() > 1) {
 			if (hasOrbsLabel || isFromZilkoMod) {
@@ -222,7 +227,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 
 			if (nodeString.ends_with("%") && fontFile == "bigFont.fnt") {
 				// this is the node displaying where you died as a new best
-				if (isNewBest && getModBool("accuratePercent")) return hopefullyALabel->setString(fmt::format("{:.{}f}%", getCurrentPercent(), getModInt("accuracy")).c_str());
+				if (isNewBest && getModBool("accuratePercent")) return hopefullyALabel->setString(fmt::format("{:.{}f}%", manager->lastDeathPercent, getModInt("accuracy")).c_str());
 				// i have to do all of this because robtop's wonderful technology shows percent from previous death if i dont include all of this
 				if (!std::regex_match(nodeString, match, manager->percentRegex)) continue;
 				auto percent = std::regex_replace(nodeString, std::regex("%"), "");
@@ -235,7 +240,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 				log::info("getCurrentPercentInt: {}", currPercent);
 
 				if (!getModBool("accuratePercent")) hopefullyALabel->setString(fmt::format("{}%", currPercent).c_str());
-				else hopefullyALabel->setString(fmt::format("{:.{}f}%", getCurrentPercent(), getModInt("accuracy")).c_str());
+				else hopefullyALabel->setString(fmt::format("{:.{}f}%", manager->lastDeathPercent, getModInt("accuracy")).c_str());
 				continue;
 			}
 
@@ -280,6 +285,9 @@ class $modify(MyPlayLayer, PlayLayer) {
 	}
 	void showNewBest(bool newReward, int orbs, int diamonds, bool demonKey, bool noRetry, bool noTitle) {
 		PlayLayer::showNewBest(newReward, orbs, diamonds, demonKey, noRetry, noTitle);
+		Loader::get()->queueInMainThread([this]() {
+			MyPlayLayer::findAndModifyTheNewBestNode();
+		});
 		if (!getModBool("enabled") || !m_player1->m_isDead || this->m_isPracticeMode || this->m_isTestMode || m_isPlatformer || (m_level && m_level->isPlatformer())) return;
 		if (!manager->hasPRNTSCRN || !getModBool("screenshotOnDeath")) return;
 		this->scheduleOnce(schedule_selector(MyPlayLayer::PRNTSCRNOnDeath), .24f);
