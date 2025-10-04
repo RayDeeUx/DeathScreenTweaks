@@ -277,7 +277,6 @@ class $modify(MyPlayLayer, PlayLayer) {
 			if (fontID != 0 && fontID != -3 && getModBool("customFontGoldColor")) hopefullyALabel->setColor({254, 207, 6});
 		}
 	}
-
 	void updateInfoLabel() {
 		PlayLayer::updateInfoLabel();
 		if (!getModBool("enabled") || !m_level || m_level->isPlatformer() || !m_player1->m_isDead || m_isPlatformer) return;
