@@ -227,7 +227,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 
 			if (nodeString.ends_with("%") && fontFile == "bigFont.fnt") {
 				// this is the node displaying where you died as a new best
-				if (isNewBest && getModBool("accuratePercent")) return hopefullyALabel->setString(fmt::format("{:.{}f}%", manager->lastDeathPercent, getModInt("accuracy")).c_str());
+				if (isNewBest && getModBool("accuratePercent")) return hopefullyALabel->setString(fmt::format("{:.{}f}%", manager->currentDeathPercentForQueueInMainLoader, getModInt("accuracy")).c_str());
 				// i have to do all of this because robtop's wonderful technology shows percent from previous death if i dont include all of this
 				if (!std::regex_match(nodeString, match, manager->percentRegex)) continue;
 				auto percent = std::regex_replace(nodeString, std::regex("%"), "");
@@ -240,7 +240,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 				log::info("getCurrentPercentInt: {}", currPercent);
 
 				if (!getModBool("accuratePercent")) hopefullyALabel->setString(fmt::format("{}%", currPercent).c_str());
-				else hopefullyALabel->setString(fmt::format("{:.{}f}%", manager->lastDeathPercent, getModInt("accuracy")).c_str());
+				else hopefullyALabel->setString(fmt::format("{:.{}f}%", manager->currentDeathPercentForQueueInMainLoader, getModInt("accuracy")).c_str());
 				continue;
 			}
 

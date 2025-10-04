@@ -26,7 +26,8 @@ class $modify(MyPlayerObject, PlayerObject) {
 		if (this == pl->m_player2 && theLevel->m_twoPlayerMode) return;
 
 		Manager* manager = Manager::getSharedInstance();
-		if (this == pl->m_player1 && this->m_isDead) manager->lastDeathPercent = pl->getCurrentPercent();
+		const float plCurrentPercent = pl->getCurrentPercent();
+		if (this == pl->m_player1 && this->m_isDead) manager->currentDeathPercentForQueueInMainLoader = plCurrentPercent;
 
 		const bool isNewBest = MyPlayerObject::isNewBest(pl);
 		const bool shouldPlayNewBestSFX = getBool("newBestSFX") && isNewBest;
@@ -42,9 +43,7 @@ class $modify(MyPlayerObject, PlayerObject) {
 		const auto fmod = FMODAudioEngine::get();
 		if (!fmod) return;
 
-		const float plCurrentPercent = pl->getCurrentPercent();
-		const float originalDeathPercent = manager->lastDeathPercent;
-		const bool shouldActivateSisyphusMode = getBool("sisyphus") && std::abs(originalDeathPercent - plCurrentPercent) <= static_cast<float>(std::clamp(getFloat("sisyphusThreshold"), .01, 10.));
+		const bool shouldActivateSisyphusMode = getBool("sisyphus") && std::abs(manager->lastDeathPercent - plCurrentPercent) <= static_cast<float>(std::clamp(getFloat("sisyphusThreshold"), .01, 10.));
 		if (!pl->m_isTestMode) {
 			manager->lastDeathPercent = plCurrentPercent;
 		}
