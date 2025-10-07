@@ -256,7 +256,6 @@ class $modify(MyPlayLayer, PlayLayer) {
 			coinsCollectedLabel->setID("collected-coins-label"_spr);
 			coinsCollectedLabel->setTag(8052025);
 			coinsCollectedLabel->setScale(.65f);
-			coinsCollectedLabel->setColor({235, 235, 235});
 			coinsCollectedLabel->setPosition(newBestNodeProbably->getContentSize() / 2.f);
 			coinsCollectedLabel->setPositionY(coinsCollectedLabel->getPositionY() - 90.f);
 			if (hasOrbsLabelForReal) coinsCollectedLabel->setPositionY(coinsCollectedLabel->getPositionY() - 18.f);
