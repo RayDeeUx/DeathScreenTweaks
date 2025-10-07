@@ -12,6 +12,9 @@
 - Added `Auto-Screenshot on Death`.
   - Requires PRNTSCRN to use.
   - Check the additional `Auto-Screenshot on Death, But...` setting to fine-tune UI visibility in your screenshots.
+- Added `Show Collected Coins`.
+  - The color of the text depends on the type of coins you're collecting.
+  - This is currently ASCII art right now. Maybe there'll be a toggle to show the coin sprites instead. We'll see.
 - Hopefully fixed `Sisyphus Audio` not stopping when the player respawns.
   - To restore original behavior, disable `Sisyphus: Stop SFX on Respawn`.
 ## v1.7.2
