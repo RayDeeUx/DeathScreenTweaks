@@ -10,6 +10,7 @@ class $modify(MyEffectGameObject, EffectGameObject) {
         std::map<GameObject*, bool>& coinsMap = Manager::getSharedInstance()->coins;
         if (coinsMap.contains(this)) {
             coinsMap.at(this) = true;
+            // log::info("collected coin number {}", static_cast<int>(std::distance(coinsMap.begin(), coinsMap.find(this))) + 1);
         }
     }
 };

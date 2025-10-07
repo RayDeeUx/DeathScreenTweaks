@@ -238,6 +238,12 @@
 			"type": "bool",
 			"default": true
 		},
+		"showCollectedCoins": {
+			"name": "Show Collected Coins",
+			"description": "Shows the coins you had collected during an attempt before dying.\n\nColor of the label adapts to the coin type.",
+			"type": "bool",
+			"default": false
+		},
 		"noVisibleNewBest": {
 			"name": "Hide \"New Best\" Screen",
 			"description": "<cl>Original idea by VolcaroCham.</c>\n\nHides the \"New Best\" screen when getting a new best.\n\nNot sure why anyone would willingly enable this, but now the option exists in this mod. Have fun.",

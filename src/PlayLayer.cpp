@@ -231,6 +231,38 @@ class $modify(MyPlayLayer, PlayLayer) {
 			manager->addedNextKeyWhenLabel = true;
 		}
 
+		if (getModBool("showCollectedCoins") && !manager->coins.empty()) {
+			const bool hasOrbsLabelForReal = (hasOrbsLabel || isFromZilkoMod) && manager->addedNextKeyWhenLabel;
+			const bool hasKeyLabelForReal = hasKeyLabel && manager->addedNextKeyWhenLabel;
+			std::string formattedCoinString = "Collected coins: ";
+			int index = 0;
+			bool falseIfUserTrueIfRobTop = false;
+			for (auto [coin, collected] : manager->coins) {
+				index++;
+				if (collected) formattedCoinString += "[C]";
+				else formattedCoinString += "[  ]";
+				if (index != manager->coins.size()) formattedCoinString += " ";
+				else falseIfUserTrueIfRobTop = coin->m_objectType == GameObjectType::SecretCoin;
+			}
+
+			CCLabelBMFont* coinsCollectedLabel = CCLabelBMFont::create(formattedCoinString.c_str(), "bigFont.fnt");
+
+			if (falseIfUserTrueIfRobTop) coinsCollectedLabel->setColor({255, 215, 0});
+			else {
+				if (m_level->m_levelType == GJLevelType::Editor || m_level->m_coinsVerified.value() == 0) coinsCollectedLabel->setColor({255, 215, 0});
+				else coinsCollectedLabel->setColor({165, 110, 50});
+			}
+
+			coinsCollectedLabel->setID("collected-coins-label"_spr);
+			coinsCollectedLabel->setTag(8052025);
+			coinsCollectedLabel->setScale(.75f);
+			coinsCollectedLabel->setColor({235, 235, 235});
+			coinsCollectedLabel->setPosition(newBestNodeProbably->getContentSize() / 2.f);
+			coinsCollectedLabel->setPositionY(coinsCollectedLabel->getPositionY() - 90.f);
+			if (hasOrbsLabelForReal) coinsCollectedLabel->setPositionY(coinsCollectedLabel->getPositionY() - 18.f);
+			if (hasKeyLabelForReal) coinsCollectedLabel->setPositionY(coinsCollectedLabel->getPositionY() - 18.f);
+		}
+
 		std::smatch match;
 		for (CCNode* child : CCArrayExt<CCNode*>(newBestNodeProbably->getChildren())) {
 			if (child->getID() == "next-key-when-compat-label"_spr) continue;
