@@ -34,6 +34,8 @@ public:
 
 	float currentDeathPercentForQueueInMainLoader = -1.f;
 
+	std::map<GameObject*, bool> coins;
+
 	FMOD::Sound* sound;
 	FMOD::Channel* channel;
 	FMOD::System* system = FMODAudioEngine::sharedEngine()->m_system;

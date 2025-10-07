@@ -69,6 +69,9 @@ class $modify(MyPlayLayer, PlayLayer) {
 	void resetLevel() {
 		PlayLayer::resetLevel();
 		manager->addedNextKeyWhenLabel = false;
+		for (auto [coin, collected] : manager->coins) {
+			manager->coins.at(coin) = false;
+		}
 		if (!manager->channel) return;
 		if (!getModBool("sisyphusStopSFXOnRespawn")) return;
 		STOP_MANAGER_CHANNEL
@@ -77,6 +80,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 		PlayLayer::onQuit();
 		manager->lastDeathPercent = -10.f;
 		manager->currentDeathPercentForQueueInMainLoader = -1.f;
+		manager->coins.clear();
 		if (!manager->channel) return;
 		STOP_MANAGER_CHANNEL
 	}
@@ -89,15 +93,27 @@ class $modify(MyPlayLayer, PlayLayer) {
 	void togglePracticeMode(bool practiceMode) {
 		PlayLayer::togglePracticeMode(practiceMode);
 		manager->lastDeathPercent = -10.f;
+		for (auto [coin, collected] : manager->coins) {
+			manager->coins.at(coin) = false;
+		}
 		if (!manager->channel) return;
 		STOP_MANAGER_CHANNEL
 	}
 	void resetLevelFromStart() {
 		PlayLayer::resetLevelFromStart();
 		manager->lastDeathPercent = -10.f;
+		for (auto [coin, collected] : manager->coins) {
+			manager->coins.at(coin) = false;
+		}
 		if (!manager->channel) return;
 		if (!getModBool("enabled") || !getModBool("sisyphusStopSFXOnRespawn")) return;
 		STOP_MANAGER_CHANNEL
+	}
+	void addObject(GameObject* object) {
+		PlayLayer::addObject(object);
+		if (!m_level || m_level->isPlatformer() || m_isPlatformer) return;
+		if (object->m_objectType != GameObjectType::UserCoin && object->m_objectType != GameObjectType::SecretCoin) return;
+		manager->coins.insert({object, false});
 	}
 	void applyNodeTraitsCustomization(CCNode *newBestNodeProbably, bool hasDiamondsOrOrbs) {
 		if (getModBool("xPosPercentEnable")) {

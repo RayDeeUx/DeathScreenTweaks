@@ -16,6 +16,7 @@ add_library(${PROJECT_NAME} SHARED
     src/MenuLayer.cpp
     src/PlayLayer.cpp
     src/PlayerObject.cpp
+    src/EffectGameObject.cpp
     src/Manager.cpp
     src/Manager.hpp
     src/Settings.cpp
