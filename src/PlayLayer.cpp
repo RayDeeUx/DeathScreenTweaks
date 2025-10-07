@@ -236,21 +236,20 @@ class $modify(MyPlayLayer, PlayLayer) {
 			const bool hasKeyLabelForReal = hasKeyLabel && manager->addedNextKeyWhenLabel;
 			std::string formattedCoinString = "Coins: ";
 			int index = 0;
-			bool falseIfUserTrueIfRobTop = false;
 			for (auto [coin, collected] : manager->coins) {
 				index++;
 				if (collected) formattedCoinString += "[C]";
 				else formattedCoinString += "[  ]";
 				if (index != manager->coins.size()) formattedCoinString += " ";
-				else falseIfUserTrueIfRobTop = coin->m_objectType == GameObjectType::SecretCoin;
 			}
 
 			CCLabelBMFont* coinsCollectedLabel = CCLabelBMFont::create(formattedCoinString.c_str(), "bigFont.fnt");
 			newBestNodeProbably->addChild(coinsCollectedLabel);
 
-			if (falseIfUserTrueIfRobTop && m_level->m_levelType == GJLevelType::Main) coinsCollectedLabel->setColor({255, 215, 0});
-			else {
-				if (m_level->m_levelType == GJLevelType::Editor || (m_level->m_levelType != GJLevelType::Editor && m_level->m_coinsVerified.value() == 0)) coinsCollectedLabel->setColor({235, 235, 235});
+			if (m_level->m_levelType == GJLevelType::Main) coinsCollectedLabel->setColor({255, 215, 0});
+			else if (m_level->m_levelType == GJLevelType::Editor) coinsCollectedLabel->setColor({235, 235, 235});
+			else if (m_level->m_levelID.value() > 0) {
+				if (m_level->m_coinsVerified.value() == 0) coinsCollectedLabel->setColor({235, 235, 235});
 				else coinsCollectedLabel->setColor({165, 110, 50});
 			}
 
