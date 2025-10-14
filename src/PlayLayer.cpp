@@ -235,14 +235,15 @@ class $modify(MyPlayLayer, PlayLayer) {
 		if (getModBool("showCollectedCoins") && !manager->coins.empty()) {
 			const bool hasOrbsLabelForReal = (hasOrbsLabel || isFromZilkoMod) && manager->addedNextKeyWhenLabel;
 			const bool hasKeyLabelForReal = hasKeyLabel && manager->addedNextKeyWhenLabel;
+			const bool useASCIIArtForCoins = getModBool("useASCIIArtForCoins");
 
 			// i want to condense these into single-instruction ifelse statements sooooo bad :(
 			ccColor3B coinColor = {235, 235, 235};
-			std::string collectedEmoji = "🪙";
-			std::string uncollectedEmoji = "🥈";
+			std::string collectedEmoji = useASCIIArtForCoins ? "[C]" : "🪙";
+			std::string uncollectedEmoji = useASCIIArtForCoins ? "[  ]" : "🥈";
 			if (m_level->m_levelType == GJLevelType::Main) {
-				collectedEmoji = "🥇";
-				uncollectedEmoji = "💔";
+				collectedEmoji = useASCIIArtForCoins ? "[C]" : "🥇";
+				uncollectedEmoji = useASCIIArtForCoins ? "[  ]" : "💔";
 				coinColor = {255, 215, 0};
 			} else if (m_level->m_levelType == GJLevelType::Editor) {
 				coinColor = {235, 235, 235};
