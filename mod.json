@@ -94,28 +94,28 @@
 			"description": "Only uses your own custom \"New Best\" texts from \"custom.txt\" file.\n\nIf no custom quotes are found, the mod will fall back to the default set of quotes.\n\n<cr>Enabling this setting will override the \"Include Brandon Rogers\" setting if you have written your own custom quotes.</c>",
 			"type": "bool",
 			"default": false,
-			"enable-if": "enabled && changeDeathText"
+			"enable-if": "enabled && changeDeathText && custom"
 		},
 		"default": {
 			"name": "Default Set of \"New Best\" Texts",
 			"description": "Includes the default set of \"New Best\" Texts from this mod.",
 			"type": "bool",
 			"default": true,
-			"enable-if": "enabled && changeDeathText"
+			"enable-if": "enabled && changeDeathText && !customTextsOnly"
 		},
 		"brandonRogers": {
 			"name": "Brandon Rogers (READ!)",
 			"description": "Includes quotes from YouTube comedian Brandon Rogers.\n<cr>WARNING: Brandon Rogers' humor may not be for everyone, but the quotes have been allowed by Geode's lead developers.</c>\n\n<cr>This is your only warning.</c>",
 			"type": "bool",
 			"default": false,
-			"enable-if": "enabled && changeDeathText"
+			"enable-if": "enabled && changeDeathText && !customTextsOnly"
 		},
 		"snl50": {
 			"name": "SNL50",
 			"description": "Includes quotes from Saturday Night Live (one from each season, hopefully).",
 			"type": "bool",
 			"default": false,
-			"enable-if": "enabled && changeDeathText"
+			"enable-if": "enabled && changeDeathText && !customTextsOnly"
 		},
 		"lineWrapping": {
 			"name": "Linewrapping",
