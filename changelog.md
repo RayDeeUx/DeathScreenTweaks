@@ -2,6 +2,8 @@
 ## v1.8.1
 - Use sprites for the coins shown in `Show Collected Coins`.
   - To restore past behavior, toggle `Use ASCII Art for Coins Instead`.
+- Added conditions for editing each setting.
+  - Hello, Jasmine! This one's for you.
 - Fix a rather mission-critical bug related to finding/locating the "New Best!" node.
 ## v1.8.0
 - Added iOS JIT-less support.
