@@ -174,11 +174,11 @@
 			"enable-if": "enabled && changeDeathText"
 		},
 		"hide-new-best-header": {
-			"name": "Accurate Percentages",
+			"name": "Hide \"New Best\"...",
 			"type": "title"
 		},
 		"hideNewBestMessages": {
-			"name": "Hide \"New Best\" Messages",
+			"name": "Hide \"New Best\" Messages Only",
 			"description": "Hide death messages on \"New Best\" screens.",
 			"type": "bool",
 			"default": false,
