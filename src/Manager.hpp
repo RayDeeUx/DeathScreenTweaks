@@ -61,4 +61,23 @@ public:
 		return instance;
 	}
 
+	// something or someone has forced my hand to include this code in this mod of all places... ugh.
+	// if only robtop made a unique fucking class for "New Best!" so i wouldnt have to suffer rn. >:(
+	// code yoinked from devtools as always
+	static std::string getNodeName(CCObject* node) {
+        #ifdef GEODE_IS_WINDOWS
+		return typeid(*node).name() + 6;
+        #else
+		std::string ret;
+
+		int status = 0;
+		auto demangle = abi::__cxa_demangle(typeid(*node).name(), 0, 0, &status);
+		if (status == 0) {
+			ret = demangle;
+		}
+		free(demangle);
+
+		return ret;
+        #endif
+	}
 };

@@ -16,14 +16,15 @@ class $modify(MyPlayerObject, PlayerObject) {
 	}
 	void playerDestroyed(bool p0) {
 		PlayerObject::playerDestroyed(p0);
-		if (!m_gameLayer || m_gameLayer == LevelEditorLayer::get()) return;
+		if (!this->m_gameLayer || this->m_gameLayer == LevelEditorLayer::get()) return log::info("[PlayerObject::playerDestroyed] returned because of if (!this->m_gameLayer || this->m_gameLayer == LevelEditorLayer::get())");
 
 		if (!getBool("enabled")) return;
 		const auto pl = PlayLayer::get();
-		if (!pl || this != pl->m_player1) return;
+		if (!pl || this->m_gameLayer != pl || this != pl->m_player1) return log::info("[PlayerObject::playerDestroyed] returned because of if (!pl || this->m_gameLayer != pl || this != pl->m_player1)");
 		const auto theLevel = pl->m_level;
-		if (!theLevel || theLevel->isPlatformer()) return;
-		if (this == pl->m_player2 && theLevel->m_twoPlayerMode) return;
+		if (!theLevel || theLevel->isPlatformer()) return log::info("[PlayerObject::playerDestroyed] returned because of if (!theLevel || theLevel->isPlatformer())");
+		if (this == pl->m_player2 && theLevel->m_twoPlayerMode) return log::info("[PlayerObject::playerDestroyed] returned because of if (this == pl->m_player2 && theLevel->m_twoPlayerMode)");
+		if (this == pl->m_player2 && pl->m_gameState.m_isDualMode) return log::info("[PlayerObject::playerDestroyed] returned because of if (this == pl->m_player2 && pl->m_gameState.m_isDualMode)");
 
 		Manager* manager = Manager::getSharedInstance();
 		const float plCurrentPercent = pl->getCurrentPercent();
@@ -36,10 +37,16 @@ class $modify(MyPlayerObject, PlayerObject) {
 		if (!pl->m_isTestMode && !pl->m_isPracticeMode && getBool("alwaysNewBest") && !isNewBest) qualifiedToShowAFakeNewBest = true;
 		if (getBool("alwaysNewBestPlaytest") && pl->m_isTestMode) qualifiedToShowAFakeNewBest = true;
 		if (getBool("alwaysNewBestPractice") && pl->m_isPracticeMode) qualifiedToShowAFakeNewBest = true;
-		log::info("pl->getCurrentPercentInt() <= pl->m_level->m_normalPercent.value(): {}", pl->getCurrentPercentInt() <= pl->m_level->m_normalPercent.value());
-		log::info("pl->getCurrentPercentInt(): {}", pl->getCurrentPercentInt());
-		log::info("pl->m_level->m_normalPercent.value(): {}", pl->m_level->m_normalPercent.value());
-		if (qualifiedToShowAFakeNewBest) pl->showNewBest(false, 0, 0, false, false, false);
+		log::info("[PlayerObject::playerDestroyed] pl->getCurrentPercentInt() <= pl->m_level->m_normalPercent.value(): {}", pl->getCurrentPercentInt() <= pl->m_level->m_normalPercent.value());
+		log::info("[PlayerObject::playerDestroyed] pl->getCurrentPercentInt(): {}", pl->getCurrentPercentInt());
+		log::info("[PlayerObject::playerDestroyed] pl->m_level->m_normalPercent.value(): {}", pl->m_level->m_normalPercent.value());
+		log::info("[PlayerObject::playerDestroyed] !pl->m_isTestMode && !pl->m_isPracticeMode && getBool(\"alwaysNewBest\") && !isNewBest: {}", !pl->m_isTestMode && !pl->m_isPracticeMode && getBool("alwaysNewBest") && !isNewBest);
+		log::info("[PlayerObject::playerDestroyed] getBool(\"alwaysNewBestPlaytest\") && pl->m_isTestMode: {}", getBool("alwaysNewBestPlaytest") && pl->m_isTestMode);
+		log::info("[PlayerObject::playerDestroyed] getBool(\"alwaysNewBestPractice\") && pl->m_isPracticeMode: {}", getBool("alwaysNewBestPractice") && pl->m_isPracticeMode);
+		if (qualifiedToShowAFakeNewBest) {
+			log::info("showing fake new best");
+			pl->showNewBest(false, 0, 0, false, false, false);
+		}
 		const auto fmod = FMODAudioEngine::get();
 		if (!fmod) return;
 

@@ -163,7 +163,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 		}
 	}
 	void findAndModifyTheNewBestNode() {
-		if (!getModBool("enabled") || !m_level || m_level->isPlatformer() || m_isPlatformer) return;
+		if (!getModBool("enabled") || !m_level || m_level->isPlatformer() || m_isPlatformer) return log::info("[MyPlayLayer::findAndModifyTheNewBestNode] aborting mission");
 
 		CCNode* newBestNodeProbably = nullptr;
 		bool hasOrbsLabel = false;
@@ -194,13 +194,14 @@ class $modify(MyPlayLayer, PlayLayer) {
 			if (!theLastCCNode || theLastCCNode == this->m_uiLayer) continue; // skip UILayer
 			if (theLastCCNode->getZOrder() != 100) continue;
 			if (theLastCCNode->getChildrenCount() < 2) continue;
+			if (Manager::getNodeName(theLastCCNode) != "CCNode" && Manager::getNodeName(theLastCCNode) != "cocos2d::CCNode") continue;
 			if (getModBool("noVisibleNewBest")) return theLastCCNode->setVisible(false);
 			if (!isFromZilkoMod) newBestNodeProbably = theLastCCNode;
 			else theLastCCNode->setVisible(false);
 			break;
 		}
 
-		if (!newBestNodeProbably || newBestNodeProbably->getUserObject("modified-already"_spr)) return;
+		if (!newBestNodeProbably || newBestNodeProbably->getUserObject("modified-already"_spr)) return log::info("[MyPlayLayer::findAndModifyTheNewBestNode] found node already");
 		newBestNodeProbably->setUserObject("modified-already"_spr, CCBool::create(true));
 
 		if (!isFromZilkoMod) MyPlayLayer::applyNodeTraitsCustomization(newBestNodeProbably, hasDiamondsOrOrbs);

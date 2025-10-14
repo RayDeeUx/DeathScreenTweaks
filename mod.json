@@ -240,7 +240,13 @@
 		},
 		"showCollectedCoins": {
 			"name": "Show Collected Coins",
-			"description": "Shows the coins you had collected during an attempt before dying.\n\nColor of the label adapts to the coin type.",
+			"description": "Shows the coins you had collected during an attempt before dying.\n\nIf \"Use ASCII Art for Coins Instead\" is enabled, the color of the label adapts to the coin type.",
+			"type": "bool",
+			"default": false
+		},
+		"useASCIIArtForCoins": {
+			"name": "Use ASCII Art for Coins Instead",
+			"description": "Use `[C]` and `[  ]` to indicate collected and uncollected coins instead of in-game sprites.",
 			"type": "bool",
 			"default": false
 		},

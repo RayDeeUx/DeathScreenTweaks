@@ -80,4 +80,8 @@ migration failed, womp womp)";
 	listenForSettingChanges("custom", [](bool unusedVar) {
 		managerReset();
 	});
+
+	listenForSettingChanges("logging", [](bool newLogging) {
+		Mod::get()->setLoggingEnabled(newLogging);
+	});
 }
