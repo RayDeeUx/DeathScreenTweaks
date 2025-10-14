@@ -234,36 +234,42 @@ class $modify(MyPlayLayer, PlayLayer) {
 		if (getModBool("showCollectedCoins") && !manager->coins.empty()) {
 			const bool hasOrbsLabelForReal = (hasOrbsLabel || isFromZilkoMod) && manager->addedNextKeyWhenLabel;
 			const bool hasKeyLabelForReal = hasKeyLabel && manager->addedNextKeyWhenLabel;
+
+			// i want to condense these into single-instruction ifelse statements sooooo bad :(
+			ccColor3B coinColor = {235, 235, 235};
+			std::string collectedEmoji = "🪙";
+			std::string uncollectedEmoji = "🥈";
+			if (m_level->m_levelType == GJLevelType::Main) {
+				collectedEmoji = "🥇";
+				uncollectedEmoji = "💔";
+				coinColor = {255, 215, 0};
+			} else if (m_level->m_levelType == GJLevelType::Editor) {
+				coinColor = {235, 235, 235};
+			} else if (m_level->m_levelID.value() > 0) {
+				if (m_level->m_coinsVerified.value() != 0) coinColor = {235, 235, 235};
+				else coinColor = {165, 110, 50};
+			}
+
 			std::string formattedCoinString = "Coins: ";
 			int index = 0;
 			for (auto [coin, collected] : manager->coins) {
 				index++;
-				if (collected) formattedCoinString += "[C]";
-				else formattedCoinString += "[  ]";
+				formattedCoinString += collected ? collectedEmoji : uncollectedEmoji;
 				if (index != manager->coins.size()) formattedCoinString += " ";
 			}
 
-			CCLabelBMFont* coinsCollectedLabel = CCLabelBMFont::create(formattedCoinString.c_str(), "bigFont.fnt");
-			newBestNodeProbably->addChild(coinsCollectedLabel);
+			Label* coinsCollectedLabel = Label::create("", "bigFont.fnt");
+			coinsCollectedLabel->enableEmojis("GJ_GameSheet02.png", &g_emojis);
+			coinsCollectedLabel->setString(formattedCoinString);
+			coinsCollectedLabel->setColor(coinColor);
 
-			// i want to condense these into single-instruction ifelse statements sooooo bad :(
-			if (m_level->m_levelType == GJLevelType::Main) {
-				coinsCollectedLabel->setColor({255, 215, 0});
-			} else if (m_level->m_levelType == GJLevelType::Editor) {
-				coinsCollectedLabel->setColor({235, 235, 235});
-			} else if (m_level->m_levelID.value() > 0) {
-				if (m_level->m_coinsVerified.value() != 0) {
-					coinsCollectedLabel->setColor({235, 235, 235});
-				} else {
-					coinsCollectedLabel->setColor({165, 110, 50});
-				}
-			}
+			newBestNodeProbably->addChild(coinsCollectedLabel);
 
 			coinsCollectedLabel->setID("collected-coins-label"_spr);
 			coinsCollectedLabel->setTag(10062025);
 			coinsCollectedLabel->setScale(.65f);
 			coinsCollectedLabel->setPosition(newBestNodeProbably->getContentSize() / 2.f);
-			coinsCollectedLabel->setPositionY(coinsCollectedLabel->getPositionY() - 90.f);
+			coinsCollectedLabel->setPositionY(coinsCollectedLabel->getPositionY() - 95.f);
 			if (hasOrbsLabelForReal) coinsCollectedLabel->setPositionY(coinsCollectedLabel->getPositionY() - 18.f);
 			if (hasKeyLabelForReal) coinsCollectedLabel->setPositionY(coinsCollectedLabel->getPositionY() - 18.f);
 		}

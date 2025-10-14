@@ -1,11 +1,25 @@
 #pragma once
 
+#include <AdvancedLabel.hpp>
 #include <regex>
 
 // Manager.hpp structure by acaruso
 // reused with explicit permission and strong encouragement
 
 using namespace geode::prelude;
+
+struct XPositionComparator {
+	bool operator()(const GameObject* coinOne, const GameObject* coinTwo) const noexcept {
+		return coinOne->m_positionX < coinTwo->m_positionX;
+	}
+};
+
+static const Label::EmojiMap g_emojis = {
+	{U"🥇", "secretCoin_01_001.png"},
+	{U"💔", "secretCoin_b_01_001.png"},
+	{U"🪙", "secretCoin_2_01_001.png"},
+	{U"🥈", "secretCoin_2_b_01_001.png"}
+};
 
 class Manager {
 
@@ -34,7 +48,7 @@ public:
 
 	float currentDeathPercentForQueueInMainLoader = -1.f;
 
-	std::map<GameObject*, bool> coins;
+	std::map<GameObject*, bool, XPositionComparator> coins;
 
 	FMOD::Sound* sound;
 	FMOD::Channel* channel;
