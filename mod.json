@@ -44,7 +44,7 @@
 			"description": "Automatically take a screenshot when dying.\n\nThe player will always be visible regardless of your PRNTSCRN preferences.\n\n<cy>\"But this could've been a toggle in PRNTSCRN!\"</c> No.",
 			"type": "bool",
 			"default": false,
-			"enable-if": "loaded:ninxout.prntscrn"
+			"enable-if": "enabled && loaded:ninxout.prntscrn"
 		},
 		"screenshotOnDeathWhen": {
 			"name": "Auto-Screenshot on Death, When...",
@@ -61,7 +61,7 @@
 				"Always",
 				"Never"
 			],
-			"enable-if": "loaded:ninxout.prntscrn"
+			"enable-if": "enabled && screenshotOnDeath && loaded:ninxout.prntscrn"
 		},
 		"screenshotOnDeathPreference": {
 			"name": "(READ CAREFULLY!) Auto-Screenshot on Death, But...",
@@ -73,49 +73,56 @@
 				"Hide (~99% of) UI",
 				"Use PRNTSCRN Settings"
 			],
-			"enable-if": "loaded:ninxout.prntscrn"
+			"enable-if": "enabled && screenshotOnDeath && loaded:ninxout.prntscrn"
 		},
 		"changeDeathText": {
 			"name": "Change \"New Best\" Texts",
 			"description": "Leaving this enabled is semi-important, since it's kind of the original purpose of this mod. You can disable it though if you want, I guess.",
 			"type": "bool",
-			"default": true
+			"default": true,
+			"enable-if": "enabled"
 		},
 		"custom": {
 			"name": "custom.txt \"New Best\" Texts",
 			"description": "Includes your own custom \"New Best\" text.\nPlease edit the \"custom.txt\" file by opening this mod's config directory.",
 			"type": "bool",
-			"default": false
+			"default": false,
+			"enable-if": "enabled && changeDeathText"
 		},
 		"customTextsOnly": {
 			"name": "Only Use custom.txt \"New Best\" Texts",
 			"description": "Only uses your own custom \"New Best\" texts from \"custom.txt\" file.\n\nIf no custom quotes are found, the mod will fall back to the default set of quotes.\n\n<cr>Enabling this setting will override the \"Include Brandon Rogers\" setting if you have written your own custom quotes.</c>",
 			"type": "bool",
-			"default": false
+			"default": false,
+			"enable-if": "enabled && changeDeathText"
 		},
 		"default": {
 			"name": "Default Set of \"New Best\" Texts",
 			"description": "Includes the default set of \"New Best\" Texts from this mod.",
 			"type": "bool",
-			"default": true
+			"default": true,
+			"enable-if": "enabled && changeDeathText"
 		},
 		"brandonRogers": {
 			"name": "Brandon Rogers (READ!)",
 			"description": "Includes quotes from YouTube comedian Brandon Rogers.\n<cr>WARNING: Brandon Rogers' humor may not be for everyone, but the quotes have been allowed by Geode's lead developers.</c>\n\n<cr>This is your only warning.</c>",
 			"type": "bool",
-			"default": false
+			"default": false,
+			"enable-if": "enabled && changeDeathText"
 		},
 		"snl50": {
 			"name": "SNL50",
 			"description": "Includes quotes from Saturday Night Live (one from each season, hopefully).",
 			"type": "bool",
-			"default": false
+			"default": false,
+			"enable-if": "enabled && changeDeathText"
 		},
 		"lineWrapping": {
 			"name": "Linewrapping",
 			"description": "Allows linewrapping for all \"New Best\" death messages.\n\nUseful for anyone who wants incredibly long (but still legible) death messages.\n\nDisabling this option will ignore whatever value you have set for the \"'New Best' Text Max Scale\" setting below.",
 			"type": "bool",
-			"default": true
+			"default": true,
+			"enable-if": "enabled && changeDeathText"
 		},
 		"maxScale": {
 			"name": "\"New Best\" Text Max Scale",
@@ -126,7 +133,8 @@
 			"max": 1.2,
 			"control": {
 				"slider-step": 0.01
-			}
+			},
+			"enable-if": "enabled && changeDeathText"
 		},
 		"customFont": {
 			"name": "\"New Best\" Text Font #",
@@ -143,25 +151,29 @@
 				"arrow-step": 1,
 				"big-arrow-step": 5,
 				"slider-step": 1
-			}
+			},
+			"enable-if": "enabled && changeDeathText"
 		},
 		"customFontGoldColor": {
 			"name": "Gold Color (Non-Golden Pusab Fonts)",
 			"description": "Applies something close to the gold color for \"New Best\" death messages <cp>only if your setting for \"'New Best' Text Font #\" is not 0</c>.",
 			"type": "bool",
-			"default": true
+			"default": true,
+			"enable-if": "enabled && changeDeathText"
 		},
 		"hideNewBestMessages": {
 			"name": "Hide \"New Best\" Messages",
 			"description": "Hide death messages on \"New Best\" screens.",
 			"type": "bool",
-			"default": false
+			"default": false,
+			"enable-if": "enabled"
 		},
 		"accuratePercent": {
 			"name": "Accurate Death Percentage",
 			"description": "Adds decimal points to the score on your \"New Best\" screen.",
 			"type": "bool",
-			"default": false
+			"default": false,
+			"enable-if": "enabled"
 		},
 		"accuracy": {
 			"name": "Accu. Death % Accuracy",
@@ -178,7 +190,8 @@
 				"arrow-step": 1,
 				"big-arrow-step": 5,
 				"slider-step": 1
-			}
+			},
+			"enable-if": "enabled && accuratePercent"
 		},
 		"newBestSFX": {
 			"name": "\"New Best\" SFX",
@@ -198,7 +211,8 @@
 				"oga",
 				"ogg",
 				"[None, play vanilla SFX]"
-			]
+			],
+			"enable-if": "enabled && newBestSFX"
 		},
 		"newBestVolume": {
 			"name": "\"New Best\" SFX Volume (%)",
@@ -206,61 +220,71 @@
 			"type": "int",
 			"default": 50,
 			"min": 0,
-			"max": 100
+			"max": 100,
+			"enable-if": "enabled && newBestSFX"
 		},
 		"alwaysNewBest": {
 			"name": "Always New Best [Normal Mode]",
 			"description": "<cl>Original idea by Tacocat.</c>\n\nShows a \"New Best\" screen, even when you did not make a new best.\n\n<cy>Percentages displayed from this setting use in-game/vanilla calculations</c> <cr>ONLY.</c>\n\n<cr>If you see two \"New Best\" screens when dying in a level, you probably hacked that level.</c>",
 			"type": "bool",
-			"default": false
+			"default": false,
+			"enable-if": "enabled"
 		},
 		"alwaysNewBestPractice": {
 			"name": "Always New Best [Practice Mode]",
 			"description": "Always show a \"New Best\" when you die in <cg>practice mode</c>.",
 			"type": "bool",
-			"default": false
+			"default": false,
+			"enable-if": "enabled"
 		},
 		"alwaysNewBestPlaytest": {
 			"name": "Always New Best [Testmode]",
 			"description": "Always show a \"New Best\" when you die in <cl>testmode</c> (playtesting levels).\n<cl>You really shouldn't enable this. It just looks silly. But the option's here anyway, because why not.</c>",
 			"type": "bool",
-			"default": false
+			"default": false,
+			"enable-if": "enabled"
 		},
 		"currencyLayer": {
 			"name": "Hide Reward Animations",
 			"description": "Hides the reward animation from \"New Best\" screens in rated levels.",
 			"type": "bool",
-			"default": false
+			"default": false,
+			"enable-if": "enabled"
 		},
 		"currencyLayerNextKeyWhenCompat": {
 			"name": "\"Next Key When?\" Hidden Reward Animations Compat",
 			"description": "Shows your progress to the next key when <cl>Next Keys When? by Alphalaneous</c> is loaded and \"Hide Reward Animations\" is enabled.",
 			"type": "bool",
-			"default": true
+			"default": true,
+			"enable-if": "enabled && currencyLayer"
 		},
 		"showCollectedCoins": {
 			"name": "Show Collected Coins",
 			"description": "Shows the coins you had collected during an attempt before dying.\n\nIf \"Use ASCII Art for Coins Instead\" is enabled, the color of the label adapts to the coin type.",
 			"type": "bool",
-			"default": false
+			"default": false,
+			"enable-if": "enabled"
 		},
 		"useASCIIArtForCoins": {
 			"name": "Use ASCII Art for Coins Instead",
 			"description": "Use `[C]` and `[  ]` to indicate collected and uncollected coins instead of in-game sprites.",
 			"type": "bool",
-			"default": false
+			"default": false,
+			"enable-if": "enabled && showCollectedCoins"
 		},
 		"noVisibleNewBest": {
 			"name": "Hide \"New Best\" Screen",
 			"description": "<cl>Original idea by VolcaroCham.</c>\n\nHides the \"New Best\" screen when getting a new best.\n\nNot sure why anyone would willingly enable this, but now the option exists in this mod. Have fun.",
 			"type": "bool",
-			"default": false
+			"default": false,
+			"enable-if": "enabled"
 		},
 		"sisyphus": {
 			"name": "Sisyphus",
 			"description": "<cl>Original idea by Polyflow.</c>\n\nWhen dying within a threshold (0.1% by default) of your previous death spot, Sisyphus SFX plays and (optionally) an image of Sisyphus appears.\n\nPercentages reset when switching between Normal Mode and Practice Mode.\n<cy>Sisyphus is not available when playing from a Start Position.</c>",
 			"type": "bool",
-			"default": false
+			"default": false,
+			"enable-if": "enabled"
 		},
 		"sisyphusThreshold": {
 			"name": "Sisyphus: Percentage Threshold",
@@ -268,13 +292,15 @@
 			"type": "float",
 			"default": 0.1,
 			"min": 0.01,
-			"max": 10.0
+			"max": 10.0,
+			"enable-if": "enabled && sisyphus"
 		},
 		"sisyphusPlaySFX": {
 			"name": "Sisyphus: Play SFX",
 			"description": "<cl>Original idea by Polyflow.</c>\n\nPlay SFX for Sisyphus.",
 			"type": "bool",
-			"default": true
+			"default": true,
+			"enable-if": "enabled && sisyphus"
 		},
 		"sisyphusSFX": {
 			"name": "Sisyphus: SFX File",
@@ -286,13 +312,15 @@
 					"files": [ "*.mp3", "*.wav", "*.flac", "*.oga", "*.ogg" ],
 					"description": "Audio files"
 				}
-			]
+			],
+			"enable-if": "enabled && sisyphus"
 		},
 		"sisyphusStopSFXOnRespawn": {
 			"name": "Sisyphus: Stop SFX on Respawn",
 			"description": "<cl>Original idea by Polyflow.</c>\n\nStop SFX for Sisyphus on player respawn.",
 			"type": "bool",
-			"default": true
+			"default": true,
+			"enable-if": "enabled && sisyphus"
 		},
 		"sisyphusVolume": {
 			"name": "Sisyphus: SFX Volume (%)",
@@ -300,13 +328,15 @@
 			"type": "int",
 			"default": 50,
 			"min": 0,
-			"max": 100
+			"max": 100,
+			"enable-if": "enabled && sisyphus"
 		},
 		"sisyphusAddImage": {
 			"name": "Sisyphus: Add Image",
 			"description": "<cl>Original idea by Polyflow.</c>\n\nAdd an image for Sisyphus.",
 			"type": "bool",
-			"default": true
+			"default": true,
+			"enable-if": "enabled && sisyphus"
 		},
 		"sisyphusImage": {
 			"name": "Sisyphus: Image File",
@@ -318,7 +348,8 @@
 					"files": [ "*.png" ],
 					"description": "PNG files"
 				}
-			]
+			],
+			"enable-if": "enabled && sisyphus"
 		},
 		"sisyphusFadeOutTime": {
 			"name": "Sisyphus: Image Fade Out Time",
@@ -326,7 +357,8 @@
 			"type": "float",
 			"default": 0.5,
 			"min": 0.01,
-			"max": 5.00
+			"max": 5.00,
+			"enable-if": "enabled && sisyphus"
 		},
 		"sisyphusImageFillMode": {
 			"name": "Sisyphus: Image Fill Mode",
@@ -338,7 +370,8 @@
 				"Fill Screen",
 				"Stretch to Fill Screen",
 				"Center"
-			]
+			],
+			"enable-if": "enabled && sisyphus"
 		},
 		"sisyphusImageScale": {
 			"name": "Sisyphus: Scale (for Center Fill Mode)",
@@ -346,13 +379,15 @@
 			"type": "float",
 			"default": 1.0,
 			"min": 0.01,
-			"max": 5.00
+			"max": 5.00,
+			"enable-if": "enabled && sisyphus"
 		},
 		"xPosPercentEnable": {
 			"name": "Customize Position X",
 			"description": "Using this setting is not recommended. The \"developer\" (probably Claude Sonnet 4) that this \"feature\" \"took\" \"inspiration\" from never accounted for potentially off-screen elements.",
 			"type": "bool",
-			"default": false
+			"default": false,
+			"enable-if": "enabled"
 		},
 		"xPosPercentRatedLevels": {
 			"name": "Position X (%) (Rated Levels)",
@@ -360,7 +395,8 @@
 			"description": "Using this setting is not recommended. The \"developer\" (probably Claude Sonnet 4) that this \"feature\" \"took\" \"inspiration\" from never accounted for potentially off-screen elements.",
 			"default": 50.00,
 			"min": 0.000,
-			"max": 100.0
+			"max": 100.0,
+			"enable-if": "enabled && xPosPercentEnable"
 		},
 		"xPosPercent": {
 			"name": "Position X (%)",
@@ -368,13 +404,15 @@
 			"description": "Using this setting is not recommended. The \"developer\" (probably Claude Sonnet 4) that this \"feature\" \"took\" \"inspiration\" from never accounted for potentially off-screen elements.",
 			"default": 50.00,
 			"min": 0.000,
-			"max": 100.0
+			"max": 100.0,
+			"enable-if": "enabled && xPosPercentEnable"
 		},
 		"yPosPercentEnable":{
 			"name": "Customize Position Y",
 			"description": "Using this setting is not recommended. The \"developer\" (probably Claude Sonnet 4) that this \"feature\" \"took\" \"inspiration\" from never accounted for potentially off-screen elements.",
 			"type": "bool",
-			"default": false
+			"default": false,
+			"enable-if": "enabled"
 		},
 		"yPosPercentRatedLevels": {
 			"name": "Position Y (%) (Rated Levels)",
@@ -382,7 +420,8 @@
 			"description": "Using this setting is not recommended. The \"developer\" (probably Claude Sonnet 4) that this \"feature\" \"took\" \"inspiration\" from never accounted for potentially off-screen elements.",
 			"default": 50.00,
 			"min": 0.000,
-			"max": 100.0
+			"max": 100.0,
+			"enable-if": "enabled && yPosPercentEnable"
 		},
 		"yPosPercent": {
 			"name": "Position Y (%)",
@@ -390,26 +429,30 @@
 			"description": "Using this setting is not recommended. The \"developer\" (probably Claude Sonnet 4) that this \"feature\" \"took\" \"inspiration\" from never accounted for potentially off-screen elements.",
 			"default": 50.00,
 			"min": 0.000,
-			"max": 100.0
+			"max": 100.0,
+			"enable-if": "enabled && yPosPercentEnable"
 		},
 		"rotationEnable": {
 			"name": "Customize Rotation",
 			"type": "bool",
-			"default": false
+			"default": false,
+			"enable-if": "enabled"
 		},
 		"rotationRatedLevels": {
 			"name": "Rotation (Rated Levels)",
 			"type": "float",
 			"default": 0.00,
 			"min": 0.000,
-			"max": 360.0
+			"max": 360.0,
+			"enable-if": "enabled && rotationEnable"
 		},
 		"rotation": {
 			"name": "Rotation",
 			"type": "float",
 			"default": 0.00,
 			"min": 0.000,
-			"max": 360.0
+			"max": 360.0,
+			"enable-if": "enabled && rotationEnable"
 		},
 		"customScaleAnim": {
 			"name": "Customize Scale Animation",
@@ -423,7 +466,8 @@
 			"type": "float",
 			"default": 0.00,
 			"min": 0.00,
-			"max": 0.50
+			"max": 0.50,
+			"enable-if": "enabled && customScaleAnim"
 		},
 		"scaleDuration": {
 			"name": "Scale Growing Duration",
@@ -431,7 +475,8 @@
 			"type": "float",
 			"default": 0.40,
 			"min": 0.00,
-			"max": 0.50
+			"max": 0.50,
+			"enable-if": "enabled && customScaleAnim"
 		},
 		"scaleEasingType": {
 			"name": "Scale Growing Easing Type",
@@ -445,14 +490,16 @@
 				"Elastic In", "Elastic Out", "Elastic In Out",
 				"Exponential In", "Exponential Out", "Exponential In Out",
 				"Sine In", "Sine Out", "Sine In Out"
-			]
+			],
+			"enable-if": "enabled && customScaleAnim"
 		},
 		"scaleEasingRate": {
 			"name": "Scale Growing Easing Rate",
 			"type": "float",
 			"default": 0.60,
 			"min": 0.10,
-			"max": 4.00
+			"max": 4.00,
+			"enable-if": "enabled && customScaleAnim"
 		},
 		"scaleTo": {
 			"name": "Final Scale",
@@ -460,7 +507,8 @@
 			"type": "float",
 			"default": 1.00,
 			"min": 0.50,
-			"max": 1.50
+			"max": 1.50,
+			"enable-if": "enabled && customScaleAnim"
 		},
 		"scaleHoldDurationNoOrbsAndNoDiamonds": {
 			"name": "Scale Hold Duration (No Orbs and No Diamonds)",
@@ -468,7 +516,8 @@
 			"type": "float",
 			"default": 0.70,
 			"min": 0.10,
-			"max": 1.50
+			"max": 1.50,
+			"enable-if": "enabled && customScaleAnim"
 		},
 		"scaleHoldDuration": {
 			"name": "Scale Hold Duration (With Orbs or Diamonds)",
@@ -476,7 +525,8 @@
 			"type": "float",
 			"default": 1.30,
 			"min": 0.10,
-			"max": 1.50
+			"max": 1.50,
+			"enable-if": "enabled && customScaleAnim"
 		},
 		"scaleShrinkingDuration": {
 			"name": "Scale Shrinking Duration",
@@ -484,7 +534,8 @@
 			"type": "float",
 			"default": 0.20,
 			"min": 0.00,
-			"max": 0.50
+			"max": 0.50,
+			"enable-if": "enabled && customScaleAnim"
 		},
 		"scaleShrinkingEasingType": {
 			"name": "Scale Shrinking Easing Type",
@@ -498,19 +549,22 @@
 				"Elastic In", "Elastic Out", "Elastic In Out",
 				"Exponential In", "Exponential Out", "Exponential In Out",
 				"Sine In", "Sine Out", "Sine In Out"
-			]
+			],
+			"enable-if": "enabled && customScaleAnim"
 		},
 		"scaleShrinkingEasingRate": {
 			"name": "Scale Shrinking Easing Rate",
 			"type": "float",
 			"default": 2.00,
 			"min": 0.10,
-			"max": 4.00
+			"max": 4.00,
+			"enable-if": "enabled && customScaleAnim"
 		},
 		"logging": {
 			"name": "Logging",
 			"type": "bool",
-			"default": false
+			"default": false,
+			"enable-if": "enabled"
 		}
 	},
 	"resources": {
