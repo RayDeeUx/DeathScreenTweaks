@@ -70,7 +70,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 		PlayLayer::resetLevel();
 		manager->addedNextKeyWhenLabel = false;
 		for (auto [coin, collected] : manager->coins) {
-			manager->coins.at(coin) = false;
+			collected = false;
 		}
 		if (!manager->channel) return;
 		if (!getModBool("sisyphusStopSFXOnRespawn")) return;
