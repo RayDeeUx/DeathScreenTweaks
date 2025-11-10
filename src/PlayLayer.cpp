@@ -69,7 +69,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 	void resetLevel() {
 		PlayLayer::resetLevel();
 		manager->addedNextKeyWhenLabel = false;
-		for (auto [coin, collected] : manager->coins) {
+		for (auto &[coin, collected] : manager->coins) {
 			collected = false;
 		}
 		if (!manager->channel) return;
