@@ -616,8 +616,8 @@
 			"max": 4.00,
 			"enable-if": "enabled && customScaleAnim"
 		},
-		"paranoia-header": {
-			"name": "Developer",
+		"misc-header": {
+			"name": "Misc.",
 			"type": "title"
 		},
 		"logging": {
