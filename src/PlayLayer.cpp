@@ -94,7 +94,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 		PlayLayer::togglePracticeMode(practiceMode);
 		manager->lastDeathPercent = -10.f;
 		for (auto [coin, collected] : manager->coins) {
-			manager->coins.at(coin) = false;
+			collected = false;
 		}
 		if (!manager->channel) return;
 		STOP_MANAGER_CHANNEL
@@ -103,7 +103,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 		PlayLayer::resetLevelFromStart();
 		manager->lastDeathPercent = -10.f;
 		for (auto [coin, collected] : manager->coins) {
-			manager->coins.at(coin) = false;
+			collected = false;
 		}
 		if (!manager->channel) return;
 		if (!getModBool("enabled") || !getModBool("sisyphusStopSFXOnRespawn")) return;

@@ -1,4 +1,7 @@
 # DeathScreenTweaks Changelog
+## v1.8.2
+- Update SNL quote bank.
+- Fix some rare crash.
 ## v1.8.1
 - Use sprites for the coins shown in `Show Collected Coins`.
   - To restore past behavior, toggle `Use ASCII Art for Coins Instead`.
