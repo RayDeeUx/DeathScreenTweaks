@@ -93,7 +93,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 	void togglePracticeMode(bool practiceMode) {
 		PlayLayer::togglePracticeMode(practiceMode);
 		manager->lastDeathPercent = -10.f;
-		for (auto [coin, collected] : manager->coins) {
+		for (auto &[coin, collected] : manager->coins) {
 			collected = false;
 		}
 		if (!manager->channel) return;
@@ -102,7 +102,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 	void resetLevelFromStart() {
 		PlayLayer::resetLevelFromStart();
 		manager->lastDeathPercent = -10.f;
-		for (auto [coin, collected] : manager->coins) {
+		for (auto &[coin, collected] : manager->coins) {
 			collected = false;
 		}
 		if (!manager->channel) return;
@@ -254,7 +254,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 
 			std::string formattedCoinString = "Coins: ";
 			int index = 0;
-			for (auto [coin, collected] : manager->coins) {
+			for (auto &[coin, collected] : manager->coins) {
 				index++;
 				formattedCoinString += collected ? collectedEmoji : uncollectedEmoji;
 				if (index != manager->coins.size()) formattedCoinString += " ";
