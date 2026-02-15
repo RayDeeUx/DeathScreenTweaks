@@ -65,23 +65,23 @@ migration failed, womp womp)";
 
 	addQuotes("custom");
 
-	listenForSettingChanges("default", [](bool unusedVar) {
+	listenForSettingChanges<bool>("default", [](bool unusedVar) {
 		managerReset();
 	});
 
-	listenForSettingChanges("brandonRogers", [](bool unusedVar) {
+	listenForSettingChanges<bool>("brandonRogers", [](bool unusedVar) {
 		managerReset();
 	});
 
-	listenForSettingChanges("snl50", [](bool unusedVar) {
+	listenForSettingChanges<bool>("snl50", [](bool unusedVar) {
 		managerReset();
 	});
 
-	listenForSettingChanges("custom", [](bool unusedVar) {
+	listenForSettingChanges<bool>("custom", [](bool unusedVar) {
 		managerReset();
 	});
 
-	listenForSettingChanges("logging", [](bool newLogging) {
+	listenForSettingChanges<bool>("logging", [](bool newLogging) {
 		Mod::get()->setLoggingEnabled(newLogging);
 	});
 }
