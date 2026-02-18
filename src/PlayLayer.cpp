@@ -378,7 +378,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 		log::info("screenshotOnDeathPreference: {}", screenshotOnDeathPreference);
 
 		if (screenshotOnDeathPreference == "keep ui") {
-			(void) PRNTSCRN::screenshotNodeAdvanced(this, {FMODAudioEngine::get()}, {""_spr});
+			(void) PRNTSCRN::screenshotNodeAdvanced(this, {nullptr}, {""_spr});
 		} else if (screenshotOnDeathPreference == "hide (~99% of) ui") {
 			const bool originalHideUIValue = prntscrn->getSettingValue<bool>("hide-ui");
 			prntscrn->setSettingValue<bool>("hide-ui", true);
@@ -387,7 +387,7 @@ class $modify(MyPlayLayer, PlayLayer) {
 		} else {
 			(void) PRNTSCRN::screenshotNode(this);
 		}
-		(void) PRNTSCRN::screenshotNodeAdvanced(CCScene::get(), {FMODAudioEngine::get()}, {""_spr});
+		(void) PRNTSCRN::screenshotNodeAdvanced(CCScene::get(), {nullptr}, {""_spr});
 
 		prntscrn->setSettingValue<bool>("hide-player", originalHidePlayerValue);
 	}
