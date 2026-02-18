@@ -16,6 +16,8 @@ Spices things up a bit when receiving a "New Best" screen.\
 
 <cl>\*\* [PRNTSCRN](mod:ninxout.prntscrn) required. For best results, please try to set a reasonable respawn time (anything more than 0.25 seconds). This allows "New Best" animations to complete before a screenshot is taken.</c>
 
+<mod:ninxout.prntscrn>
+
 Quotes originate from a variety of sources, including various members of the Geode SDK Discord server, xkcd, [Brandon Rogers](https://linktr.ee/brandonbored), Adam Neylan, and the writers throughout SNL's history.
 
 Logo contributions and text linewrapping support by [sofabeddd](user:7976112).\
