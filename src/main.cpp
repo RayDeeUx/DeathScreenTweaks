@@ -65,19 +65,19 @@ migration failed, womp womp)";
 
 	addQuotes("custom");
 
-	listenForSettingChanges<bool>("default", [](bool unusedVar) {
+	listenForSettingChanges<bool>("default", [](bool) {
 		managerReset();
 	});
 
-	listenForSettingChanges<bool>("brandonRogers", [](bool unusedVar) {
+	listenForSettingChanges<bool>("brandonRogers", [](bool) {
 		managerReset();
 	});
 
-	listenForSettingChanges<bool>("snl50", [](bool unusedVar) {
+	listenForSettingChanges<bool>("snl50", [](bool) {
 		managerReset();
 	});
 
-	listenForSettingChanges<bool>("custom", [](bool unusedVar) {
+	listenForSettingChanges<bool>("custom", [](bool) {
 		managerReset();
 	});
 
