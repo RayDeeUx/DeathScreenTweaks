@@ -1,5 +1,5 @@
 {
-	"geode": "5.0.0-beta.1",
+	"geode": "5.0.0-beta.3",
 	"gd": {
 		"win": "2.2081",
 		"mac": "2.2081",
@@ -637,15 +637,12 @@
 	},
 	"dependencies": {
 		"ninxout.prntscrn": {
-			"version": ">=1.0.5",
-			"importance": "recommended"
+			"version": ">=1.0.8",
+			"required": false
 		}
 	},
 	"incompatibilities": {
-		"raydeeux.disturbingnewbests": {
-			"version": ">=1.0.0",
-			"importance": "superseded"
-		}
+		"raydeeux.disturbingnewbests": ">=1.0.0"
 	},
 	"issues": {
 		"url": "https://discord.com/channels/911701438269386882/1205523212444639292",
